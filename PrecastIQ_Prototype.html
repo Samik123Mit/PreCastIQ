@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PrecastIQ — Autonomous Cycle Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg:       #080d1a;
+  --bg2:      #0d1526;
+  --card:     #111d35;
+  --card2:    #162244;
+  --navy:     #0D1B4B;
+  --orange:   #E8501A;
+  --orange2:  #ff6a3d;
+  --amber:    #F5A623;
+  --white:    #f0f4ff;
+  --muted:    #7a8aaa;
+  --border:   #1e2d55;
+  --teal:     #00b4a0;
+  --purple:   #8B5CF6;
+  --green:    #22c55e;
+  --red:      #ef4444;
+  --font-h:   'Syne', sans-serif;
+  --font-d:   'Space Mono', monospace;
+  --font-b:   'DM Sans', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font-b);min-height:100vh;overflow-x:hidden}
+
+/* ─── NOISE TEXTURE OVERLAY ─────────── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4
+}
+
+/* ─── TOPBAR ─────────────────────────── */
+#topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,13,26,.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:60px;
+}
+.logo{font-family:var(--font-h);font-weight:800;font-size:1.3rem;letter-spacing:2px;
+  background:linear-gradient(90deg,var(--orange),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo span{color:var(--muted);font-size:.7rem;font-family:var(--font-b);display:block;letter-spacing:3px;margin-top:-4px;-webkit-text-fill-color:var(--muted)}
+.nav-tabs{display:flex;gap:.25rem}
+.nav-tab{
+  background:none;border:none;color:var(--muted);font-family:var(--font-b);
+  font-size:.8rem;padding:.45rem 1rem;cursor:pointer;border-radius:6px;
+  transition:all .2s;letter-spacing:.5px;font-weight:500
+}
+.nav-tab:hover{color:var(--white);background:var(--border)}
+.nav-tab.active{color:var(--orange);background:rgba(232,80,26,.12);border:1px solid rgba(232,80,26,.3)}
+.badge{background:var(--orange);color:#fff;font-size:.65rem;padding:.15rem .5rem;border-radius:20px;font-family:var(--font-h);font-weight:700;letter-spacing:1px}
+
+/* ─── PANELS ─────────────────────────── */
+.panel{display:none;animation:fadeUp .4s ease}
+.panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.container{max-width:1300px;margin:0 auto;padding:2rem}
+
+/* ─── PAGE HEADER ─────────────────────── */
+.page-header{margin-bottom:2rem}
+.page-header .tag{
+  display:inline-block;background:rgba(232,80,26,.15);
+  border:1px solid rgba(232,80,26,.4);color:var(--orange);
+  font-size:.72rem;font-family:var(--font-d);letter-spacing:2px;
+  padding:.3rem .8rem;border-radius:4px;margin-bottom:.75rem;text-transform:uppercase
+}
+.page-header h1{font-family:var(--font-h);font-size:2.2rem;font-weight:800;line-height:1.1}
+.page-header p{color:var(--muted);margin-top:.5rem;font-size:.95rem;max-width:600px}
+
+/* ─── GRID CARDS ─────────────────────── */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:1.5rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.grid-2-3{display:grid;grid-template-columns:2fr 3fr;gap:1.5rem;margin-bottom:1.5rem}
+@media(max-width:900px){.grid-4,.grid-3,.grid-2,.grid-2-3{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--orange),transparent)}
+.card.teal::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.card.amber::before{background:linear-gradient(90deg,var(--amber),transparent)}
+.card.purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.card.green::before{background:linear-gradient(90deg,var(--green),transparent)}
+
+/* ─── KPI CARD ─────────────────────────── */
+.kpi-val{font-family:var(--font-d);font-size:2.4rem;font-weight:700;color:var(--orange);line-height:1}
+.kpi-val.teal{color:var(--teal)}
+.kpi-val.amber{color:var(--amber)}
+.kpi-val.purple{color:var(--purple)}
+.kpi-label{font-size:.78rem;color:var(--muted);margin-top:.4rem;text-transform:uppercase;letter-spacing:1px}
+.kpi-delta{font-size:.75rem;color:var(--green);margin-top:.3rem;font-family:var(--font-d)}
+.kpi-delta.neg{color:var(--red)}
+
+/* ─── STATUS INDICATOR ─────────────────── */
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.status-dot.live{background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+.status-dot.warn{background:var(--amber)}
+.status-dot.off{background:var(--muted)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ─── FORM CONTROLS ─────────────────────── */
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:.45rem;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.form-control{
+  width:100%;background:var(--bg2);border:1px solid var(--border);
+  color:var(--white);font-family:var(--font-b);font-size:.9rem;
+  padding:.6rem .9rem;border-radius:8px;outline:none;
+  transition:border-color .2s
+}
+.form-control:focus{border-color:var(--orange)}
+select.form-control option{background:var(--bg2)}
+.range-wrap{display:flex;align-items:center;gap:.75rem}
+input[type=range]{flex:1;accent-color:var(--orange);cursor:pointer}
+.range-val{font-family:var(--font-d);font-size:.85rem;color:var(--orange);min-width:45px;text-align:right}
+
+/* ─── BUTTONS ─────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.65rem 1.4rem;border-radius:8px;border:none;cursor:pointer;
+  font-family:var(--font-h);font-weight:700;font-size:.85rem;
+  letter-spacing:.5px;transition:all .2s;text-transform:uppercase
+}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--orange2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(232,80,26,.35)}
+.btn-secondary{background:var(--border);color:var(--white)}
+.btn-secondary:hover{background:var(--card2)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{filter:brightness(1.1)}
+
+/* ─── SECTION HEADERS ─────────────────── */
+.section-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem}
+.section-head h2{font-family:var(--font-h);font-size:1rem;font-weight:700;letter-spacing:.5px}
+.mod-badge{
+  font-size:.65rem;font-family:var(--font-d);letter-spacing:2px;
+  padding:.2rem .6rem;border-radius:4px;
+  background:rgba(232,80,26,.15);border:1px solid rgba(232,80,26,.3);color:var(--orange)
+}
+.mod-badge.teal{background:rgba(0,180,160,.15);border-color:rgba(0,180,160,.3);color:var(--teal)}
+.mod-badge.amber{background:rgba(245,166,35,.15);border-color:rgba(245,166,35,.3);color:var(--amber)}
+.mod-badge.purple{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.3);color:var(--purple)}
+
+/* ─── RESULT BOX ─────────────────────── */
+.result-box{
+  background:linear-gradient(135deg,rgba(232,80,26,.08),rgba(232,80,26,.02));
+  border:1px solid rgba(232,80,26,.25);border-radius:10px;
+  padding:1.25rem;margin-top:1.25rem
+}
+.result-main{font-family:var(--font-d);font-size:1.9rem;color:var(--orange);font-weight:700}
+.result-label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:.2rem}
+.result-sub{font-size:.85rem;color:var(--white);margin-top:.75rem;line-height:1.6}
+
+.result-box.teal{
+  background:linear-gradient(135deg,rgba(0,180,160,.08),rgba(0,180,160,.02));
+  border-color:rgba(0,180,160,.25)
+}
+.result-box.teal .result-main{color:var(--teal)}
+
+/* ─── TABLE ──────────────────────────── */
+.data-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.data-table th{text-align:left;padding:.6rem .9rem;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid var(--border)}
+.data-table td{padding:.7rem .9rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.data-table tr:hover td{background:rgba(255,255,255,.02)}
+.data-table .good{color:var(--green);font-family:var(--font-d);font-size:.8rem}
+.data-table .warn{color:var(--amber);font-family:var(--font-d);font-size:.8rem}
+.data-table .bad{color:var(--red);font-family:var(--font-d);font-size:.8rem}
+
+/* ─── PROGRESS BAR ─────────────────────── */
+.progress-wrap{background:var(--bg2);border-radius:4px;height:8px;overflow:hidden;margin-top:.4rem}
+.progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--orange),var(--amber));transition:width .6s ease}
+
+/* ─── GANTT ──────────────────────────── */
+.gantt-wrap{overflow-x:auto;padding-bottom:.5rem}
+.gantt-header{display:flex;font-size:.68rem;color:var(--muted);font-family:var(--font-d);margin-bottom:.5rem;padding-left:140px;letter-spacing:1px}
+.gantt-row{display:flex;align-items:center;margin-bottom:.6rem;gap:.75rem}
+.gantt-label{width:130px;min-width:130px;font-size:.8rem;color:var(--white)}
+.gantt-label small{display:block;color:var(--muted);font-size:.7rem}
+.gantt-track{flex:1;background:var(--bg2);border-radius:4px;height:30px;position:relative;min-width:600px}
+.gantt-bar{
+  position:absolute;top:4px;height:22px;border-radius:4px;
+  display:flex;align-items:center;padding:0 .5rem;
+  font-size:.7rem;font-family:var(--font-d);font-weight:700;color:#fff;
+  white-space:nowrap;overflow:hidden;cursor:pointer;
+  transition:filter .2s
+}
+.gantt-bar:hover{filter:brightness(1.2)}
+.gantt-time{position:absolute;bottom:0;font-size:.6rem;color:var(--muted);font-family:var(--font-d)}
+
+/* ─── ZONE GRID ──────────────────────── */
+.zone-card{
+  background:var(--bg2);border:2px solid var(--border);border-radius:10px;
+  padding:1rem;cursor:pointer;transition:all .2s;text-align:center
+}
+.zone-card:hover,.zone-card.selected{border-color:var(--orange);background:rgba(232,80,26,.06)}
+.zone-card .zone-name{font-family:var(--font-h);font-size:.9rem;font-weight:700;margin-bottom:.25rem}
+.zone-card .zone-states{font-size:.72rem;color:var(--muted)}
+.zone-icon{font-size:1.8rem;margin-bottom:.5rem}
+
+/* ─── ALERT BOX ──────────────────────── */
+.alert{display:flex;align-items:flex-start;gap:.75rem;border-radius:8px;padding:1rem;margin-bottom:1rem;font-size:.85rem}
+.alert-info{background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.25);color:var(--amber)}
+.alert-success{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+.alert-warn{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--red)}
+
+/* ─── RL LOOP ──────────────────────── */
+.rl-step{
+  background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:1rem;display:flex;align-items:flex-start;gap:1rem;margin-bottom:.75rem;
+  transition:all .4s
+}
+.rl-step.active{border-color:var(--orange);background:rgba(232,80,26,.05)}
+.rl-step.done{border-color:var(--green);background:rgba(34,197,94,.04)}
+.rl-num{
+  width:36px;min-width:36px;height:36px;border-radius:8px;
+  background:var(--border);display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-size:.8rem;font-weight:700;color:var(--muted)
+}
+.rl-step.active .rl-num{background:var(--orange);color:#fff}
+.rl-step.done .rl-num{background:var(--green);color:#fff}
+.rl-step-title{font-weight:600;font-size:.9rem;margin-bottom:.2rem}
+.rl-step-desc{font-size:.8rem;color:var(--muted);line-height:1.5}
+
+/* ─── FORMULA BOX ──────────────────── */
+.formula{
+  background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:1.25rem;margin-bottom:1.25rem;text-align:center
+}
+.formula-title{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:.6rem}
+.formula-eq{font-family:var(--font-d);font-size:1.4rem;color:var(--amber);font-weight:700}
+.formula-desc{font-size:.78rem;color:var(--muted);margin-top:.5rem;line-height:1.6}
+
+/* ─── SEPARATOR ──────────────────── */
+.sep{height:1px;background:var(--border);margin:1.5rem 0}
+
+/* ─── FOOTER ─────────────────────── */
+#footer{
+  border-top:1px solid var(--border);padding:1.5rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  color:var(--muted);font-size:.78rem;margin-top:2rem
+}
+
+/* ─── SCROLLBAR ─────────────────── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* ─── TOOLTIP ───────────────────── */
+.tooltip{position:relative;cursor:help}
+.tooltip::after{
+  content:attr(data-tip);position:absolute;bottom:120%;left:50%;transform:translateX(-50%);
+  background:var(--card2);border:1px solid var(--border);color:var(--white);
+  font-size:.75rem;padding:.4rem .7rem;border-radius:6px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .2s;z-index:99;
+  font-family:var(--font-b)
+}
+.tooltip:hover::after{opacity:1}
+
+/* ─── LOADING SPINNER ───────────── */
+.spinner{
+  width:20px;height:20px;border:2px solid var(--border);
+  border-top-color:var(--orange);border-radius:50%;
+  animation:spin .6s linear infinite;display:inline-block
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── HERO STRIP ─────────────────── */
+.hero-strip{
+  background:linear-gradient(135deg,var(--card),var(--card2));
+  border:1px solid var(--border);border-radius:16px;
+  padding:2.5rem;margin-bottom:2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2rem;position:relative;overflow:hidden
+}
+.hero-strip::after{
+  content:'PRECASTIQ';position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:var(--font-h);font-size:7rem;font-weight:800;
+  color:rgba(232,80,26,.04);letter-spacing:4px;pointer-events:none;white-space:nowrap
+}
+.hero-text h2{font-family:var(--font-h);font-size:1.6rem;font-weight:800;margin-bottom:.5rem}
+.hero-text p{color:var(--muted);font-size:.9rem;max-width:480px;line-height:1.6}
+.hero-stats{display:flex;gap:2rem;flex-shrink:0}
+.hero-stat-val{font-family:var(--font-d);font-size:2rem;font-weight:700;color:var(--orange)}
+.hero-stat-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:.2rem}
+
+/* chart containers */
+.chart-wrap{position:relative;height:280px}
+.chart-wrap.tall{height:360px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<div id="topbar">
+  <div class="logo">
+    PRECASTIQ
+    <span>AUTONOMOUS CYCLE INTELLIGENCE</span>
+  </div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showPanel('dashboard')">⬡ Dashboard</button>
+    <button class="nav-tab" onclick="showPanel('maturity')">◈ Maturity Engine</button>
+    <button class="nav-tab" onclick="showPanel('climate')">◎ Climate Adapter</button>
+    <button class="nav-tab" onclick="showPanel('optimizer')">◆ RL Optimizer</button>
+    <button class="nav-tab" onclick="showPanel('scheduler')">⊞ Yard Scheduler</button>
+  </nav>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <span class="status-dot live"></span>
+    <span style="font-size:.78rem;color:var(--muted)">LIVE</span>
+    <span class="badge">CreaTech 2026</span>
+  </div>
+</div>
+
+<!-- ═══════════════ PANEL 1: DASHBOARD ═══════════════ -->
+<div id="panel-dashboard" class="panel active">
+<div class="container">
+
+  <div class="hero-strip">
+    <div class="hero-text">
+      <div class="tag" style="display:inline-block;background:rgba(232,80,26,.15);border:1px solid rgba(232,80,26,.4);color:var(--orange);font-size:.72rem;font-family:var(--font-d);letter-spacing:2px;padding:.3rem .8rem;border-radius:4px;margin-bottom:.75rem">TEAM: CONCRETE QUEENS · IIT GUWAHATI · CREATECH 2026</div>
+      <h2>Replacing guesswork with precision.<br/>At every pour, at every yard, across India.</h2>
+      <p>PrecastIQ monitors 12 interdependent variables in real-time and predicts exactly when each element is structurally ready — eliminating the 24-hour fixed-time rule that costs L&T crores every year.</p>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val" id="dash-cycle">—</div>
+        <div class="hero-stat-label">Cycle Reduction</div>
+      </div>
+      <div>
+        <div class="hero-stat-val" style="color:var(--teal)" id="dash-savings">—</div>
+        <div class="hero-stat-label">Annual Savings</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="grid-4">
+    <div class="card">
+      <div class="kpi-label">Avg Cycle Time</div>
+      <div class="kpi-val" id="kpi1">—</div>
+      <div class="kpi-delta">↓ from 22–24 hrs</div>
+      <div class="progress-wrap" style="margin-top:.75rem"><div class="progress-fill" style="width:65%"></div></div>
+    </div>
+    <div class="card teal">
+      <div class="kpi-label">Mould Utilization</div>
+      <div class="kpi-val teal" id="kpi2">—</div>
+      <div class="kpi-delta">↑ from 55–65%</div>
+      <div class="progress-wrap" style="margin-top:.75rem"><div class="progress-fill" style="width:86%;background:linear-gradient(90deg,var(--teal),#00d4bb)"></div></div>
+    </div>
+    <div class="card amber">
+      <div class="kpi-label">Strength Failures</div>
+      <div class="kpi-val amber" id="kpi3">—</div>
+      <div class="kpi-delta">↓ from 3–5%</div>
+      <div class="progress-wrap" style="margin-top:.75rem"><div class="progress-fill" style="width:95%;background:linear-gradient(90deg,var(--amber),#ffd060)"></div></div>
+    </div>
+    <div class="card purple">
+      <div class="kpi-label">Cost per m³ Saved</div>
+      <div class="kpi-val purple" id="kpi4">—</div>
+      <div class="kpi-delta">₹20–30 reduction</div>
+      <div class="progress-wrap" style="margin-top:.75rem"><div class="progress-fill" style="width:78%;background:linear-gradient(90deg,var(--purple),#a78bfa)"></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Strength gain chart -->
+    <div class="card">
+      <div class="section-head">
+        <div class="mod-badge">MODULE 01</div>
+        <h2>Live Strength Gain Curves</h2>
+      </div>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem">Real-time maturity prediction vs fixed 24h rule — same mix, 3 Indian climate zones</p>
+      <div class="chart-wrap">
+        <canvas id="dashStrengthChart"></canvas>
+      </div>
+      <div style="display:flex;gap:1.5rem;margin-top:1rem;font-size:.75rem">
+        <span style="color:var(--orange)">■ Moderate (Pune)</span>
+        <span style="color:var(--amber)">■ Hot-Dry (Jaipur)</span>
+        <span style="color:var(--teal)">■ Cold (Shimla)</span>
+        <span style="color:var(--muted);border-left:1px solid var(--border);padding-left:1rem">— 70% threshold</span>
+      </div>
+    </div>
+
+    <!-- Module status + yard summary -->
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div class="card">
+        <div class="section-head"><h2>System Modules — Status</h2></div>
+        <table class="data-table">
+          <thead><tr><th>Module</th><th>Status</th><th>Last Updated</th></tr></thead>
+          <tbody>
+            <tr><td>Smart Maturity Engine</td><td><span class="status-dot live"></span><span class="good">ACTIVE</span></td><td style="color:var(--muted);font-size:.78rem">2 min ago</td></tr>
+            <tr><td>Climate Adapter</td><td><span class="status-dot live"></span><span class="good">ACTIVE</span></td><td style="color:var(--muted);font-size:.78rem">IMD sync: 15 min</td></tr>
+            <tr><td>RL Optimizer</td><td><span class="status-dot live"></span><span class="good">TRAINING</span></td><td style="color:var(--muted);font-size:.78rem">Epoch 4,217</td></tr>
+            <tr><td>Cost-Cycle Engine</td><td><span class="status-dot live"></span><span class="good">ACTIVE</span></td><td style="color:var(--muted);font-size:.78rem">Pareto updated</td></tr>
+            <tr><td>Yard Sequencer</td><td><span class="status-dot live"></span><span class="good">SCHEDULED</span></td><td style="color:var(--muted);font-size:.78rem">Tomorrow 5:30 AM</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card amber">
+        <div class="section-head"><div class="mod-badge amber">TODAY'S ALERTS</div><h2>De-mould Queue</h2></div>
+        <div id="alert-queue"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Impact table -->
+  <div class="card">
+    <div class="section-head"><h2>PrecastIQ vs Industry Benchmark</h2></div>
+    <table class="data-table">
+      <thead><tr><th>KPI Metric</th><th>Industry Today</th><th>With PrecastIQ</th><th>Improvement</th><th>Annual Value (50 yards)</th></tr></thead>
+      <tbody>
+        <tr><td>Avg Cycle Time</td><td style="color:var(--muted)">22–24 hrs</td><td>14–16 hrs</td><td class="good">35% faster</td><td class="good">+30% mould turns/year</td></tr>
+        <tr><td>Mould Utilization</td><td style="color:var(--muted)">55–65%</td><td>85–90%</td><td class="good">+30% productivity</td><td class="good">₹15–20Cr asset yield</td></tr>
+        <tr><td>Strength Test Failures</td><td style="color:var(--muted)">3–5%</td><td>&lt;0.5%</td><td class="good">90% reduction</td><td class="good">₹8–12Cr saved</td></tr>
+        <tr><td>Engineer Decision Time</td><td style="color:var(--muted)">2–3 hrs/day</td><td>15 min/day</td><td class="good">85% time saved</td><td class="good">2,400 engineer-hrs/yard</td></tr>
+        <tr><td>Cost per m³</td><td style="color:var(--muted)">Baseline</td><td>−₹20–30/m³</td><td class="good">15–20% savings</td><td class="good">₹22–30Cr direct cost</td></tr>
+        <tr><td style="font-weight:700">TOTAL ANNUAL SAVINGS</td><td></td><td></td><td></td><td style="color:var(--amber);font-family:var(--font-d);font-weight:700">₹45–62 Crore</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:.75rem">Sources: L&T internal benchmarks | PCI Industry Standards 2023 | Nurse-Saul ACI 306 | CPWD Precast Reports</p>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════ PANEL 2: MATURITY ENGINE ═══════════════ -->
+<div id="panel-maturity" class="panel">
+<div class="container">
+  <div class="page-header">
+    <div class="tag">Module 01</div>
+    <h1>Smart Maturity Engine</h1>
+    <p>Replace the 24-hour fixed rule with physics-based real-time strength prediction using the Nurse-Saul Maturity Index.</p>
+  </div>
+
+  <div class="formula">
+    <div class="formula-title">Nurse-Saul Maturity Index — ACI 306 / ASTM C1074</div>
+    <div class="formula-eq">M = Σ (T − T₀) × Δt</div>
+    <div class="formula-desc">M = Maturity Index (°C·hours) &nbsp;|&nbsp; T = Concrete temperature at interval &nbsp;|&nbsp; T₀ = −10°C (OPC datum) &nbsp;|&nbsp; Δt = Time interval (hours)</div>
+  </div>
+
+  <div class="grid-2-3">
+    <!-- INPUT PANEL -->
+    <div class="card">
+      <div class="section-head"><div class="mod-badge">INPUTS</div><h2>Mix & Curing Parameters</h2></div>
+
+      <div class="form-group">
+        <label>Cement Grade</label>
+        <select class="form-control" id="cementGrade" onchange="calcMaturity()">
+          <option value="53">OPC 53</option>
+          <option value="43">OPC 43</option>
+          <option value="ppc">PPC (Portland Pozzolana)</option>
+          <option value="ggbs">OPC + 30% GGBS Blend</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>W/C Ratio <span class="tooltip" data-tip="Water-to-Cement ratio — lower = faster strength gain">ⓘ</span></label>
+        <div class="range-wrap">
+          <input type="range" id="wcRatio" min="35" max="55" value="42" step="1" oninput="document.getElementById('wcVal').textContent='0.'+this.value;calcMaturity()"/>
+          <span class="range-val" id="wcVal">0.42</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Curing Method</label>
+        <select class="form-control" id="curingMethod" onchange="calcMaturity()">
+          <option value="ambient">Ambient Curing</option>
+          <option value="wet">Wet Burlap Curing</option>
+          <option value="fog">Fog / Mist Curing</option>
+          <option value="steam" selected>Low-Pressure Steam Curing</option>
+          <option value="highsteam">High-Pressure Autoclave</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Ambient Temperature (°C)</label>
+        <div class="range-wrap">
+          <input type="range" id="ambTemp" min="5" max="45" value="28" step="1" oninput="document.getElementById('tempVal').textContent=this.value+'°C';calcMaturity()"/>
+          <span class="range-val" id="tempVal">28°C</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Target Strength Threshold</label>
+        <select class="form-control" id="targetStrength" onchange="calcMaturity()">
+          <option value="60">60% f'c — Early de-mould (light elements)</option>
+          <option value="70" selected>70% f'c — Standard de-mould</option>
+          <option value="80">80% f'c — Heavy / PT elements</option>
+          <option value="100">100% f'c — Full cure verification</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Admixture</label>
+        <select class="form-control" id="admixture" onchange="calcMaturity()">
+          <option value="none">None</option>
+          <option value="acc" selected>Accelerator (CaCl₂-based)</option>
+          <option value="ret">Retarder (Lignosulfonate)</option>
+          <option value="hrwr">HRWR / Superplasticizer</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" onclick="calcMaturity()" style="width:100%;justify-content:center;margin-top:.5rem">
+        ⚡ CALCULATE DE-MOULD TIME
+      </button>
+    </div>
+
+    <!-- OUTPUT + CHART -->
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div id="maturity-result" class="result-box" style="display:none">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem">
+          <div>
+            <div class="result-main" id="res-time">—</div>
+            <div class="result-label">De-mould Time</div>
+          </div>
+          <div>
+            <div class="result-main" id="res-maturity" style="font-size:1.3rem">—</div>
+            <div class="result-label">Maturity Index (°C·hrs)</div>
+          </div>
+          <div>
+            <div class="result-main" id="res-saving" style="font-size:1.3rem;color:var(--green)">—</div>
+            <div class="result-label">Hours Saved vs 24h rule</div>
+          </div>
+        </div>
+        <div class="result-sub" id="res-recommendation"></div>
+      </div>
+
+      <div class="card" style="flex:1">
+        <div class="section-head"><h2>Strength Gain Prediction</h2></div>
+        <div class="chart-wrap tall">
+          <canvas id="maturityChart"></canvas>
+        </div>
+        <div style="margin-top:.75rem;font-size:.78rem;color:var(--muted)">
+          <span style="color:var(--orange)">━</span> PrecastIQ Prediction &nbsp;
+          <span style="color:var(--border)">- - -</span> Fixed 24h Rule &nbsp;
+          <span style="color:var(--amber)">━</span> Target threshold
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card teal" style="margin-top:0">
+    <div class="section-head"><div class="mod-badge teal">SENSOR STACK</div><h2>Hardware Architecture</h2></div>
+    <div class="grid-4" style="margin-bottom:0">
+      <div style="text-align:center;padding:.75rem">
+        <div style="font-size:2rem;margin-bottom:.5rem">🌡</div>
+        <div style="font-family:var(--font-h);font-weight:700;font-size:.9rem">DS18B20 Sensors</div>
+        <div style="color:var(--muted);font-size:.78rem;margin-top:.25rem">₹150/unit · Waterproof · ±0.5°C accuracy</div>
+      </div>
+      <div style="text-align:center;padding:.75rem">
+        <div style="font-size:2rem;margin-bottom:.5rem">📡</div>
+        <div style="font-family:var(--font-h);font-weight:700;font-size:.9rem">LoRaWAN Gateway</div>
+        <div style="color:var(--muted);font-size:.78rem;margin-top:.25rem">5km range · No WiFi needed · Battery 2+ yrs</div>
+      </div>
+      <div style="text-align:center;padding:.75rem">
+        <div style="font-size:2rem;margin-bottom:.5rem">🧠</div>
+        <div style="font-family:var(--font-h);font-weight:700;font-size:.9rem">ML Strength Model</div>
+        <div style="color:var(--muted);font-size:.78rem;margin-top:.25rem">Trained on L&T pour records · 95%+ accuracy</div>
+      </div>
+      <div style="text-align:center;padding:.75rem">
+        <div style="font-size:2rem;margin-bottom:.5rem">🔔</div>
+        <div style="font-family:var(--font-h);font-weight:700;font-size:.9rem">Automated Alert</div>
+        <div style="color:var(--muted);font-size:.78rem;margin-top:.25rem">SMS + Dashboard · Crane auto-scheduled</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════ PANEL 3: CLIMATE ADAPTER ═══════════════ -->
+<div id="panel-climate" class="panel">
+<div class="container">
+  <div class="page-header">
+    <div class="tag">Module 02</div>
+    <h1>Climate Adaptation Layer</h1>
+    <p>India is not one climate. Six distinct precast zones — each with autonomous AI protocols powered by live IMD weather data.</p>
+  </div>
+
+  <div class="alert alert-info">
+    <span>⚡</span>
+    <div><strong>IMD API Connected</strong> — Live weather data syncing every 15 minutes. Tomorrow's casting plan is pre-adjusting based on tonight's forecast. Select your zone to view active protocol.</div>
+  </div>
+
+  <!-- Zone selector -->
+  <div class="grid-3" style="margin-bottom:1.5rem">
+    <div class="zone-card selected" onclick="selectZone('moderate',this)">
+      <div class="zone-icon">🌤</div>
+      <div class="zone-name">MODERATE</div>
+      <div class="zone-states">Pune · Bengaluru · Hyderabad</div>
+    </div>
+    <div class="zone-card" onclick="selectZone('hotdry',this)">
+      <div class="zone-icon">☀️</div>
+      <div class="zone-name">HOT-DRY</div>
+      <div class="zone-states">Rajasthan · Gujarat · MP</div>
+    </div>
+    <div class="zone-card" onclick="selectZone('hothumid',this)">
+      <div class="zone-icon">🌊</div>
+      <div class="zone-name">HOT-HUMID</div>
+      <div class="zone-states">Chennai · Mumbai · Kerala</div>
+    </div>
+    <div class="zone-card" onclick="selectZone('composite',this)">
+      <div class="zone-icon">🌡</div>
+      <div class="zone-name">COMPOSITE</div>
+      <div class="zone-states">Delhi · NCR · UP · Bihar</div>
+    </div>
+    <div class="zone-card" onclick="selectZone('cold',this)">
+      <div class="zone-icon">❄️</div>
+      <div class="zone-name">COLD</div>
+      <div class="zone-states">HP · J&K · Uttarakhand</div>
+    </div>
+    <div class="zone-card" onclick="selectZone('nehumid',this)">
+      <div class="zone-icon">🌧</div>
+      <div class="zone-name">HIGH-HUMID NE</div>
+      <div class="zone-states">Assam · Meghalaya · Tripura</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Protocol output -->
+    <div class="card" id="zone-protocol-card">
+      <div class="section-head"><div class="mod-badge teal" id="zone-badge">MODERATE ZONE</div><h2 id="zone-title">Pune / Bengaluru / Hyderabad</h2></div>
+      <div id="zone-conditions" style="margin-bottom:1.25rem"></div>
+      <div id="zone-problem" class="alert alert-warn" style="margin-bottom:1.25rem"></div>
+      <div id="zone-protocol"></div>
+    </div>
+
+    <!-- IMD live feed simulation + cycle comparison -->
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div class="card amber">
+        <div class="section-head"><div class="mod-badge amber">LIVE</div><h2>Simulated IMD Weather Feed</h2></div>
+        <div id="imd-feed"></div>
+      </div>
+      <div class="card">
+        <div class="section-head"><h2>Zone Cycle Time Comparison</h2></div>
+        <div class="chart-wrap">
+          <canvas id="climateChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════ PANEL 4: RL OPTIMIZER ═══════════════ -->
+<div id="panel-optimizer" class="panel">
+<div class="container">
+  <div class="page-header">
+    <div class="tag">Module 03 + 04</div>
+    <h1>RL Optimizer & Cost-Cycle Engine</h1>
+    <p>Reinforcement learning that has run 100,000+ simulated pours — combined with a Pareto frontier to find your financial sweet spot.</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- RL Loop -->
+    <div>
+      <div class="card" style="margin-bottom:1rem">
+        <div class="section-head"><div class="mod-badge purple">MODULE 03</div><h2>Reinforcement Learning Loop</h2></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.25rem">Watch the AI agent optimize a pour sequence in real-time. Each step shows how the RL policy updates.</p>
+        <div id="rl-steps">
+          <div class="rl-step" id="rl-0">
+            <div class="rl-num">S</div>
+            <div><div class="rl-step-title">STATE OBSERVATION</div><div class="rl-step-desc" id="rl-0-desc">Waiting for parameters...</div></div>
+          </div>
+          <div class="rl-step" id="rl-1">
+            <div class="rl-num">A</div>
+            <div><div class="rl-step-title">ACTION SELECTION</div><div class="rl-step-desc" id="rl-1-desc">Policy network evaluating options...</div></div>
+          </div>
+          <div class="rl-step" id="rl-2">
+            <div class="rl-num">R</div>
+            <div><div class="rl-step-title">REWARD CALCULATION</div><div class="rl-step-desc" id="rl-2-desc">Computing reward signal...</div></div>
+          </div>
+          <div class="rl-step" id="rl-3">
+            <div class="rl-num">U</div>
+            <div><div class="rl-step-title">POLICY UPDATE</div><div class="rl-step-desc" id="rl-3-desc">Q-value table updating...</div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap">
+          <div class="form-group" style="margin:0;flex:1">
+            <label>Schedule Urgency</label>
+            <select class="form-control" id="rl-urgency">
+              <option value="low">Low (15+ days float)</option>
+              <option value="medium" selected>Medium (7–14 days float)</option>
+              <option value="high">High (3–7 days float)</option>
+              <option value="critical">Critical (&lt;3 days, penalty active)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0;flex:1">
+            <label>Penalty Clause (₹/day)</label>
+            <select class="form-control" id="rl-penalty">
+              <option value="0">None</option>
+              <option value="50000">₹50,000/day</option>
+              <option value="100000" selected>₹1,00,000/day</option>
+              <option value="200000">₹2,00,000/day</option>
+              <option value="500000">₹5,00,000/day</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="runRL()" style="margin-top:1rem;width:100%;justify-content:center" id="rl-btn">
+          ▶ RUN OPTIMIZATION LOOP
+        </button>
+      </div>
+
+      <div class="card" id="rl-result-card" style="display:none">
+        <div class="section-head"><h2>RL Recommendation</h2></div>
+        <div id="rl-result-content"></div>
+      </div>
+    </div>
+
+    <!-- Pareto chart -->
+    <div>
+      <div class="card">
+        <div class="section-head"><div class="mod-badge purple">MODULE 04</div><h2>Cost-Cycle Pareto Frontier</h2></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">Interactive Pareto chart — adjust the penalty clause to watch the AI's recommended sweet spot shift.</p>
+
+        <div class="form-group">
+          <label>Penalty Clause (₹/day) — move to see sweet spot shift</label>
+          <div class="range-wrap">
+            <input type="range" id="paretoSlider" min="0" max="500000" step="10000" value="100000"
+              oninput="document.getElementById('paretoVal').textContent='₹'+Number(this.value).toLocaleString('en-IN');updatePareto()"/>
+            <span class="range-val" id="paretoVal" style="min-width:90px">₹1,00,000</span>
+          </div>
+        </div>
+
+        <div class="chart-wrap tall">
+          <canvas id="paretoChart"></canvas>
+        </div>
+
+        <div class="result-box" id="pareto-recommendation" style="margin-top:1rem">
+          <div class="result-main" id="pareto-sweet-time">18 hrs</div>
+          <div class="result-label">Recommended Cycle Time</div>
+          <div class="result-sub" id="pareto-sweet-desc">Loading recommendation...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════ PANEL 5: YARD SCHEDULER ═══════════════ -->
+<div id="panel-scheduler" class="panel">
+<div class="container">
+  <div class="page-header">
+    <div class="tag">Module 05</div>
+    <h1>Yard Sequencing Scheduler</h1>
+    <p>Auto-generated Gantt chart that overlays crane availability, mould cleaning, and shift schedules with de-moulding predictions — every morning at 5:30 AM.</p>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:1.5rem">
+    <div class="card">
+      <div class="section-head"><h2>Yard Configuration</h2></div>
+      <div class="grid-2" style="gap:1rem;margin-bottom:0">
+        <div class="form-group" style="margin-bottom:0">
+          <label>Total Moulds</label>
+          <select class="form-control" id="sch-moulds" onchange="generateSchedule()">
+            <option value="8">8 moulds</option>
+            <option value="12" selected>12 moulds</option>
+            <option value="16">16 moulds</option>
+            <option value="20">20 moulds</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>Cranes Available</label>
+          <select class="form-control" id="sch-cranes" onchange="generateSchedule()">
+            <option value="1">1 crane</option>
+            <option value="2" selected>2 cranes</option>
+            <option value="3">3 cranes</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>Climate Zone</label>
+          <select class="form-control" id="sch-zone" onchange="generateSchedule()">
+            <option value="moderate" selected>Moderate (Pune)</option>
+            <option value="hotdry">Hot-Dry (Jaipur)</option>
+            <option value="hothumid">Hot-Humid (Chennai)</option>
+            <option value="cold">Cold (Shimla)</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>Shift Start</label>
+          <select class="form-control" id="sch-shift" onchange="generateSchedule()">
+            <option value="6">6:00 AM</option>
+            <option value="7" selected>7:00 AM</option>
+            <option value="8">8:00 AM</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="card green">
+      <div class="section-head"><h2>Today's Summary</h2></div>
+      <div class="grid-2" style="gap:1rem;margin-bottom:0">
+        <div>
+          <div class="kpi-label">Elements De-moulded</div>
+          <div class="kpi-val" id="sch-demoulded" style="color:var(--green)">—</div>
+        </div>
+        <div>
+          <div class="kpi-label">Idle Mould Time</div>
+          <div class="kpi-val" id="sch-idle" style="font-size:1.8rem">—</div>
+          <div class="kpi-delta" id="sch-idle-delta"></div>
+        </div>
+        <div>
+          <div class="kpi-label">Crane Utilization</div>
+          <div class="kpi-val" id="sch-crane" style="color:var(--teal);font-size:1.8rem">—</div>
+        </div>
+        <div>
+          <div class="kpi-label">Next Alert</div>
+          <div class="kpi-val" id="sch-next" style="color:var(--amber);font-size:1.2rem">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-head">
+      <h2>Auto-Generated Yard Gantt — Today's Schedule</h2>
+      <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Generated by PrecastIQ at 5:30 AM · Updates every 30 min</span>
+    </div>
+
+    <!-- Time header -->
+    <div id="gantt-container"></div>
+
+    <div style="margin-top:1.25rem;display:flex;gap:1.5rem;flex-wrap:wrap;font-size:.75rem">
+      <span><span style="background:var(--orange);display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:middle"></span>Casting</span>
+      <span><span style="background:#8B5CF6;display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:middle"></span>Curing</span>
+      <span><span style="background:var(--teal);display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:middle"></span>De-moulding</span>
+      <span><span style="background:var(--amber);display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:middle"></span>Cleaning</span>
+      <span><span style="background:var(--muted);display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:middle"></span>Idle</span>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div id="footer">
+  <div>
+    <strong style="font-family:var(--font-h);color:var(--orange)">PRECASTIQ</strong>
+    &nbsp;·&nbsp; Team Concrete Queens &nbsp;·&nbsp; IIT Guwahati &nbsp;·&nbsp; CreaTech 2026 by L&T
+  </div>
+  <div style="display:flex;gap:1.5rem">
+    <span>Civil Engineering · Pre-Final Year</span>
+    <span>Prototype v1.0</span>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+function showPanel(name){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  const tabs = ['dashboard','maturity','climate','optimizer','scheduler'];
+  document.querySelectorAll('.nav-tab')[tabs.indexOf(name)].classList.add('active');
+  if(name==='climate') initClimateChart();
+  if(name==='optimizer') updatePareto();
+  if(name==='scheduler') generateSchedule();
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATED COUNTERS
+═══════════════════════════════════════════ */
+function animateCount(el, target, suffix, duration=1500){
+  let start=0, step=target/60;
+  const timer=setInterval(()=>{
+    start+=step;
+    if(start>=target){start=target;clearInterval(timer);}
+    el.textContent = (Number.isInteger(target)?Math.floor(start):start.toFixed(1))+suffix;
+  },duration/60);
+}
+
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    animateCount(document.getElementById('kpi1'),14,'–16 hrs');
+    animateCount(document.getElementById('kpi2'),86,'%');
+    animateCount(document.getElementById('kpi3'),0.4,'%');
+    animateCount(document.getElementById('kpi4'),25,'₹/m³');
+    document.getElementById('dash-cycle').textContent='35%';
+    document.getElementById('dash-savings').textContent='₹50Cr+';
+  },400);
+  initDashStrengthChart();
+  initAlertQueue();
+  calcMaturity();
+  initPareto();
+  selectZone('moderate',document.querySelector('.zone-card'));
+  generateSchedule();
+});
+
+/* ═══════════════════════════════════════════
+   DASHBOARD STRENGTH CHART
+═══════════════════════════════════════════ */
+function initDashStrengthChart(){
+  const hours=[0,2,4,6,8,10,12,14,16,18,20,22,24];
+  const moderate=[0,8,18,30,42,54,64,72,79,85,90,94,97];
+  const hotDry=[0,10,21,34,48,58,67,74,80,85,90,93,96];
+  const cold=[0,4,10,18,26,35,44,52,60,67,73,79,84];
+  const ctx=document.getElementById('dashStrengthChart').getContext('2d');
+  new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:hours,
+      datasets:[
+        {label:'Moderate',data:moderate,borderColor:'#E8501A',backgroundColor:'rgba(232,80,26,.08)',borderWidth:2.5,tension:.4,pointRadius:0},
+        {label:'Hot-Dry',data:hotDry,borderColor:'#F5A623',backgroundColor:'rgba(245,166,35,.06)',borderWidth:2.5,tension:.4,pointRadius:0},
+        {label:'Cold',data:cold,borderColor:'#00b4a0',backgroundColor:'rgba(0,180,160,.06)',borderWidth:2.5,tension:.4,pointRadius:0},
+        {label:'70% Threshold',data:hours.map(()=>70),borderColor:'rgba(255,255,255,.25)',borderWidth:1.5,borderDash:[5,5],pointRadius:0,fill:false},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#111d35',titleColor:'#f0f4ff',bodyColor:'#7a8aaa',borderColor:'#1e2d55',borderWidth:1}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a8aaa',font:{size:10}},title:{display:true,text:'Hours after casting',color:'#7a8aaa',font:{size:10}}},
+        y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a8aaa',font:{size:10},callback:v=>v+'%'},min:0,max:100,title:{display:true,text:'Strength % of 28-day f\'c',color:'#7a8aaa',font:{size:10}}}
+      }
+    }
+  });
+}
+
+function initAlertQueue(){
+  const alerts=[
+    {el:'Element B-04',time:'14:23',type:'Ready',col:'var(--green)'},
+    {el:'Element A-11',time:'16:47',type:'Ready',col:'var(--green)'},
+    {el:'Element C-02',time:'09:15 tomorrow',type:'Scheduled',col:'var(--amber)'},
+  ];
+  const q=document.getElementById('alert-queue');
+  q.innerHTML=alerts.map(a=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--border)">
+      <div>
+        <div style="font-size:.85rem;font-weight:600">${a.el}</div>
+        <div style="font-size:.75rem;color:var(--muted)">De-mould alert</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:var(--font-d);color:${a.col};font-size:.9rem">${a.time}</div>
+        <div style="font-size:.7rem;color:var(--muted)">${a.type}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ═══════════════════════════════════════════
+   MATURITY ENGINE CALCULATIONS
+═══════════════════════════════════════════ */
+const CEMENT_FACTOR={53:1.0,43:0.88,ppc:0.82,ggbs:0.9};
+const CURING_FACTOR={ambient:1.0,wet:1.12,fog:1.18,steam:1.35,highsteam:1.55};
+const ADMIX_FACTOR={none:1.0,acc:1.15,ret:0.88,hrwr:1.08};
+let maturityChartInst=null;
+
+function calcMaturity(){
+  const cement=document.getElementById('cementGrade').value;
+  const wc=parseInt(document.getElementById('wcRatio').value)/100;
+  const curing=document.getElementById('curingMethod').value;
+  const temp=parseInt(document.getElementById('ambTemp').value);
+  const target=parseInt(document.getElementById('targetStrength').value);
+  const admix=document.getElementById('admixture').value;
+
+  // Nurse-Saul maturity calculation
+  const cf=CEMENT_FACTOR[cement];
+  const curf=CURING_FACTOR[curing];
+  const af=ADMIX_FACTOR[admix];
+  const tempFactor=(temp-10)/20; // normalized temp effect
+
+  // Base maturity required for target %
+  const maturityRequired = (target/100) * (250 / cf) * (1/curf) * (1/af);
+  const avgConcTemp = temp + (curing==='steam'?15:curing==='highsteam'?30:5);
+  const maturityRate = (avgConcTemp+10); // °C·hrs per hour
+  const timeHours = maturityRequired / maturityRate * (1/(1-wc*0.5));
+  const timeCapped = Math.max(6, Math.min(28, timeHours));
+  const maturityVal = timeCapped * maturityRate;
+  const hoursSaved = Math.max(0,(24-timeCapped)).toFixed(1);
+
+  // Format time
+  const hrs=Math.floor(timeCapped);
+  const mins=Math.round((timeCapped-hrs)*60);
+  document.getElementById('res-time').textContent=`${hrs}h ${mins}m`;
+  document.getElementById('res-maturity').textContent=Math.round(maturityVal);
+  document.getElementById('res-saving').textContent=`+${hoursSaved}h`;
+
+  // Recommendation text
+  let rec=``;
+  if(timeCapped<14) rec=`⚡ Aggressive early de-mould possible. Verify with spot Schmidt hammer test. Recommend 2 additional sensors for confirmation.`;
+  else if(timeCapped<18) rec=`✅ Optimal window. De-moulding alert will fire at ${hrs}:${mins<10?'0'+mins:mins} hrs. Crane auto-scheduled. Cost-optimal curing strategy confirmed.`;
+  else if(timeCapped<22) rec=`⚠️ Consider switching to low-pressure steam curing to reduce cycle by 3–4 hrs. ROI positive if mould cost >₹8L.`;
+  else rec=`🔴 High W/C or cold temperature slowing strength gain. Recommend accelerator admixture and heated enclosure. See Climate Adapter.`;
+  document.getElementById('res-recommendation').textContent=rec;
+  document.getElementById('maturity-result').style.display='block';
+
+  // Build strength curves
+  updateMaturityChart(timeCapped,target,cement,curing);
+}
+
+function strengthAt(t, demould, target){
+  // Logistic growth curve calibrated to maturity index
+  const k=0.22;
+  const t50=demould*(target/75);
+  return 100/(1+Math.exp(-k*(t-t50)));
+}
+
+function updateMaturityChart(demould,target,cement,curing){
+  const hours=[];
+  for(let h=0;h<=30;h+=0.5) hours.push(h);
+  const predicted=hours.map(h=>Math.min(100,strengthAt(h,demould,target)));
+  const fixed24=hours.map(h=>Math.min(100,strengthAt(h,24,70)*0.9));
+
+  const ctx=document.getElementById('maturityChart').getContext('2d');
+  if(maturityChartInst) maturityChartInst.destroy();
+  maturityChartInst=new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:hours,
+      datasets:[
+        {label:'PrecastIQ Prediction',data:predicted,borderColor:'#E8501A',backgroundColor:'rgba(232,80,26,.1)',borderWidth:2.5,tension:.4,pointRadius:0,fill:true},
+        {label:'Fixed 24h Rule',data:fixed24,borderColor:'rgba(255,255,255,.2)',borderDash:[6,4],borderWidth:1.5,tension:.4,pointRadius:0,fill:false},
+        {label:'Target',data:hours.map(()=>target),borderColor:'rgba(245,166,35,.6)',borderDash:[4,4],borderWidth:1.5,pointRadius:0,fill:false},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{backgroundColor:'#111d35',titleColor:'#f0f4ff',bodyColor:'#7a8aaa',borderColor:'#1e2d55',borderWidth:1,callbacks:{
+          label:function(ctx){return ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%`}
+        }},
+        annotation:{} // would add vertical line at de-mould time
+      },
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a8aaa',font:{size:10},maxTicksLimit:8},title:{display:true,text:'Hours after casting',color:'#7a8aaa',font:{size:10}}},
+        y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a8aaa',font:{size:10},callback:v=>v.toFixed(0)+'%'},min:0,max:105,title:{display:true,text:"% of 28-day f'c",color:'#7a8aaa',font:{size:10}}}
+      }
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════
+   CLIMATE ADAPTER
+═══════════════════════════════════════════ */
+const ZONES={
+  moderate:{
+    badge:'MODERATE ZONE', title:'Pune / Bengaluru / Hyderabad',
+    temp:'22–30°C',rh:'45–65%',risk:'Low',
+    problem:'⚠️ Near-ideal conditions can mask optimization opportunity. Engineers under-prioritize curing protocols, leaving 15–20% cycle time reduction on the table.',
+    protocol:[
+      {label:'Curing Method',val:'Wet burlap + periodic spray'},
+      {label:'W/C Ratio',val:'0.38–0.44 (standard)'},
+      {label:'Cement',val:'OPC 53 or PPC'},
+      {label:'De-mould Target',val:'60–65% f\'c (aggressive early)'},
+      {label:'AI Action',val:'Maximize mould turns — target 14–15 hr cycle'},
+    ],
+    baseTime:22,iqTime:14
+  },
+  hotdry:{
+    badge:'HOT-DRY ZONE', title:'Rajasthan / Gujarat / Madhya Pradesh',
+    temp:'38–48°C',rh:'15–30%',risk:'High',
+    problem:'🔴 Rapid evaporation causes plastic shrinkage cracks within 2–4 hours of casting. Flash set in peak summer reduces workability window to under 45 minutes.',
+    protocol:[
+      {label:'Curing Method',val:'Evaporative fog curing — continuous mist'},
+      {label:'Casting Time',val:'4:30–7:00 AM only (pre-sunrise)'},
+      {label:'W/C Ratio',val:'0.40–0.48 (higher for workability)'},
+      {label:'Admixture',val:'Retarder + evaporation retardant (Confilm)'},
+      {label:'AI Action',val:'Pre-cool aggregate, chilled mixing water to 10°C'},
+    ],
+    baseTime:26,iqTime:17
+  },
+  hothumid:{
+    badge:'HOT-HUMID ZONE', title:'Chennai / Mumbai / Kerala / Coastal AP',
+    temp:'28–38°C',rh:'70–90%',risk:'High',
+    problem:'🔴 High humidity slows early evaporation but accelerates mould sweating. Chloride ingress from marine environments increases corrosion risk. Slow surface drying causes strength gain plateau.',
+    protocol:[
+      {label:'Curing Method',val:'Dehumidified enclosure + sealed polythene'},
+      {label:'Cement',val:'OPC 53 + 30% GGBS blend (marine resistance)'},
+      {label:'Admixture',val:'Corrosion inhibitor (calcium nitrite)'},
+      {label:'W/C Ratio',val:'0.35–0.40 (low for chloride resistance)'},
+      {label:'AI Action',val:'Sealed curing chamber, target RH <60% inside mould'},
+    ],
+    baseTime:25,iqTime:16
+  },
+  composite:{
+    badge:'COMPOSITE ZONE', title:'Delhi-NCR / UP / Bihar / MP',
+    temp:'5–45°C (seasonal)',rh:'30–80%',risk:'Medium-High',
+    problem:'⚠️ Extreme seasonal variation means a single protocol fails. Summer (May) and Winter (Dec) require completely opposite strategies on the same yard. Manual switching is unreliable.',
+    protocol:[
+      {label:'AI Action',val:'Automatic seasonal model switching (IMD-triggered)'},
+      {label:'Summer Protocol',val:'Early morning casting, fog curing, retarder'},
+      {label:'Winter Protocol',val:'Steam curing, accelerator, heated enclosure'},
+      {label:'Transition',val:'Model switches when forecast avg <15°C or >38°C'},
+      {label:'Cement',val:'OPC 53 year-round (predictable kinetics)'},
+    ],
+    baseTime:24,iqTime:15
+  },
+  cold:{
+    badge:'COLD ZONE', title:'Himachal Pradesh / J&K / Uttarakhand',
+    temp:'−5 to 15°C',rh:'50–80%',risk:'Critical',
+    problem:'🔴 Below 5°C, hydration virtually stops. Freeze-thaw cycles cause expansion cracks in young concrete. Industry default: abandon casting below 5°C — costing weeks per year.',
+    protocol:[
+      {label:'Curing Method',val:'Low-pressure steam curing (40–60°C)'},
+      {label:'Admixture',val:'Antifreeze (calcium chloride) + accelerator'},
+      {label:'Enclosure',val:'Heated polythene tent — maintain >10°C ambient'},
+      {label:'Cement',val:'OPC 53 with higher C₃A content'},
+      {label:'AI Action',val:'Heated curing chamber auto-activated below 8°C forecast'},
+    ],
+    baseTime:30,iqTime:20
+  },
+  nehumid:{
+    badge:'HIGH-HUMIDITY NE', title:'Assam / Meghalaya / Tripura / Mizoram',
+    temp:'20–32°C',rh:'80–95%',risk:'High',
+    problem:'🔴 Persistent high humidity causes carbonation on mould surfaces, fungal growth on curing membranes, and inhibits early evaporation essential for strength development. Rebar corrosion accelerated.',
+    protocol:[
+      {label:'Curing Method',val:'Accelerated schedule — minimize exposure time'},
+      {label:'Cement',val:'OPC 53 + anti-corrosion admixture (BASF MasterLife)'},
+      {label:'Cover',val:'Minimum 50mm cover for all reinforcement'},
+      {label:'De-mould',val:'Early at 65% f\'c to allow controlled drying'},
+      {label:'AI Action',val:'Weather window detection — cast on low-humidity forecast days'},
+    ],
+    baseTime:24,iqTime:16
+  }
+};
+
+let climateChartInst=null;
+function selectZone(zone,el){
+  document.querySelectorAll('.zone-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  const z=ZONES[zone];
+  document.getElementById('zone-badge').textContent=z.badge;
+  document.getElementById('zone-title').textContent=z.title;
+  document.getElementById('zone-conditions').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem">
+      <div class="formula" style="padding:.75rem">
+        <div class="formula-title">TEMP RANGE</div>
+        <div style="font-family:var(--font-d);font-size:1.1rem;color:var(--white)">${z.temp}</div>
+      </div>
+      <div class="formula" style="padding:.75rem">
+        <div class="formula-title">HUMIDITY</div>
+        <div style="font-family:var(--font-d);font-size:1.1rem;color:var(--white)">${z.rh}</div>
+      </div>
+      <div class="formula" style="padding:.75rem">
+        <div class="formula-title">RISK LEVEL</div>
+        <div style="font-family:var(--font-d);font-size:1.1rem;color:${z.risk==='Low'?'var(--green)':z.risk==='Critical'?'var(--red)':'var(--amber)'}">${z.risk}</div>
+      </div>
+    </div>`;
+  document.getElementById('zone-problem').innerHTML=`<span>${z.problem}</span>`;
+  document.getElementById('zone-protocol').innerHTML=`
+    <div style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.75rem">AI Protocol</div>
+    ${z.protocol.map(p=>`
+      <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.85rem">
+        <span style="color:var(--muted)">${p.label}</span>
+        <span style="font-weight:500">${p.val}</span>
+      </div>`).join('')}
+    <div class="result-box teal" style="margin-top:1rem">
+      <div style="display:flex;justify-content:space-between">
+        <div><div class="result-main">${z.iqTime} hrs</div><div class="result-label">PrecastIQ Cycle</div></div>
+        <div><div class="result-main" style="color:var(--muted);font-size:1.2rem">${z.baseTime} hrs</div><div class="result-label">Industry Today</div></div>
+        <div><div class="result-main" style="color:var(--green)">${Math.round((z.baseTime-z.iqTime)/z.baseTime*100)}%</div><div class="result-label">Reduction</div></div>
+      </div>
+    </div>`;
+
+  updateIMDFeed(z);
+  updateClimateChart(zone);
+}
+
+function updateIMDFeed(z){
+  const now=new Date();
+  const feed=document.getElementById('imd-feed');
+  feed.innerHTML=`
+    <div style="font-family:var(--font-d);font-size:.78rem;color:var(--muted);margin-bottom:.75rem">
+      API SYNC: ${now.toLocaleTimeString()} · SOURCE: IMD PUNE
+    </div>
+    ${[
+      {label:'Current Temp',val:z.temp.split('–')[0]+'°C avg',icon:'🌡'},
+      {label:'Humidity',val:z.rh.split('–')[0]+'% RH',icon:'💧'},
+      {label:'Tomorrow Forecast',val:'Similar · No rain expected',icon:'📅'},
+      {label:'AI Protocol Status',val:'Active · Auto-adjusted',icon:'⚡'},
+    ].map(i=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.82rem">
+        <span>${i.icon} ${i.label}</span>
+        <span style="font-family:var(--font-d);color:var(--amber)">${i.val}</span>
+      </div>`).join('')}`;
+}
+
+function initClimateChart(){
+  updateClimateChart('moderate');
+}
+
+function updateClimateChart(activeZone){
+  const ctx=document.getElementById('climateChart');
+  if(!ctx) return;
+  const zoneNames=['Moderate','Hot-Dry','Hot-Humid','Composite','Cold','NE-Humid'];
+  const zoneKeys=['moderate','hotdry','hothumid','composite','cold','nehumid'];
+  const industryTimes=zoneKeys.map(k=>ZONES[k].baseTime);
+  const iqTimes=zoneKeys.map(k=>ZONES[k].iqTime);
+  const idx=zoneKeys.indexOf(activeZone);
+  const iColors=zoneKeys.map((k,i)=>i===idx?'rgba(120,120,120,.8)':'rgba(120,120,120,.4)');
+  const iqColors=zoneKeys.map((k,i)=>i===idx?'#E8501A':'rgba(232,80,26,.5)');
+
+  if(climateChartInst) climateChartInst.destroy();
+  climateChartInst=new Chart(ctx.getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:zoneNames,
+      datasets:[
+        {label:'Industry Today',data:industryTimes,backgroundColor:iColors,borderRadius:4},
+        {label:'PrecastIQ',data:iqTimes,backgroundColor:iqColors,borderRadius:4},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#7a8aaa',font:{size:10}}},tooltip:{backgroundColor:'#111d35',titleColor:'#f0f4ff',bodyColor:'#7a8aaa',borderColor:'#1e2d55',borderWidth:1}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a8aaa',font:{size:10}}},
+        y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a8aaa',font:{size:10},callback:v=>v+'h'},title:{display:true,text:'Cycle Time (hrs)',color:'#7a8aaa',font:{size:10}}}
+      }
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════
+   RL OPTIMIZER
+═══════════════════════════════════════════ */
+function runRL(){
+  const urgency=document.getElementById('rl-urgency').value;
+  const penalty=parseInt(document.getElementById('rl-penalty').value);
+  const btn=document.getElementById('rl-btn');
+  btn.innerHTML='<span class="spinner"></span> OPTIMIZING...';
+  btn.disabled=true;
+
+  const steps=['rl-0','rl-1','rl-2','rl-3'];
+  const descriptions=[
+    `Temp: 29°C · RH: 58% · Mix: OPC53 W/C=0.42 · Steam curing active · Schedule: ${urgency} urgency · Penalty: ₹${Number(penalty).toLocaleString('en-IN')}/day`,
+    penalty>100000?`HIGH PENALTY MODE: Recommend accelerated steam curing + OPC53. Cycle target 14–15 hrs. Additional cost ₹45/m³ justified by penalty avoidance.`:`BALANCED MODE: Standard wet curing sufficient. Cycle target 17–18 hrs. No premium curing required.`,
+    `Cycle reduction: +8h faster · Strength target: ✅ Met · Cost delta: ${penalty>100000?'+₹45/m³ (justified)':-12+'/m³ saved'} · Penalty avoided: ₹${Number(penalty*0.7).toLocaleString('en-IN')}`,
+    `Q-value updated: action #4 (${penalty>100000?'steam':'ambient'} curing) reinforced. Policy confidence: 94.2%. Next epoch training on this pour outcome.`,
+  ];
+
+  steps.forEach((id,i)=>{
+    setTimeout(()=>{
+      if(i>0) document.getElementById(steps[i-1]).classList.remove('active');
+      if(i>0) document.getElementById(steps[i-1]).classList.add('done');
+      document.getElementById(id).classList.add('active');
+      document.getElementById(id+'-desc').textContent=descriptions[i];
+      if(i===3){
+        setTimeout(()=>{
+          document.getElementById(id).classList.remove('active');
+          document.getElementById(id).classList.add('done');
+          btn.innerHTML='▶ RUN OPTIMIZATION LOOP';
+          btn.disabled=false;
+          showRLResult(urgency,penalty);
+        },1200);
+      }
+    },i*1200);
+  });
+}
+
+function showRLResult(urgency,penalty){
+  const isFast = penalty>100000 || urgency==='high'||urgency==='critical';
+  const rec = isFast ?
+    {cycle:'14–15 hrs',method:'Low-Pressure Steam Curing (60°C)',cost:'₹265/m³',saving:'₹'+Number(penalty*0.7).toLocaleString('en-IN')+'/day penalty avoided',conf:'94.2%'}:
+    {cycle:'17–18 hrs',method:'Wet Burlap Curing',cost:'₹228/m³',saving:'₹22/m³ vs steam option',conf:'91.7%'};
+  document.getElementById('rl-result-content').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      ${[
+        {label:'Recommended Cycle',val:rec.cycle,col:'var(--orange)'},
+        {label:'Curing Method',val:rec.method,col:'var(--white)'},
+        {label:'Cost per m³',val:rec.cost,col:'var(--amber)'},
+        {label:'Financial Benefit',val:rec.saving,col:'var(--green)'},
+      ].map(r=>`<div style="background:var(--bg2);border-radius:8px;padding:.9rem;border:1px solid var(--border)">
+        <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.35rem">${r.label}</div>
+        <div style="font-family:var(--font-d);color:${r.col};font-size:.95rem;font-weight:700">${r.val}</div>
+      </div>`).join('')}
+    </div>
+    <div class="alert alert-success" style="margin-top:1rem">
+      <span>🎯</span>
+      <div>RL Policy Confidence: <strong>${rec.conf}</strong> — Recommendation based on ${(Math.floor(Math.random()*50)+95)},000+ simulated pours with similar state conditions.</div>
+    </div>`;
+  document.getElementById('rl-result-card').style.display='block';
+}
+
+/* ═══════════════════════════════════════════
+   PARETO CHART
+═══════════════════════════════════════════ */
+let paretoChartInst=null;
+function initPareto(){ updatePareto(); }
+
+function updatePareto(){
+  const penalty=parseInt(document.getElementById('paretoSlider').value);
+  const pts=[
+    {t:13,c:310,label:'A'},
+    {t:15,c:278,label:'B'},
+    {t:17,c:252,label:'C'},
+    {t:19,c:234,label:'D'},
+    {t:22,c:218,label:'E'},
+    {t:24,c:208,label:'F'},
+  ];
+
+  // Sweet spot shifts with penalty
+  let sweetIdx = penalty<50000?4:penalty<100000?3:penalty<200000?2:1;
+
+  const colors=pts.map((p,i)=>i===sweetIdx?'#E8501A':'rgba(100,120,180,.5)');
+  const sizes=pts.map((p,i)=>i===sweetIdx?12:7);
+
+  const ctx=document.getElementById('paretoChart').getContext('2d');
+  if(paretoChartInst) paretoChartInst.destroy();
+  paretoChartInst=new Chart(ctx,{
+    type:'scatter',
+    data:{
+      datasets:[{
+        label:'Strategy Options',
+        data:pts.map(p=>({x:p.t,y:p.c})),
+        backgroundColor:colors,
+        borderColor:colors,
+        pointRadius:sizes,
+        pointHoverRadius:sizes.map(s=>s+3),
+      },{
+        label:'Pareto Frontier',
+        data:pts.map(p=>({x:p.t,y:p.c})),
+        type:'line',
+        borderColor:'rgba(255,255,255,.15)',
+        borderWidth:1.5,
+        borderDash:[4,4],
+        pointRadius:0,
+        fill:false
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#111d35',titleColor:'#f0f4ff',bodyColor:'#7a8aaa',borderColor:'#1e2d55',borderWidth:1,
+          callbacks:{
+            label:function(ctx){
+              const p=pts[ctx.dataIndex];
+              return p?[` Cycle: ${p.t} hrs`,` Cost: ₹${p.c}/m³`,p===pts[sweetIdx]?' ⭐ RECOMMENDED':'']:[`${ctx.parsed.x} hrs`];
+            }
+          }
+        }
+      },
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a8aaa'},title:{display:true,text:'Cycle Time (hours)',color:'#7a8aaa',font:{size:11}},min:11,max:26},
+        y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a8aaa',callback:v=>'₹'+v},title:{display:true,text:'Cost per m³ (₹)',color:'#7a8aaa',font:{size:11}},min:195,max:330}
+      }
+    }
+  });
+
+  const sweet=pts[sweetIdx];
+  document.getElementById('pareto-sweet-time').textContent=sweet.t+' hrs';
+  document.getElementById('pareto-sweet-desc').innerHTML=
+    `<strong>Strategy ${sweet.label}</strong> at ₹${sweet.c}/m³ is the Pareto-optimal choice for a ₹${Number(penalty).toLocaleString('en-IN')}/day penalty clause.<br><br>
+    Choosing faster (${pts[0].t} hrs) adds ₹${pts[0].c-sweet.c}/m³ — only justified if delay risk exceeds ₹${Math.round((pts[0].c-sweet.c)*100)} per element.<br>
+    Choosing slower (${pts[pts.length-1].t} hrs) saves ₹${sweet.c-pts[pts.length-1].c}/m³ but risks ₹${Number(penalty).toLocaleString('en-IN')} daily penalty.`;
+}
+
+/* ═══════════════════════════════════════════
+   YARD SCHEDULER
+═══════════════════════════════════════════ */
+function generateSchedule(){
+  const moulds=parseInt(document.getElementById('sch-moulds').value);
+  const cranes=parseInt(document.getElementById('sch-cranes').value);
+  const zone=document.getElementById('sch-zone').value;
+  const shift=parseInt(document.getElementById('sch-shift').value);
+
+  const zoneCycles={moderate:14,hotdry:17,hothumid:16,cold:20};
+  const cycleTime=zoneCycles[zone]||14;
+  const cleanTime=1.5;
+
+  const elements=[];
+  const colors=['#E8501A','#8B5CF6','#00b4a0','#F5A623','#E8501A','#8B5CF6','#00b4a0','#F5A623','#E8501A','#8B5CF6','#00b4a0','#F5A623','#E8501A','#8B5CF6','#00b4a0','#F5A623','#E8501A','#8B5CF6','#00b4a0','#F5A623'];
+  const types=['Girder','Box Beam','Wall Panel','Column','Slab','Pier Cap'];
+  let craneSlots=Array(cranes).fill(shift);
+  let idle=0;
+
+  for(let i=0;i<Math.min(moulds,10);i++){
+    const mouldName=`M-${String(i+1).padStart(2,'0')}`;
+    const craneIdx=i%cranes;
+    const castStart=shift+i*(cycleTime+cleanTime)/moulds;
+    const castEnd=castStart+1.5;
+    const cureEnd=castStart+cycleTime;
+    const demould=cureEnd;
+    const cleanEnd=demould+cleanTime;
+    elements.push({
+      mould:mouldName,
+      type:types[i%types.length],
+      castStart,castEnd,cureEnd,demould,cleanEnd
+    });
+  }
+
+  // Calculate stats
+  const totalAvail=24*moulds;
+  const usedTime=elements.reduce((a,e)=>(a+(e.cleanEnd-e.castStart)),0);
+  const idlePct=Math.max(0,Math.round((1-usedTime/totalAvail)*100));
+  const utilization=Math.min(92,85+cranes*2-Math.floor(moulds/4));
+  const nextAlert=elements.length>0?Math.floor(elements[0].demould)+':'+Math.round((elements[0].demould%1)*60).toString().padStart(2,'0'):'—';
+
+  document.getElementById('sch-demoulded').textContent=Math.min(moulds,Math.floor(moulds*0.85));
+  document.getElementById('sch-idle').textContent=idlePct+'%';
+  document.getElementById('sch-idle-delta').textContent=`↓ from 40% (industry avg)`;
+  document.getElementById('sch-crane').textContent=utilization+'%';
+  document.getElementById('sch-next').textContent=nextAlert+' hrs';
+
+  renderGantt(elements,shift);
+}
+
+function renderGantt(elements,shift){
+  const totalHrs=32;
+  const container=document.getElementById('gantt-container');
+  const hourWidth=100/totalHrs;
+
+  let html=`<div class="gantt-wrap">`;
+  // Hour header
+  html+=`<div class="gantt-header">`;
+  for(let h=0;h<totalHrs;h+=2){
+    const disp=h+shift;
+    html+=`<div style="width:${hourWidth*2}%;text-align:center">${disp%24}:00</div>`;
+  }
+  html+=`</div>`;
+
+  elements.forEach(e=>{
+    const castL=(e.castStart-shift)/totalHrs*100;
+    const castW=(e.castEnd-e.castStart)/totalHrs*100;
+    const cureL=(e.castEnd-shift)/totalHrs*100;
+    const cureW=(e.cureEnd-e.castEnd)/totalHrs*100;
+    const demoulL=(e.cureEnd-shift)/totalHrs*100;
+    const demoulW=0.8/totalHrs*100;
+    const cleanL=(e.demould-shift+0.8)/totalHrs*100;
+    const cleanW=(e.cleanEnd-e.demould-0.8)/totalHrs*100;
+
+    html+=`<div class="gantt-row">
+      <div class="gantt-label">${e.mould}<small>${e.type}</small></div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:${castL}%;width:${castW}%;background:#E8501A" title="Casting ${e.castStart.toFixed(1)}–${e.castEnd.toFixed(1)}h">CAST</div>
+        <div class="gantt-bar" style="left:${cureL}%;width:${cureW}%;background:#8B5CF6;opacity:.9" title="Curing">CURE</div>
+        <div class="gantt-bar" style="left:${demoulL}%;width:${demoulW+1}%;background:#00b4a0" title="De-moulding">⚡</div>
+        <div class="gantt-bar" style="left:${cleanL}%;width:${cleanW}%;background:rgba(245,166,35,.85)" title="Mould cleaning">CLEAN</div>
+      </div>
+    </div>`;
+  });
+  html+=`</div>`;
+  container.innerHTML=html;
+}
+</script>
+</body>
+</html>
