@@ -3,404 +3,291 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="description" content="PrecastIQ — Autonomous Cycle Intelligence Platform by Team Concrete Queens, IIT Guwahati. L&T CreaTech 2026."/>
-<title>PrecastIQ | Autonomous Cycle Intelligence | L&T CreaTech 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<title>PrecastIQ | L&T CreaTech 2026</title>
 <style>
-
-:root {
-  --navy:    #002B5B;
-  --royal:   #005BAC;
-  --royal2:  #0070D4;
-  --cyan:    #00C2FF;
-  --cyan2:   #00A8DC;
-  --orange:  #FF6B00;
-  --orange2: #E55F00;
-  --steel:   #5A6872;
-  --lgray:   #D9E1E8;
-  --white:   #FFFFFF;
-  --bg:      #F5F7FA;
-  --bg2:     #EBF0F7;
-  --dark:    #0F172A;
-  --dark2:   #1E293B;
-  --text:    #1E293B;
-  --text2:   #64748B;
-  --border:  #CBD5E1;
-  --green:   #059669;
-  --lgreen:  #ECFDF5;
-  --red:     #DC2626;
-  --lred:    #FEF2F2;
-  --amber:   #D97706;
-  --lamber:  #FFFBEB;
-  --shadow:  0 1px 3px rgba(0,43,91,.08),0 4px 16px rgba(0,43,91,.06);
-  --shadow2: 0 4px 6px rgba(0,43,91,.07),0 10px 40px rgba(0,43,91,.12);
-  --shadow3: 0 20px 60px rgba(0,43,91,.18);
-  --radius:  14px;
-  --radius2: 10px;
-  --font-h:  'Poppins', sans-serif;
-  --font-b:  'Inter', sans-serif;
-  --font-m:  'Space Mono', monospace;
-  --trans:   all .22s cubic-bezier(.4,0,.2,1);
+/* SYSTEM FONT STACK — zero network requests, instant render */
+:root{
+  --navy:#002B5B;--royal:#005BAC;--royal2:#0070D4;
+  --cyan:#00C2FF;--orange:#FF6B00;
+  --steel:#5A6872;--lgray:#D9E1E8;--white:#FFFFFF;
+  --bg:#F4F7FB;--bg2:#EBF1F8;--dark:#0F172A;--dark2:#1E293B;
+  --text:#1E293B;--text2:#64748B;--border:#CBD5E1;
+  --green:#059669;--lgreen:#ECFDF5;--red:#DC2626;--lred:#FEF2F2;
+  --amber:#D97706;--lamber:#FFFBEB;
+  --sh:0 1px 3px rgba(0,43,91,.07),0 4px 12px rgba(0,43,91,.05);
+  --sh2:0 4px 24px rgba(0,43,91,.12);
+  --r:12px;--r2:8px;
+  --f:system-ui,-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --fm:'SF Mono','Fira Code','Consolas','Courier New',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:15px;line-height:1.6;overflow-x:hidden}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--bg);color:var(--text);font-family:var(--f);font-size:14px;line-height:1.55;overflow-x:hidden}
+::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--lgray);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(--steel)}
 
 /* ── TOPBAR ── */
 #topbar{
-  position:sticky;top:0;z-index:200;height:64px;
-  background:linear-gradient(135deg,var(--navy) 0%,#003A7A 100%);
-  box-shadow:0 2px 20px rgba(0,43,91,.35);
+  position:sticky;top:0;z-index:200;height:58px;
+  background:var(--navy);
+  box-shadow:0 2px 16px rgba(0,43,91,.4);
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 1.75rem;
-  border-bottom:1px solid rgba(0,194,255,.15);
+  padding:0 1.5rem;border-bottom:1px solid rgba(0,194,255,.12);
 }
-.logo-wrap{display:flex;align-items:center;gap:.9rem;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:.75rem;flex-shrink:0}
 .logo-icon{
-  width:36px;height:36px;border-radius:9px;
-  background:linear-gradient(135deg,var(--cyan),var(--royal));
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;font-family:var(--font-h);font-weight:800;color:var(--white);
-  box-shadow:0 0 20px rgba(0,194,255,.3);
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--royal),var(--cyan));
+  display:grid;place-items:center;
+  font-size:.9rem;font-weight:800;color:#fff;letter-spacing:-1px;
+  box-shadow:0 0 14px rgba(0,194,255,.25);flex-shrink:0;
 }
-.logo-text{font-family:var(--font-h);font-weight:700;font-size:1.15rem;color:var(--white);letter-spacing:1.5px}
-.logo-sub{font-size:.58rem;color:rgba(0,194,255,.85);letter-spacing:2.5px;font-family:var(--font-b);font-weight:500;margin-top:-2px}
-.nav-tabs{display:flex;gap:.2rem;align-items:center}
+.logo-text{font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:1.5px;line-height:1}
+.logo-sub{font-size:.56rem;color:rgba(0,194,255,.8);letter-spacing:2.5px;font-weight:500;margin-top:1px}
+.nav-tabs{display:flex;gap:.15rem}
 .nav-tab{
-  background:none;border:none;color:rgba(255,255,255,.65);
-  font-family:var(--font-b);font-size:.8rem;font-weight:500;
-  padding:.42rem .95rem;cursor:pointer;border-radius:8px;
-  transition:var(--trans);letter-spacing:.3px;white-space:nowrap;
+  background:none;border:none;color:rgba(255,255,255,.6);
+  font-family:var(--f);font-size:.78rem;font-weight:500;
+  padding:.38rem .9rem;cursor:pointer;border-radius:7px;
+  transition:background .15s,color .15s;white-space:nowrap;
 }
-.nav-tab:hover{color:var(--white);background:rgba(255,255,255,.1)}
+.nav-tab:hover{color:#fff;background:rgba(255,255,255,.1)}
 .nav-tab.active{
-  color:var(--white);background:rgba(0,194,255,.18);
-  border:1px solid rgba(0,194,255,.35);
-  box-shadow:0 0 12px rgba(0,194,255,.15);
+  color:#fff;background:rgba(0,194,255,.18);
+  border:1px solid rgba(0,194,255,.32);
 }
-.topbar-right{display:flex;align-items:center;gap:.75rem;flex-shrink:0}
-.live-badge{
-  display:flex;align-items:center;gap:.4rem;
-  background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.25);
-  border-radius:20px;padding:.28rem .75rem;
-  font-size:.72rem;color:var(--cyan);font-family:var(--font-b);font-weight:600;
+.top-right{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.live-pill{
+  display:flex;align-items:center;gap:.35rem;
+  background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.22);
+  border-radius:20px;padding:.22rem .65rem;
+  font-size:.68rem;color:var(--cyan);font-weight:600;
 }
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 2s infinite}
-.brand-badge{
-  background:linear-gradient(135deg,var(--orange),#FF8F3F);
-  color:var(--white);font-size:.65rem;padding:.22rem .65rem;
-  border-radius:20px;font-family:var(--font-h);font-weight:700;letter-spacing:.8px;
-  box-shadow:0 2px 8px rgba(255,107,0,.35);
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:ldot 2s infinite}
+@keyframes ldot{0%,100%{opacity:1}50%{opacity:.3}}
+.brand-pill{
+  background:var(--orange);color:#fff;
+  font-size:.63rem;padding:.2rem .6rem;border-radius:20px;font-weight:700;letter-spacing:.6px;
 }
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.85)}}
+.hmenu{display:none;background:none;border:none;color:#fff;cursor:pointer;padding:.3rem;line-height:1}
 
-/* ── LAYOUT ── */
-.panel{display:none;animation:fadeUp .35s ease;min-height:calc(100vh - 64px)}
-.panel.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.container{max-width:1360px;margin:0 auto;padding:1.75rem 1.5rem}
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-bottom:1.5rem}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:1.5rem}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
-.grid-23{display:grid;grid-template-columns:2fr 3fr;gap:1.5rem;margin-bottom:1.5rem}
-.grid-32{display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;margin-bottom:1.5rem}
-@media(max-width:1024px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-23,.grid-32{grid-template-columns:1fr}}
-@media(max-width:700px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}}
+/* ── PANELS ── */
+.panel{display:none;min-height:calc(100vh - 58px - 52px)}
+.panel.active{display:block;animation:fup .25s ease}
+@keyframes fup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.wrap{max-width:1340px;margin:0 auto;padding:1.5rem}
+
+/* ── GRID ── */
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.25rem}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.g23{display:grid;grid-template-columns:2fr 3fr;gap:1.25rem;margin-bottom:1.25rem}
+@media(max-width:960px){.g4{grid-template-columns:repeat(2,1fr)}.g23{grid-template-columns:1fr}}
+@media(max-width:640px){.g4,.g3,.g2{grid-template-columns:1fr}}
 
 /* ── CARDS ── */
 .card{
   background:var(--white);border:1px solid var(--border);
-  border-radius:var(--radius);padding:1.4rem;
-  box-shadow:var(--shadow);position:relative;overflow:hidden;
-  transition:box-shadow .25s ease,transform .25s ease;
+  border-radius:var(--r);padding:1.25rem;
+  box-shadow:var(--sh);position:relative;overflow:hidden;
 }
-.card:hover{box-shadow:var(--shadow2)}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--royal),var(--cyan));border-radius:var(--radius) var(--radius) 0 0}
-.card.cyan::before{background:linear-gradient(90deg,var(--cyan),#7DE8FF)}
-.card.orange::before{background:linear-gradient(90deg,var(--orange),#FF9A4D)}
-.card.green::before{background:linear-gradient(90deg,var(--green),#34D399)}
-.card.dark{background:var(--dark2);border-color:rgba(255,255,255,.08);color:var(--white)}
-.card.dark .section-head h2{color:var(--white)}
-.card.glass{background:rgba(255,255,255,.6);backdrop-filter:blur(16px);border-color:rgba(255,255,255,.8)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--royal),var(--cyan))}
+.card.g::before{background:linear-gradient(90deg,var(--green),#34D399)}
+.card.o::before{background:linear-gradient(90deg,var(--orange),#FF9A4D)}
+.card.dk{background:var(--dark2);border-color:rgba(255,255,255,.07);color:#fff}
+.card.dk .sh2{color:#fff}
 
 /* ── PAGE HEADER ── */
-.page-header{
-  background:linear-gradient(135deg,var(--navy) 0%,var(--royal) 60%,#0085D4 100%);
-  margin:-1.75rem -1.5rem 1.75rem;padding:2rem 1.5rem 2rem;
+.ph{
+  background:linear-gradient(135deg,var(--dark),var(--navy) 55%,var(--royal));
+  margin:-1.5rem -1.5rem 1.5rem;padding:1.75rem 1.5rem;
   position:relative;overflow:hidden;
 }
-.page-header::before{
-  content:'';position:absolute;top:-40%;right:-5%;
-  width:400px;height:400px;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,194,255,.15),transparent 70%);
-  pointer-events:none;
+.ph::before{
+  content:'';position:absolute;right:-60px;top:-60px;
+  width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,194,255,.1),transparent 70%);
 }
-.page-header .tag{
-  display:inline-flex;align-items:center;gap:.4rem;
-  background:rgba(0,194,255,.15);border:1px solid rgba(0,194,255,.3);
-  color:var(--cyan);font-size:.7rem;font-family:var(--font-m);
-  letter-spacing:2px;padding:.25rem .75rem;border-radius:20px;
-  margin-bottom:.75rem;text-transform:uppercase;
+.ph-tag{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:rgba(0,194,255,.12);border:1px solid rgba(0,194,255,.28);
+  color:var(--cyan);font-size:.67rem;font-family:var(--fm);
+  letter-spacing:1.8px;padding:.2rem .65rem;border-radius:20px;
+  margin-bottom:.65rem;text-transform:uppercase;
 }
-.page-header h1{font-family:var(--font-h);font-size:1.9rem;font-weight:700;color:var(--white);line-height:1.2;margin-bottom:.4rem}
-.page-header p{color:rgba(255,255,255,.7);font-size:.9rem;max-width:580px}
+.ph h1{font-size:1.75rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:.35rem}
+.ph p{color:rgba(255,255,255,.65);font-size:.86rem;max-width:560px}
 
 /* ── SECTION HEAD ── */
-.section-head{display:flex;align-items:center;gap:.65rem;margin-bottom:1.1rem;flex-wrap:wrap}
-.section-head h2{font-family:var(--font-h);font-size:.95rem;font-weight:600;color:var(--navy);letter-spacing:.2px}
-.mod-badge{
-  font-size:.62rem;font-family:var(--font-m);letter-spacing:1.5px;
-  padding:.2rem .6rem;border-radius:6px;font-weight:700;white-space:nowrap;
-  background:rgba(0,43,91,.08);border:1px solid rgba(0,43,91,.15);color:var(--navy);
+.sh{display:flex;align-items:center;gap:.55rem;margin-bottom:1rem;flex-wrap:wrap}
+.sh h2,.sh2{font-size:.9rem;font-weight:600;color:var(--navy)}
+.badge{
+  font-size:.59rem;font-family:var(--fm);letter-spacing:1.2px;
+  padding:.17rem .55rem;border-radius:5px;font-weight:700;
+  background:rgba(0,43,91,.07);border:1px solid rgba(0,43,91,.14);color:var(--navy);
 }
-.mod-badge.cyan{background:rgba(0,194,255,.1);border-color:rgba(0,194,255,.3);color:var(--cyan2)}
-.mod-badge.orange{background:rgba(255,107,0,.1);border-color:rgba(255,107,0,.3);color:var(--orange)}
-.mod-badge.green{background:rgba(5,150,105,.1);border-color:rgba(5,150,105,.3);color:var(--green)}
+.badge.c{background:rgba(0,194,255,.1);border-color:rgba(0,194,255,.28);color:#0099CC}
+.badge.o{background:rgba(255,107,0,.1);border-color:rgba(255,107,0,.28);color:var(--orange)}
+.badge.g{background:rgba(5,150,105,.1);border-color:rgba(5,150,105,.28);color:var(--green)}
 
-/* ── KPI TILES ── */
-.kpi-val{font-family:var(--font-m);font-size:2.1rem;font-weight:700;color:var(--navy);line-height:1;letter-spacing:-1px}
-.kpi-val.cyan{background:linear-gradient(135deg,var(--royal),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.kpi-val.orange{color:var(--orange)}
-.kpi-val.green{color:var(--green)}
-.kpi-label{font-size:.72rem;color:var(--text2);margin-top:.35rem;text-transform:uppercase;letter-spacing:1px;font-family:var(--font-h);font-weight:600}
-.kpi-delta{font-size:.72rem;color:var(--green);margin-top:.2rem;font-family:var(--font-m)}
-.kpi-delta.neg{color:var(--red)}
+/* ── KPI ── */
+.kv{font-family:var(--fm);font-size:2rem;font-weight:700;color:var(--navy);line-height:1;letter-spacing:-1px}
+.kv.g{color:var(--green)}.kv.o{color:var(--orange)}.kv.c{color:var(--royal)}
+.kl{font-size:.69rem;color:var(--text2);margin-top:.3rem;text-transform:uppercase;letter-spacing:.9px;font-weight:600}
+.kd{font-size:.7rem;color:var(--green);margin-top:.18rem;font-family:var(--fm)}
+.pb{height:4px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-top:.55rem}
+.pf{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--royal),var(--cyan));transition:width .8s cubic-bezier(.4,0,.2,1)}
+.pf.g{background:linear-gradient(90deg,var(--green),#34D399)}
+.pf.o{background:linear-gradient(90deg,var(--orange),#FF9A4D)}
 
-/* ── PROGRESS ── */
-.progress-wrap{height:5px;background:var(--bg2);border-radius:3px;overflow:hidden;margin-top:.6rem}
-.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--royal),var(--cyan));transition:width .8s cubic-bezier(.4,0,.2,1)}
-.progress-fill.orange{background:linear-gradient(90deg,var(--orange),#FF9A4D)}
-.progress-fill.green{background:linear-gradient(90deg,var(--green),#34D399)}
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,var(--dark) 0%,var(--navy) 45%,var(--royal) 100%);
+  border-radius:var(--r);padding:2rem;margin-bottom:1.25rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  position:relative;overflow:hidden;box-shadow:var(--sh2);
+}
+.hero::before{
+  content:'';position:absolute;right:-60px;top:-60px;
+  width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,194,255,.1),transparent 65%);
+}
+.hero h2{font-size:1.4rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:.4rem}
+.hero p{color:rgba(255,255,255,.6);font-size:.84rem;max-width:460px;line-height:1.6}
+.htag{
+  display:inline-flex;align-items:center;
+  background:rgba(0,194,255,.12);border:1px solid rgba(0,194,255,.28);
+  color:var(--cyan);font-size:.64rem;font-family:var(--fm);
+  letter-spacing:1.3px;padding:.19rem .65rem;border-radius:20px;
+  margin-bottom:.6rem;text-transform:uppercase;
+}
+.hstats{display:flex;gap:1.5rem;flex-shrink:0}
+.hstat-val{font-family:var(--fm);font-size:1.8rem;font-weight:700;color:#fff;line-height:1}
+.hstat-val span{color:var(--cyan);font-size:.95rem}
+.hstat-lbl{font-size:.65rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.9px;margin-top:.2rem;font-weight:500}
+.hdiv{width:1px;height:44px;background:rgba(255,255,255,.1);align-self:center}
 
 /* ── BUTTONS ── */
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
-  padding:.58rem 1.35rem;border-radius:10px;border:none;cursor:pointer;
-  font-family:var(--font-h);font-weight:600;font-size:.82rem;
-  letter-spacing:.3px;transition:var(--trans);white-space:nowrap;
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  padding:.55rem 1.25rem;border-radius:9px;border:none;cursor:pointer;
+  font-family:var(--f);font-weight:600;font-size:.8rem;letter-spacing:.2px;
+  transition:transform .15s,box-shadow .15s;
 }
-.btn-primary{
-  background:linear-gradient(135deg,var(--royal),var(--cyan2));
-  color:var(--white);box-shadow:0 4px 15px rgba(0,91,172,.3);
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,91,172,.4)}
-.btn-primary:active{transform:translateY(0)}
-.btn-orange{
-  background:linear-gradient(135deg,var(--orange),#FF8F3F);
-  color:var(--white);box-shadow:0 4px 15px rgba(255,107,0,.3);
-}
-.btn-orange:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,0,.4)}
-.btn-ghost{background:transparent;color:var(--royal);border:1.5px solid var(--royal)}
-.btn-ghost:hover{background:var(--royal);color:var(--white)}
+.btn:active{transform:scale(.98)}
+.btnp{background:linear-gradient(135deg,var(--royal),var(--royal2));color:#fff;box-shadow:0 3px 12px rgba(0,91,172,.28)}
+.btnp:hover{box-shadow:0 6px 20px rgba(0,91,172,.38);transform:translateY(-1px)}
 
 /* ── FORM ── */
-.form-group{margin-bottom:1.1rem}
-.form-group label{display:block;font-size:.74rem;color:var(--text2);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.8px;font-weight:600;font-family:var(--font-h)}
-.form-control{
-  width:100%;background:var(--white);border:1.5px solid var(--border);
-  color:var(--text);font-family:var(--font-b);font-size:.88rem;
-  padding:.55rem .9rem;border-radius:10px;outline:none;transition:var(--trans);
-}
-.form-control:focus{border-color:var(--royal);box-shadow:0 0 0 3px rgba(0,91,172,.1)}
-select.form-control{cursor:pointer}
-.range-wrap{display:flex;align-items:center;gap:.75rem}
-input[type=range]{flex:1;accent-color:var(--royal);cursor:pointer;height:4px}
-.range-val{font-family:var(--font-m);font-size:.82rem;color:var(--royal);min-width:50px;text-align:right;font-weight:700}
+.fg{margin-bottom:.95rem}
+.fg label{display:block;font-size:.72rem;color:var(--text2);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.7px;font-weight:600}
+.fc{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:var(--f);font-size:.86rem;padding:.5rem .8rem;border-radius:8px;outline:none;transition:border-color .15s}
+.fc:focus{border-color:var(--royal);box-shadow:0 0 0 3px rgba(0,91,172,.1)}
+.rw{display:flex;align-items:center;gap:.65rem}
+input[type=range]{flex:1;accent-color:var(--royal);cursor:pointer}
+.rv{font-family:var(--fm);font-size:.8rem;color:var(--royal);min-width:48px;text-align:right;font-weight:700}
 
 /* ── TABLE ── */
-.data-table{width:100%;border-collapse:collapse;font-size:.83rem}
-.data-table thead{background:linear-gradient(135deg,var(--navy),var(--royal))}
-.data-table th{text-align:left;padding:.65rem .9rem;color:var(--white);font-size:.7rem;text-transform:uppercase;letter-spacing:1.2px;font-family:var(--font-h);font-weight:600}
-.data-table td{padding:.65rem .9rem;border-bottom:1px solid var(--lgray);color:var(--text);vertical-align:middle}
-.data-table tr:last-child td{border-bottom:none}
-.data-table tr:hover td{background:rgba(0,91,172,.03)}
-.data-table .good{color:var(--green);font-family:var(--font-m);font-size:.77rem;font-weight:700}
-.data-table .warn{color:var(--amber);font-family:var(--font-m);font-size:.77rem}
-.data-table .total-row td{background:linear-gradient(135deg,rgba(0,43,91,.06),rgba(0,91,172,.06));font-weight:700;color:var(--navy)}
+.dt{width:100%;border-collapse:collapse;font-size:.81rem}
+.dt thead{background:linear-gradient(135deg,var(--navy),var(--royal))}
+.dt th{text-align:left;padding:.58rem .85rem;color:#fff;font-size:.67rem;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.dt td{padding:.6rem .85rem;border-bottom:1px solid var(--lgray);color:var(--text);vertical-align:middle}
+.dt tr:last-child td{border-bottom:none}
+.dt tr:hover td{background:rgba(0,91,172,.03)}
+.dt .gd{color:var(--green);font-family:var(--fm);font-size:.75rem;font-weight:700}
+.dt .tr-tot td{background:rgba(0,43,91,.05);font-weight:700;color:var(--navy)}
 
 /* ── ALERTS ── */
-.alert{display:flex;align-items:flex-start;gap:.65rem;border-radius:var(--radius2);padding:.9rem 1rem;margin-bottom:1rem;font-size:.83rem}
-.alert-info{background:rgba(0,91,172,.06);border:1px solid rgba(0,91,172,.2);color:var(--royal)}
-.alert-success{background:var(--lgreen);border:1px solid rgba(5,150,105,.2);color:var(--green)}
-.alert-warn{background:var(--lamber);border:1px solid rgba(217,119,6,.2);color:var(--amber)}
-.alert-error{background:var(--lred);border:1px solid rgba(220,38,38,.2);color:var(--red)}
-.alert-cyan{background:rgba(0,194,255,.06);border:1px solid rgba(0,194,255,.25);color:var(--cyan2)}
+.al{display:flex;align-items:flex-start;gap:.55rem;border-radius:var(--r2);padding:.8rem .9rem;margin-bottom:.85rem;font-size:.81rem}
+.al-i{background:rgba(0,91,172,.06);border:1px solid rgba(0,91,172,.18);color:var(--royal)}
+.al-s{background:var(--lgreen);border:1px solid rgba(5,150,105,.18);color:var(--green)}
+.al-w{background:var(--lamber);border:1px solid rgba(217,119,6,.18);color:var(--amber)}
+.al-c{background:rgba(0,194,255,.06);border:1px solid rgba(0,194,255,.22);color:#0099CC}
 
 /* ── RESULT BOX ── */
-.result-box{
-  background:linear-gradient(135deg,rgba(0,43,91,.04),rgba(0,91,172,.06));
-  border:1.5px solid rgba(0,91,172,.15);border-radius:var(--radius);padding:1.2rem;margin-top:1.1rem;
-}
-.result-main{font-family:var(--font-m);font-size:1.75rem;color:var(--navy);font-weight:700;letter-spacing:-1px}
-.result-label{font-size:.7rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:.2rem;font-family:var(--font-h);font-weight:600}
-.result-sub{font-size:.83rem;color:var(--text2);margin-top:.75rem;line-height:1.6}
-.result-box.green{background:linear-gradient(135deg,rgba(5,150,105,.05),rgba(52,211,153,.08));border-color:rgba(5,150,105,.2)}
-.result-box.green .result-main{color:var(--green)}
+.rb{background:rgba(0,43,91,.04);border:1.5px solid rgba(0,91,172,.14);border-radius:var(--r);padding:1.1rem;margin-top:1rem}
+.rb-main{font-family:var(--fm);font-size:1.7rem;color:var(--navy);font-weight:700;letter-spacing:-1px}
+.rb-lbl{font-size:.68rem;color:var(--text2);text-transform:uppercase;letter-spacing:.9px;margin-top:.18rem;font-weight:600}
+.rb-sub{font-size:.81rem;color:var(--text2);margin-top:.65rem;line-height:1.55}
+.rb.g{background:var(--lgreen);border-color:rgba(5,150,105,.18)}
+.rb.g .rb-main{color:var(--green)}
 
 /* ── FORMULA ── */
-.formula-box{
-  background:linear-gradient(135deg,var(--navy),var(--dark));
-  border-radius:var(--radius);padding:1.4rem;text-align:center;margin-bottom:1.25rem;
-  box-shadow:var(--shadow2);
-}
-.formula-title{font-size:.68rem;color:rgba(0,194,255,.75);text-transform:uppercase;letter-spacing:2px;margin-bottom:.6rem;font-family:var(--font-h);font-weight:600}
-.formula-eq{font-family:var(--font-m);font-size:1.5rem;color:var(--cyan);font-weight:700;letter-spacing:.5px}
-.formula-desc{font-size:.77rem;color:rgba(255,255,255,.6);margin-top:.55rem;line-height:1.7}
-
-/* ── HERO STRIP ── */
-.hero-strip{
-  background:linear-gradient(135deg,var(--dark) 0%,var(--navy) 40%,var(--royal) 100%);
-  border-radius:var(--radius);padding:2.25rem;margin-bottom:1.75rem;
-  display:flex;align-items:center;justify-content:space-between;gap:2rem;
-  position:relative;overflow:hidden;box-shadow:var(--shadow3);
-}
-.hero-strip::before{
-  content:'';position:absolute;right:-80px;top:-80px;
-  width:320px;height:320px;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,194,255,.12),transparent 70%);
-  pointer-events:none;
-}
-.hero-strip::after{
-  content:'PRECASTIQ';position:absolute;right:2rem;bottom:-1rem;
-  font-family:var(--font-h);font-size:5.5rem;font-weight:800;
-  color:rgba(255,255,255,.04);letter-spacing:4px;pointer-events:none;white-space:nowrap;
-}
-.hero-text h2{font-family:var(--font-h);font-size:1.55rem;font-weight:700;color:var(--white);margin-bottom:.45rem;line-height:1.25}
-.hero-text p{color:rgba(255,255,255,.65);font-size:.88rem;max-width:480px;line-height:1.65}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:.4rem;
-  background:rgba(0,194,255,.15);border:1px solid rgba(0,194,255,.3);
-  color:var(--cyan);font-size:.67rem;font-family:var(--font-m);
-  letter-spacing:1.5px;padding:.22rem .7rem;border-radius:20px;
-  margin-bottom:.7rem;text-transform:uppercase;
-}
-.hero-stats{display:flex;gap:1.75rem;flex-shrink:0}
-.hero-stat{text-align:center}
-.hero-stat-val{font-family:var(--font-m);font-size:1.85rem;font-weight:700;line-height:1;color:var(--white)}
-.hero-stat-val span{color:var(--cyan);font-size:1rem}
-.hero-stat-label{font-size:.67rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:1px;margin-top:.25rem;font-family:var(--font-h);font-weight:500}
-.hero-divider{width:1px;height:48px;background:rgba(255,255,255,.12);align-self:center}
+.fml{background:linear-gradient(135deg,var(--navy),var(--dark));border-radius:var(--r);padding:1.25rem;text-align:center;margin-bottom:1.15rem;box-shadow:var(--sh2)}
+.fml-t{font-size:.65rem;color:rgba(0,194,255,.72);text-transform:uppercase;letter-spacing:2px;margin-bottom:.5rem;font-weight:600}
+.fml-eq{font-family:var(--fm);font-size:1.4rem;color:var(--cyan);font-weight:700}
+.fml-d{font-size:.74rem;color:rgba(255,255,255,.55);margin-top:.45rem;line-height:1.65}
 
 /* ── STATUS ── */
-.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;flex-shrink:0}
-.status-dot.live{background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
-.status-dot.warn{background:var(--amber);box-shadow:0 0 5px var(--amber)}
-.status-dot.off{background:var(--steel)}
-.tag-good{display:inline-flex;align-items:center;gap:.3rem;color:var(--green);font-family:var(--font-m);font-size:.75rem;font-weight:700}
-.tag-warn{display:inline-flex;align-items:center;gap:.3rem;color:var(--amber);font-family:var(--font-m);font-size:.75rem;font-weight:700}
+.sd{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0}
+.sd.lv{background:var(--green);box-shadow:0 0 5px var(--green);animation:ldot 2s infinite}
+.sd.wn{background:var(--amber)}
+.gd2{color:var(--green);font-family:var(--fm);font-size:.73rem;font-weight:700}
+.wn2{color:var(--amber);font-family:var(--fm);font-size:.73rem;font-weight:700}
 
 /* ── ZONE CARDS ── */
-.zone-card{
-  background:var(--white);border:2px solid var(--border);border-radius:var(--radius);
-  padding:1rem .85rem;cursor:pointer;transition:var(--trans);text-align:center;
-}
-.zone-card:hover{border-color:var(--royal);box-shadow:var(--shadow2);transform:translateY(-2px)}
-.zone-card.selected{
-  border-color:var(--royal);background:linear-gradient(135deg,rgba(0,43,91,.04),rgba(0,91,172,.08));
-  box-shadow:0 0 0 3px rgba(0,91,172,.12);
-}
-.zone-card .zone-name{font-family:var(--font-h);font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
-.zone-card .zone-states{font-size:.68rem;color:var(--text2);line-height:1.4}
-.zone-icon{font-size:1.5rem;margin-bottom:.4rem;display:block}
+.zc{background:#fff;border:2px solid var(--border);border-radius:var(--r);padding:.9rem .8rem;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s;text-align:center}
+.zc:hover{border-color:var(--royal);box-shadow:var(--sh2);transform:translateY(-2px)}
+.zc.sel{border-color:var(--royal);background:rgba(0,91,172,.05);box-shadow:0 0 0 3px rgba(0,91,172,.1)}
+.zc .zn{font-size:.78rem;font-weight:700;color:var(--navy);margin-bottom:.18rem}
+.zc .zs{font-size:.67rem;color:var(--text2)}
+.zi{font-size:1.4rem;margin-bottom:.35rem;display:block}
 
 /* ── RL STEPS ── */
-.rl-step{
-  background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius2);
-  padding:.9rem 1rem;display:flex;align-items:flex-start;gap:.85rem;margin-bottom:.65rem;
-  transition:var(--trans);
-}
-.rl-step.active{border-color:var(--royal);background:linear-gradient(135deg,rgba(0,43,91,.03),rgba(0,91,172,.06));box-shadow:0 0 0 3px rgba(0,91,172,.1)}
-.rl-step.done{border-color:var(--green);background:var(--lgreen)}
-.rl-num{
-  width:34px;min-width:34px;height:34px;border-radius:9px;
-  background:var(--bg2);display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-m);font-size:.78rem;font-weight:700;color:var(--steel);
-  transition:var(--trans);
-}
-.rl-step.active .rl-num{background:linear-gradient(135deg,var(--royal),var(--cyan2));color:var(--white)}
-.rl-step.done .rl-num{background:var(--green);color:var(--white)}
-.rl-step-title{font-weight:700;font-size:.85rem;color:var(--navy);margin-bottom:.2rem;font-family:var(--font-h)}
-.rl-step.active .rl-step-title{color:var(--royal)}
-.rl-step-desc{font-size:.77rem;color:var(--text2);line-height:1.5}
+.rls{background:#fff;border:1.5px solid var(--border);border-radius:var(--r2);padding:.85rem .95rem;display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.55rem;transition:border-color .2s,background .2s}
+.rls.act{border-color:var(--royal);background:rgba(0,43,91,.03)}
+.rls.dn{border-color:var(--green);background:var(--lgreen)}
+.rln{width:32px;min-width:32px;height:32px;border-radius:8px;background:var(--bg2);display:grid;place-items:center;font-family:var(--fm);font-size:.75rem;font-weight:700;color:var(--steel);transition:background .2s,color .2s}
+.rls.act .rln{background:linear-gradient(135deg,var(--royal),var(--royal2));color:#fff}
+.rls.dn .rln{background:var(--green);color:#fff}
+.rls-t{font-weight:700;font-size:.83rem;color:var(--navy);margin-bottom:.18rem}
+.rls.act .rls-t{color:var(--royal)}
+.rls-d{font-size:.75rem;color:var(--text2);line-height:1.5}
 
 /* ── GANTT ── */
-.gantt-wrap{overflow-x:auto;padding-bottom:.5rem}
-.gantt-header{display:flex;font-size:.62rem;color:var(--text2);font-family:var(--font-m);margin-bottom:.45rem;padding-left:140px;letter-spacing:.5px}
-.gantt-row{display:flex;align-items:center;margin-bottom:.55rem;gap:.75rem}
-.gantt-label{width:132px;min-width:132px;font-size:.78rem;color:var(--text);font-family:var(--font-h);font-weight:600}
-.gantt-label small{display:block;color:var(--text2);font-size:.67rem;font-weight:400}
-.gantt-track{flex:1;background:var(--bg2);border-radius:6px;height:28px;position:relative;min-width:560px;border:1px solid var(--lgray)}
-.gantt-bar{
-  position:absolute;top:3px;height:22px;border-radius:5px;
-  display:flex;align-items:center;padding:0 .45rem;
-  font-size:.65rem;font-family:var(--font-m);font-weight:700;color:var(--white);
-  white-space:nowrap;overflow:hidden;cursor:pointer;
-  transition:filter .2s;box-shadow:0 1px 4px rgba(0,0,0,.15);
-}
-.gantt-bar:hover{filter:brightness(1.12)}
+.gw{overflow-x:auto;padding-bottom:.4rem}
+.ghdr{display:flex;font-size:.59rem;color:var(--text2);font-family:var(--fm);margin-bottom:.4rem;padding-left:136px}
+.gr{display:flex;align-items:center;margin-bottom:.48rem;gap:.65rem}
+.gl{width:128px;min-width:128px;font-size:.76rem;color:var(--text);font-weight:600}
+.gl small{display:block;color:var(--text2);font-size:.65rem;font-weight:400}
+.gt{flex:1;background:var(--bg2);border-radius:5px;height:26px;position:relative;min-width:540px;border:1px solid var(--lgray)}
+.gb{position:absolute;top:2px;height:22px;border-radius:4px;display:flex;align-items:center;padding:0 .4rem;font-size:.63rem;font-family:var(--fm);font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;cursor:default;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 
-/* ── WEATHER TILES ── */
-.wx-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem}
-.wx-tile{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:.55rem .75rem}
-.wx-tile-label{font-size:.65rem;color:var(--text2);font-family:var(--font-h);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.wx-tile-val{font-family:var(--font-m);font-size:.92rem;font-weight:700;color:var(--navy);margin-top:.1rem}
+/* ── WEATHER ── */
+.wxg{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.65rem}
+.wxt{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .65rem}
+.wxl{font-size:.63rem;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.wxv{font-family:var(--fm);font-size:.88rem;font-weight:700;color:var(--navy);margin-top:.08rem}
 
-/* ── SPINNER / SKELETON ── */
-.spinner{width:18px;height:18px;border:2.5px solid var(--lgray);border-top-color:var(--royal);border-radius:50%;animation:spin .65s linear infinite;display:inline-block;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
-.skeleton{background:linear-gradient(90deg,var(--lgray) 25%,var(--bg2) 50%,var(--lgray) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:6px}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* ── SPINNER ── */
+.spin{width:16px;height:16px;border:2px solid var(--lgray);border-top-color:var(--royal);border-radius:50%;animation:sp .6s linear infinite;display:inline-block;flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
 
 /* ── CHART CONTAINERS ── */
-.chart-wrap{position:relative;height:270px}
-.chart-wrap.tall{height:340px}
+.cw{position:relative;height:260px}
+.cw.t{height:320px}
 
 /* ── FOOTER ── */
-#footer{
-  background:var(--dark);border-top:1px solid rgba(255,255,255,.06);
-  padding:1.5rem 1.75rem;margin-top:0;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
-}
-#footer .ft-logo{font-family:var(--font-h);font-weight:700;font-size:1rem;color:var(--white);letter-spacing:1px}
-#footer .ft-sub{font-size:.73rem;color:rgba(255,255,255,.4);margin-top:.2rem}
-#footer .ft-right{font-size:.75rem;color:rgba(255,255,255,.4);text-align:right}
+#ft{background:var(--dark);padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+#ft .fl{font-weight:700;font-size:.95rem;color:#fff;letter-spacing:1px}
+#ft .fs{font-size:.7rem;color:rgba(255,255,255,.38);margin-top:.15rem}
+#ft .fr{font-size:.7rem;color:rgba(255,255,255,.38);text-align:right}
 
-/* ── TOOLTIP ── */
-.tip{position:relative;cursor:help}
-.tip::after{
-  content:attr(data-t);position:absolute;bottom:120%;left:50%;transform:translateX(-50%);
-  background:var(--dark);color:var(--white);font-size:.72rem;padding:.35rem .7rem;
-  border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;
-  transition:opacity .2s;z-index:99;font-family:var(--font-b);
-  box-shadow:var(--shadow2);
-}
-.tip:hover::after{opacity:1}
-
-/* ── MOBILE MENU ── */
-.menu-toggle{display:none;background:none;border:none;color:var(--white);cursor:pointer;padding:.3rem}
-@media(max-width:768px){
-  .nav-tabs{display:none;position:absolute;top:64px;left:0;right:0;background:var(--navy);padding:1rem;flex-direction:column;gap:.3rem;z-index:300;border-bottom:2px solid rgba(0,194,255,.2)}
-  .nav-tabs.open{display:flex}
-  .nav-tab{text-align:left;padding:.55rem 1rem}
-  .menu-toggle{display:block}
-  .hero-strip{flex-direction:column;gap:1.5rem}
-  .hero-stats{justify-content:center;gap:1.25rem}
-  .hero-divider{width:48px;height:1px}
-  .topbar-right .live-badge{display:none}
+/* ── MOBILE ── */
+@media(max-width:720px){
+  .nav-tabs{display:none;position:fixed;top:58px;left:0;right:0;background:var(--navy);padding:.75rem;flex-direction:column;gap:.2rem;z-index:300;border-bottom:2px solid rgba(0,194,255,.18)}
+  .nav-tabs.op{display:flex}
+  .nav-tab{text-align:left;padding:.5rem .9rem}
+  .hmenu{display:block}
+  .hero{flex-direction:column;gap:1.25rem}
+  .hstats{justify-content:center;gap:1.1rem}
+  .hdiv{width:44px;height:1px}
+  .top-right .live-pill{display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div id="topbar">
   <div class="logo-wrap">
     <div class="logo-icon">P</div>
@@ -409,1087 +296,783 @@ input[type=range]{flex:1;accent-color:var(--royal);cursor:pointer;height:4px}
       <div class="logo-sub">AUTONOMOUS CYCLE INTELLIGENCE</div>
     </div>
   </div>
-
   <nav class="nav-tabs" id="navTabs">
-    <button class="nav-tab active" onclick="showPanel('dashboard')">Dashboard</button>
-    <button class="nav-tab" onclick="showPanel('maturity')">Maturity Engine</button>
-    <button class="nav-tab" onclick="showPanel('climate')">Climate Adapter</button>
-    <button class="nav-tab" onclick="showPanel('optimizer')">RL Optimizer</button>
-    <button class="nav-tab" onclick="showPanel('scheduler')">Yard Scheduler</button>
+    <button class="nav-tab active" onclick="go('dashboard')">Dashboard</button>
+    <button class="nav-tab" onclick="go('maturity')">Maturity Engine</button>
+    <button class="nav-tab" onclick="go('climate')">Climate Adapter</button>
+    <button class="nav-tab" onclick="go('optimizer')">RL Optimizer</button>
+    <button class="nav-tab" onclick="go('scheduler')">Yard Scheduler</button>
   </nav>
-
-  <div class="topbar-right">
-    <div class="live-badge"><span class="live-dot"></span>LIVE · IMD API</div>
-    <span class="brand-badge">CreaTech 2026</span>
-    <button class="menu-toggle" onclick="document.getElementById('navTabs').classList.toggle('open')" aria-label="Menu">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  <div class="top-right">
+    <div class="live-pill"><span class="ldot"></span>LIVE · IMD</div>
+    <span class="brand-pill">CreaTech 2026</span>
+    <button class="hmenu" onclick="document.getElementById('navTabs').classList.toggle('op')" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
 </div>
 
-<!-- ═══════ PANEL 1: DASHBOARD ═══════ -->
-<div id="panel-dashboard" class="panel active">
-<div class="container">
-
-  <div class="hero-strip">
-    <div class="hero-text">
-      <div class="hero-tag">TEAM: CONCRETE QUEENS · IIT GUWAHATI · CREATECH 2026</div>
-      <h2>Replacing guesswork with precision.<br/>At every pour, every yard, across India.</h2>
-      <p>PrecastIQ monitors 12 interdependent variables in real-time and predicts exactly when each precast element reaches target strength — eliminating the 24-hour fixed rule that costs L&T crores every year.</p>
+<!-- DASHBOARD -->
+<div id="p-dashboard" class="panel active">
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="htag">CONCRETE QUEENS · IIT GUWAHATI · CREATECH 2026</div>
+      <h2>Replacing guesswork with precision.<br/>Every pour. Every yard. Across India.</h2>
+      <p>PrecastIQ monitors 12 interdependent variables in real-time and predicts exactly when each element reaches target strength — eliminating the 24-hour fixed rule that costs L&T crores annually.</p>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-val" id="dash-cycle">—</div>
-        <div class="hero-stat-label">Cycle Reduction</div>
-      </div>
-      <div class="hero-divider"></div>
-      <div class="hero-stat">
-        <div class="hero-stat-val" id="dash-savings">—</div>
-        <div class="hero-stat-label">Annual Savings</div>
-      </div>
-      <div class="hero-divider"></div>
-      <div class="hero-stat">
-        <div class="hero-stat-val">90<span>%</span></div>
-        <div class="hero-stat-label">Failure Reduction</div>
-      </div>
+    <div class="hstats">
+      <div class="hstat"><div class="hstat-val" id="dc">—</div><div class="hstat-lbl">Cycle Reduction</div></div>
+      <div class="hdiv"></div>
+      <div class="hstat"><div class="hstat-val" id="ds">—</div><div class="hstat-lbl">Annual Savings</div></div>
+      <div class="hdiv"></div>
+      <div class="hstat"><div class="hstat-val">90<span>%</span></div><div class="hstat-lbl">Failure Reduction</div></div>
     </div>
   </div>
-
-  <div class="grid-4">
-    <div class="card">
-      <div class="kpi-label">Avg Cycle Time</div>
-      <div class="kpi-val cyan" id="kpi1">—</div>
-      <div class="kpi-delta">↓ from 22–24 hrs industry avg</div>
-      <div class="progress-wrap"><div class="progress-fill" style="width:65%"></div></div>
-    </div>
-    <div class="card green">
-      <div class="kpi-label">Mould Utilisation</div>
-      <div class="kpi-val green" id="kpi2">—</div>
-      <div class="kpi-delta">↑ from 55–65% industry baseline</div>
-      <div class="progress-wrap"><div class="progress-fill green" style="width:86%"></div></div>
-    </div>
-    <div class="card orange">
-      <div class="kpi-label">Strength Failures</div>
-      <div class="kpi-val orange" id="kpi3">—</div>
-      <div class="kpi-delta">↓ from 3–5% (90% reduction)</div>
-      <div class="progress-wrap"><div class="progress-fill orange" style="width:92%"></div></div>
-    </div>
-    <div class="card">
-      <div class="kpi-label">Cost Saved per m³</div>
-      <div class="kpi-val" id="kpi4">—</div>
-      <div class="kpi-delta">₹20–30 direct reduction per m³</div>
-      <div class="progress-wrap"><div class="progress-fill" style="width:78%"></div></div>
-    </div>
+  <div class="g4">
+    <div class="card"><div class="kl">Avg Cycle Time</div><div class="kv c" id="k1">—</div><div class="kd">↓ from 22–24 hrs industry avg</div><div class="pb"><div class="pf" style="width:63%"></div></div></div>
+    <div class="card g"><div class="kl">Mould Utilisation</div><div class="kv g" id="k2">—</div><div class="kd">↑ from 55–65% baseline</div><div class="pb"><div class="pf g" style="width:86%"></div></div></div>
+    <div class="card o"><div class="kl">Strength Failures</div><div class="kv o" id="k3">—</div><div class="kd">↓ from 3–5% (90% reduction)</div><div class="pb"><div class="pf o" style="width:92%"></div></div></div>
+    <div class="card"><div class="kl">Cost Saved /m³</div><div class="kv" id="k4">—</div><div class="kd">₹20–30 direct reduction</div><div class="pb"><div class="pf" style="width:75%"></div></div></div>
   </div>
-
-  <div class="grid-2">
+  <div class="g2">
     <div class="card">
-      <div class="section-head">
-        <div class="mod-badge cyan">MODULE 01</div>
-        <h2>Live Strength Gain Curves</h2>
-      </div>
-      <p style="font-size:.78rem;color:var(--text2);margin-bottom:1rem">Nurse-Saul maturity prediction vs industry fixed rule — three Indian climate zones. OPC 53, W/C 0.42. Source: Kampli et al. 2024, ACI 306R-16.</p>
-      <div class="chart-wrap"><canvas id="dashStrengthChart"></canvas></div>
-      <div style="display:flex;gap:1.25rem;margin-top:.75rem;font-size:.72rem;flex-wrap:wrap">
-        <span style="color:var(--royal)">■ Moderate (Pune)</span>
-        <span style="color:var(--orange)">■ Hot-Dry (Jaipur)</span>
-        <span style="color:var(--cyan2)">■ Cold (Shimla)</span>
-        <span style="color:var(--steel)">- - 70% threshold</span>
+      <div class="sh"><div class="badge c">MODULE 01</div><h2 class="sh2">Live Strength Gain Curves</h2></div>
+      <p style="font-size:.76rem;color:var(--text2);margin-bottom:.85rem">Nurse-Saul maturity prediction vs industry 24hr rule — three Indian climate zones. OPC 53, W/C 0.42. (Kampli et al. 2024, ACI 306R-16)</p>
+      <div class="cw"><canvas id="dsc" style="display:block;width:100%;height:100%"></canvas></div>
+      <div style="display:flex;gap:1rem;margin-top:.65rem;font-size:.7rem;flex-wrap:wrap">
+        <span style="color:var(--royal)">▬ Moderate (Pune)</span>
+        <span style="color:var(--orange)">▬ Hot-Dry (Jaipur)</span>
+        <span style="color:var(--cyan)">▬ Cold (Shimla)</span>
+        <span style="color:var(--steel)">╌ 70% threshold</span>
       </div>
     </div>
-
     <div style="display:flex;flex-direction:column;gap:1rem">
       <div class="card">
-        <div class="section-head"><h2>System Module Status</h2></div>
-        <table class="data-table">
-          <thead><tr><th>Module</th><th>Status</th><th>Detail</th></tr></thead>
-          <tbody id="module-status-body"></tbody>
-        </table>
+        <div class="sh"><h2 class="sh2">Module Status</h2></div>
+        <table class="dt"><thead><tr><th>Module</th><th>Status</th><th>Detail</th></tr></thead><tbody id="ms-body"></tbody></table>
       </div>
-      <div class="card orange">
-        <div class="section-head"><div class="mod-badge orange">TODAY</div><h2>De-mould Alert Queue</h2></div>
-        <div id="alert-queue"></div>
+      <div class="card o">
+        <div class="sh"><div class="badge o">ALERTS</div><h2 class="sh2">De-mould Queue</h2></div>
+        <div id="aq"></div>
       </div>
     </div>
   </div>
-
   <div class="card">
-    <div class="section-head"><h2>PrecastIQ vs Industry Benchmark</h2></div>
-    <table class="data-table">
-      <thead>
-        <tr><th>KPI Metric</th><th>Industry Today</th><th>With PrecastIQ</th><th>Improvement</th><th>Annual Value (50 Yards)</th><th>Source</th></tr>
-      </thead>
-      <tbody id="impact-table-body"></tbody>
-    </table>
-    <p style="font-size:.7rem;color:var(--text2);margin-top:.75rem">Sources: L&T internal benchmarks | PCI Industry Standards 2023 | Nurse-Saul ACI 306 | CPWD SOR 2022</p>
+    <div class="sh"><h2 class="sh2">PrecastIQ vs Industry Benchmark</h2></div>
+    <table class="dt"><thead><tr><th>KPI Metric</th><th>Industry Today</th><th>With PrecastIQ</th><th>Improvement</th><th>Annual Value (50 Yards)</th><th>Source</th></tr></thead><tbody id="it-body"></tbody></table>
+    <p style="font-size:.68rem;color:var(--text2);margin-top:.65rem">Sources: L&T benchmarks · PCI 2023 · ACI 306 · CPWD SOR 2022</p>
   </div>
-
 </div>
 </div>
 
-<!-- ═══════ PANEL 2: MATURITY ENGINE ═══════ -->
-<div id="panel-maturity" class="panel">
-<div class="container">
-  <div class="page-header">
-    <div class="tag">Module 01</div>
+<!-- MATURITY ENGINE -->
+<div id="p-maturity" class="panel">
+<div class="wrap">
+  <div class="ph">
+    <div class="ph-tag">Module 01</div>
     <h1>Smart Maturity Engine</h1>
-    <p>Physics-based real-time strength prediction using the Nurse-Saul Maturity Index — replacing the "wait 24 hours" heuristic with exact science. Phase 1 deployable: zero ML dependency.</p>
+    <p>Physics-based real-time strength prediction — Nurse-Saul Maturity Index replacing the 24-hour heuristic. Phase 1: pure physics, zero ML dependency, deployable in 2 weeks.</p>
   </div>
-
-  <div class="formula-box">
-    <div class="formula-title">Nurse-Saul Maturity Index — ACI 306R-16 / ASTM C1074-11 / Saul (1951)</div>
-    <div class="formula-eq">M = Σ (T − T₀) × Δt</div>
-    <div class="formula-desc">M = Maturity Index (°C·hours) &nbsp;|&nbsp; T = Concrete temperature at each 30-min sensor reading &nbsp;|&nbsp; T₀ = −10°C (OPC datum, Saul 1951) &nbsp;|&nbsp; Δt = 0.5 hours</div>
+  <div class="fml">
+    <div class="fml-t">Nurse-Saul Maturity Index — ACI 306R-16 / ASTM C1074-11 / Saul (1951)</div>
+    <div class="fml-eq">M = Σ (T − T₀) × Δt</div>
+    <div class="fml-d">M = Maturity (°C·hrs) &nbsp;·&nbsp; T = Concrete temperature (30-min reading) &nbsp;·&nbsp; T₀ = −10°C (OPC datum) &nbsp;·&nbsp; Δt = 0.5 hrs</div>
   </div>
-
-  <div class="grid-23">
+  <div class="g23">
     <div class="card">
-      <div class="section-head"><div class="mod-badge">INPUTS</div><h2>Mix & Curing Parameters</h2></div>
-      <div class="form-group">
-        <label>Cement Grade</label>
-        <select class="form-control" id="cementGrade" onchange="calcMaturity()">
-          <option value="53">OPC 53</option>
-          <option value="43">OPC 43</option>
-          <option value="ppc">PPC (Portland Pozzolana)</option>
-          <option value="ggbs">OPC + 30% GGBS Blend</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>W/C Ratio <span class="tip" data-t="Water-Cement ratio: lower = faster strength gain">ⓘ</span></label>
-        <div class="range-wrap">
-          <input type="range" id="wcRatio" min="35" max="55" value="42" step="1" oninput="document.getElementById('wcVal').textContent='0.'+this.value;calcMaturity()"/>
-          <span class="range-val" id="wcVal">0.42</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Curing Method</label>
-        <select class="form-control" id="curingMethod" onchange="calcMaturity()">
-          <option value="ambient">Ambient Curing</option>
-          <option value="wet">Wet Burlap Curing</option>
-          <option value="fog">Fog / Mist Curing</option>
-          <option value="steam" selected>Low-Pressure Steam Curing</option>
-          <option value="highsteam">High-Pressure Autoclave</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Ambient Temperature (°C)</label>
-        <div class="range-wrap">
-          <input type="range" id="ambTemp" min="5" max="45" value="28" step="1" oninput="document.getElementById('tempVal').textContent=this.value+'°C';calcMaturity()"/>
-          <span class="range-val" id="tempVal">28°C</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Target Strength Threshold</label>
-        <select class="form-control" id="targetStrength" onchange="calcMaturity()">
-          <option value="60">60% f'c — Early de-mould (light elements)</option>
-          <option value="70" selected>70% f'c — Standard de-mould</option>
-          <option value="80">80% f'c — Heavy / PT elements</option>
-          <option value="100">100% f'c — Full cure verification</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Admixture</label>
-        <select class="form-control" id="admixture" onchange="calcMaturity()">
-          <option value="none">None</option>
-          <option value="acc" selected>Accelerator (CaCl₂-based)</option>
-          <option value="ret">Retarder (Lignosulfonate)</option>
-          <option value="hrwr">HRWR / Superplasticizer</option>
-        </select>
-      </div>
-      <button class="btn btn-primary" onclick="calcMaturity()" style="width:100%">⚡ CALCULATE DE-MOULD TIME</button>
+      <div class="sh"><div class="badge">INPUTS</div><h2 class="sh2">Mix & Curing Parameters</h2></div>
+      <div class="fg"><label>Cement Grade</label><select class="fc" id="cg" onchange="calc()"><option value="53">OPC 53</option><option value="43">OPC 43</option><option value="ppc">PPC (Portland Pozzolana)</option><option value="ggbs">OPC + 30% GGBS Blend</option></select></div>
+      <div class="fg"><label>W/C Ratio</label><div class="rw"><input type="range" id="wc" min="35" max="55" value="42" step="1" oninput="document.getElementById('wv').textContent='0.'+this.value;calc()"/><span class="rv" id="wv">0.42</span></div></div>
+      <div class="fg"><label>Curing Method</label><select class="fc" id="cm" onchange="calc()"><option value="ambient">Ambient</option><option value="wet">Wet Burlap</option><option value="fog">Fog / Mist</option><option value="steam" selected>Low-Pressure Steam</option><option value="highsteam">High-Pressure Autoclave</option></select></div>
+      <div class="fg"><label>Ambient Temperature (°C)</label><div class="rw"><input type="range" id="at" min="5" max="45" value="28" step="1" oninput="document.getElementById('tv').textContent=this.value+'°C';calc()"/><span class="rv" id="tv">28°C</span></div></div>
+      <div class="fg"><label>Target Strength</label><select class="fc" id="ts" onchange="calc()"><option value="60">60% f'c — Early de-mould</option><option value="70" selected>70% f'c — Standard</option><option value="80">80% f'c — Heavy / PT</option><option value="100">100% f'c — Full cure</option></select></div>
+      <div class="fg"><label>Admixture</label><select class="fc" id="ad" onchange="calc()"><option value="none">None</option><option value="acc" selected>Accelerator (CaCl₂)</option><option value="ret">Retarder (Lignosulfonate)</option><option value="hrwr">HRWR / Superplasticizer</option></select></div>
+      <button class="btn btnp" onclick="calc()" style="width:100%">⚡ CALCULATE DE-MOULD TIME</button>
     </div>
-
     <div style="display:flex;flex-direction:column;gap:1rem">
-      <div id="maturity-result" class="result-box" style="display:none">
+      <div id="mr" class="rb" style="display:none">
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem">
-          <div><div class="result-main" id="res-time">—</div><div class="result-label">De-mould Time</div></div>
-          <div><div class="result-main" id="res-maturity" style="font-size:1.3rem">—</div><div class="result-label">Maturity (°C·hrs)</div></div>
-          <div><div class="result-main" id="res-saving" style="font-size:1.3rem;color:var(--green)">—</div><div class="result-label">Hours Saved</div></div>
+          <div><div class="rb-main" id="rt">—</div><div class="rb-lbl">De-mould Time</div></div>
+          <div><div class="rb-main" id="rm" style="font-size:1.2rem">—</div><div class="rb-lbl">Maturity (°C·hrs)</div></div>
+          <div><div class="rb-main" id="rs" style="font-size:1.2rem;color:var(--green)">—</div><div class="rb-lbl">Hours Saved</div></div>
         </div>
-        <div class="result-sub" id="res-recommendation"></div>
+        <div class="rb-sub" id="rr"></div>
       </div>
       <div class="card" style="flex:1">
-        <div class="section-head"><h2>Strength Gain Prediction</h2></div>
-        <div class="chart-wrap tall"><canvas id="maturityChart"></canvas></div>
-        <div style="margin-top:.65rem;font-size:.74rem;color:var(--text2)">
-          <span style="color:var(--royal)">━</span> PrecastIQ Prediction &nbsp;
-          <span style="color:var(--steel)">- -</span> Fixed 24h Rule &nbsp;
-          <span style="color:var(--amber)">━</span> Target threshold
+        <div class="sh"><h2 class="sh2">Strength Gain Prediction</h2></div>
+        <div class="cw t"><canvas id="mc" style="display:block;width:100%;height:100%"></canvas></div>
+        <div style="margin-top:.6rem;font-size:.72rem;color:var(--text2)">
+          <span style="color:var(--royal)">━</span> PrecastIQ &nbsp;
+          <span style="color:var(--steel)">╌</span> Fixed 24h Rule &nbsp;
+          <span style="color:var(--amber)">━</span> Target
         </div>
       </div>
     </div>
   </div>
-
-  <div class="card dark">
-    <div class="section-head"><div class="mod-badge cyan">SENSOR STACK</div><h2 style="color:var(--white)">Hardware Architecture — Phase 1 Deployable in 2 Weeks</h2></div>
-    <div class="grid-4" style="margin-bottom:0">
-      <div style="text-align:center;padding:.65rem">
-        <div style="font-size:2rem;margin-bottom:.5rem">🌡</div>
-        <div style="font-family:var(--font-h);font-weight:700;font-size:.88rem;color:var(--cyan)">DS18B20 Sensors</div>
-        <div style="color:rgba(255,255,255,.5);font-size:.74rem;margin-top:.25rem">₹400–600/unit · Ruggedized stainless steel · ±0.5°C accuracy</div>
-      </div>
-      <div style="text-align:center;padding:.65rem">
-        <div style="font-size:2rem;margin-bottom:.5rem">📡</div>
-        <div style="font-family:var(--font-h);font-weight:700;font-size:.88rem;color:var(--cyan)">LoRaWAN Gateway</div>
-        <div style="color:rgba(255,255,255,.5);font-size:.74rem;margin-top:.25rem">5km range · No WiFi needed · Battery 2+ years</div>
-      </div>
-      <div style="text-align:center;padding:.65rem">
-        <div style="font-size:2rem;margin-bottom:.5rem">⚙️</div>
-        <div style="font-family:var(--font-h);font-weight:700;font-size:.88rem;color:var(--cyan)">Nurse-Saul Engine</div>
-        <div style="color:rgba(255,255,255,.5);font-size:.74rem;margin-top:.25rem">ACI 306R-16 standard · Phase 1: pure physics, zero ML</div>
-      </div>
-      <div style="text-align:center;padding:.65rem">
-        <div style="font-size:2rem;margin-bottom:.5rem">🔔</div>
-        <div style="font-family:var(--font-h);font-weight:700;font-size:.88rem;color:var(--cyan)">Automated Alert</div>
-        <div style="color:rgba(255,255,255,.5);font-size:.74rem;margin-top:.25rem">SMS + Dashboard · Crane auto-scheduled on trigger</div>
-      </div>
+  <div class="card dk">
+    <div class="sh"><div class="badge c">SENSOR STACK</div><h2 class="sh2" style="color:#fff">Hardware Architecture — Phase 1 Ready</h2></div>
+    <div class="g4" style="margin-bottom:0">
+      <div style="text-align:center;padding:.6rem"><div style="font-size:1.75rem;margin-bottom:.4rem">🌡</div><div style="font-weight:700;font-size:.85rem;color:var(--cyan)">DS18B20</div><div style="color:rgba(255,255,255,.45);font-size:.72rem;margin-top:.2rem">₹400–600/unit · ±0.5°C · Stainless steel</div></div>
+      <div style="text-align:center;padding:.6rem"><div style="font-size:1.75rem;margin-bottom:.4rem">📡</div><div style="font-weight:700;font-size:.85rem;color:var(--cyan)">LoRaWAN</div><div style="color:rgba(255,255,255,.45);font-size:.72rem;margin-top:.2rem">5km range · No WiFi · 2+ yr battery</div></div>
+      <div style="text-align:center;padding:.6rem"><div style="font-size:1.75rem;margin-bottom:.4rem">⚙️</div><div style="font-weight:700;font-size:.85rem;color:var(--cyan)">Nurse-Saul</div><div style="color:rgba(255,255,255,.45);font-size:.72rem;margin-top:.2rem">ACI 306R-16 · Zero ML dependency</div></div>
+      <div style="text-align:center;padding:.6rem"><div style="font-size:1.75rem;margin-bottom:.4rem">🔔</div><div style="font-weight:700;font-size:.85rem;color:var(--cyan)">Auto Alert</div><div style="color:rgba(255,255,255,.45);font-size:.72rem;margin-top:.2rem">SMS + Dashboard · Crane scheduled</div></div>
     </div>
   </div>
 </div>
 </div>
 
-<!-- ═══════ PANEL 3: CLIMATE ADAPTER ═══════ -->
-<div id="panel-climate" class="panel">
-<div class="container">
-  <div class="page-header">
-    <div class="tag">Module 02</div>
+<!-- CLIMATE -->
+<div id="p-climate" class="panel">
+<div class="wrap">
+  <div class="ph">
+    <div class="ph-tag">Module 02</div>
     <h1>Climate Adaptation Layer</h1>
-    <p>India is not one climate. Six differentiated zones — each with autonomous AI protocols powered by live IMD weather data via Open-Meteo API (IMD + ECMWF data source).</p>
+    <p>India is not one climate. Six zones — each with autonomous AI protocols powered by live IMD weather data via Open-Meteo API (IMD + ECMWF source, free, no key required).</p>
   </div>
-
-  <div class="alert alert-cyan" style="margin-bottom:1.5rem">
-    <span>📡</span>
-    <div><strong>Live Weather Feed</strong> — Fetching real-time data from Open-Meteo API (IMD + ECMWF source). Select any zone to load live conditions, adjusted maturity rate, and risk alerts.</div>
+  <div class="al al-c" style="margin-bottom:1.25rem"><span>📡</span><div><strong>Live Weather Feed</strong> — Real-time data from Open-Meteo API (IMD + ECMWF). Select a zone to load live conditions and adjusted maturity rate.</div></div>
+  <div class="g3" style="margin-bottom:1.25rem">
+    <div class="zc sel" onclick="selZ('moderate',this)"><span class="zi">🌤</span><div class="zn">MODERATE</div><div class="zs">Pune · Bengaluru · Hyderabad</div></div>
+    <div class="zc" onclick="selZ('hotdry',this)"><span class="zi">☀️</span><div class="zn">HOT-DRY</div><div class="zs">Rajasthan · Gujarat · MP</div></div>
+    <div class="zc" onclick="selZ('hothumid',this)"><span class="zi">🌊</span><div class="zn">HOT-HUMID</div><div class="zs">Chennai · Mumbai · Kerala</div></div>
+    <div class="zc" onclick="selZ('composite',this)"><span class="zi">🌡</span><div class="zn">COMPOSITE</div><div class="zs">Delhi · NCR · UP · Bihar</div></div>
+    <div class="zc" onclick="selZ('cold',this)"><span class="zi">❄️</span><div class="zn">COLD</div><div class="zs">HP · J&K · Uttarakhand</div></div>
+    <div class="zc" onclick="selZ('nehumid',this)"><span class="zi">🌧</span><div class="zn">HIGH-HUMID NE</div><div class="zs">Assam · Meghalaya · Tripura</div></div>
   </div>
-
-  <div class="grid-3" style="margin-bottom:1.5rem">
-    <div class="zone-card selected" onclick="selectZone('moderate',this)"><span class="zone-icon">🌤</span><div class="zone-name">MODERATE</div><div class="zone-states">Pune · Bengaluru · Hyderabad</div></div>
-    <div class="zone-card" onclick="selectZone('hotdry',this)"><span class="zone-icon">☀️</span><div class="zone-name">HOT-DRY</div><div class="zone-states">Rajasthan · Gujarat · MP</div></div>
-    <div class="zone-card" onclick="selectZone('hothumid',this)"><span class="zone-icon">🌊</span><div class="zone-name">HOT-HUMID</div><div class="zone-states">Chennai · Mumbai · Kerala</div></div>
-    <div class="zone-card" onclick="selectZone('composite',this)"><span class="zone-icon">🌡</span><div class="zone-name">COMPOSITE</div><div class="zone-states">Delhi · NCR · UP · Bihar</div></div>
-    <div class="zone-card" onclick="selectZone('cold',this)"><span class="zone-icon">❄️</span><div class="zone-name">COLD</div><div class="zone-states">HP · J&K · Uttarakhand</div></div>
-    <div class="zone-card" onclick="selectZone('nehumid',this)"><span class="zone-icon">🌧</span><div class="zone-name">HIGH-HUMID NE</div><div class="zone-states">Assam · Meghalaya · Tripura</div></div>
-  </div>
-
-  <div class="grid-2">
+  <div class="g2">
     <div class="card">
-      <div class="section-head"><div class="mod-badge cyan" id="zone-badge">MODERATE</div><h2 id="zone-title">Pune / Bengaluru / Hyderabad</h2></div>
-      <div id="zone-conditions"></div>
-      <div id="zone-problem" class="alert alert-warn"></div>
-      <div id="zone-protocol"></div>
+      <div class="sh"><div class="badge c" id="zb">MODERATE</div><h2 class="sh2" id="zt">Pune / Bengaluru / Hyderabad</h2></div>
+      <div id="zc2"></div>
+      <div id="zp2" class="al al-w"></div>
+      <div id="zpr"></div>
     </div>
     <div style="display:flex;flex-direction:column;gap:1rem">
-      <div class="card orange" style="min-height:210px">
-        <div class="section-head"><div class="mod-badge orange">LIVE</div><h2>IMD Weather Feed</h2></div>
-        <div id="imd-feed">
-          <div style="display:flex;align-items:center;gap:.65rem;color:var(--text2);font-size:.82rem;padding:.5rem 0">
-            <span class="spinner"></span> Initialising weather feed...
-          </div>
-        </div>
+      <div class="card o" style="min-height:200px">
+        <div class="sh"><div class="badge o">LIVE</div><h2 class="sh2">IMD Weather Feed</h2></div>
+        <div id="imd-feed"><div style="display:flex;align-items:center;gap:.6rem;color:var(--text2);font-size:.8rem"><span class="spin"></span> Initialising...</div></div>
       </div>
       <div class="card">
-        <div class="section-head"><h2>Zone Cycle Time Comparison</h2></div>
-        <div class="chart-wrap"><canvas id="climateChart"></canvas></div>
+        <div class="sh"><h2 class="sh2">Zone Cycle Time Comparison</h2></div>
+        <div class="cw"><canvas id="cc" style="display:block;width:100%;height:100%"></canvas></div>
       </div>
     </div>
   </div>
 </div>
 </div>
 
-<!-- ═══════ PANEL 4: RL OPTIMIZER ═══════ -->
-<div id="panel-optimizer" class="panel">
-<div class="container">
-  <div class="page-header">
-    <div class="tag">Module 03 + 04</div>
+<!-- OPTIMIZER -->
+<div id="p-optimizer" class="panel">
+<div class="wrap">
+  <div class="ph">
+    <div class="ph-tag">Module 03 + 04</div>
     <h1>RL Optimizer & Cost-Cycle Engine</h1>
-    <p>RL Decision Agent (advisory Phase 1, autonomous Phase 2) + Pareto Frontier Optimization — operations research applied automatically to every pour decision.</p>
+    <p>RL Decision Agent (Phase 1 advisory, Phase 2 autonomous) + Pareto Frontier Optimization — operations research applied automatically to every pour decision.</p>
   </div>
-
-  <div class="grid-2">
+  <div class="g2">
     <div>
       <div class="card" style="margin-bottom:1rem">
-        <div class="section-head"><div class="mod-badge">MODULE 03</div><h2>Reinforcement Learning Loop</h2></div>
-        <div class="alert alert-info" style="font-size:.78rem;margin-bottom:1rem">
-          Phase 1 advisory mode — every recommendation requires engineer sign-off. Cannot be worse than today's status quo.
-        </div>
+        <div class="sh"><div class="badge">MODULE 03</div><h2 class="sh2">Reinforcement Learning Loop</h2></div>
+        <div class="al al-i" style="font-size:.77rem;margin-bottom:.9rem">Phase 1: advisory only. Every recommendation requires engineer sign-off. Cannot be worse than today's status quo.</div>
         <div id="rl-steps">
-          <div class="rl-step" id="rl-0"><div class="rl-num">S</div><div><div class="rl-step-title">STATE OBSERVATION</div><div class="rl-step-desc" id="rl-0-desc">Awaiting parameters...</div></div></div>
-          <div class="rl-step" id="rl-1"><div class="rl-num">A</div><div><div class="rl-step-title">ACTION SELECTION</div><div class="rl-step-desc" id="rl-1-desc">Policy network idle...</div></div></div>
-          <div class="rl-step" id="rl-2"><div class="rl-num">R</div><div><div class="rl-step-title">REWARD CALCULATION</div><div class="rl-step-desc" id="rl-2-desc">Awaiting episode data...</div></div></div>
-          <div class="rl-step" id="rl-3"><div class="rl-num">U</div><div><div class="rl-step-title">POLICY UPDATE</div><div class="rl-step-desc" id="rl-3-desc">Q-value table ready...</div></div></div>
+          <div class="rls" id="r0"><div class="rln">S</div><div><div class="rls-t">STATE OBSERVATION</div><div class="rls-d" id="r0d">Awaiting parameters...</div></div></div>
+          <div class="rls" id="r1"><div class="rln">A</div><div><div class="rls-t">ACTION SELECTION</div><div class="rls-d" id="r1d">Policy network idle...</div></div></div>
+          <div class="rls" id="r2"><div class="rln">R</div><div><div class="rls-t">REWARD CALCULATION</div><div class="rls-d" id="r2d">Awaiting episode...</div></div></div>
+          <div class="rls" id="r3"><div class="rln">U</div><div><div class="rls-t">POLICY UPDATE</div><div class="rls-d" id="r3d">Q-table ready...</div></div></div>
         </div>
-        <div style="margin-top:1.1rem;display:flex;gap:.65rem;flex-wrap:wrap">
-          <div class="form-group" style="margin:0;flex:1;min-width:160px">
-            <label>Schedule Urgency</label>
-            <select class="form-control" id="rl-urgency">
-              <option value="low">Low (15+ days float)</option>
-              <option value="medium" selected>Medium (7–14 days)</option>
-              <option value="high">High (3–7 days)</option>
-              <option value="critical">Critical (&lt;3 days, penalty active)</option>
-            </select>
-          </div>
-          <div class="form-group" style="margin:0;flex:1;min-width:160px">
-            <label>Penalty Clause (₹/day)</label>
-            <select class="form-control" id="rl-penalty">
-              <option value="0">None</option>
-              <option value="50000">₹50,000</option>
-              <option value="100000" selected>₹1,00,000</option>
-              <option value="200000">₹2,00,000</option>
-              <option value="500000">₹5,00,000</option>
-            </select>
-          </div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem">
+          <div class="fg" style="margin:0;flex:1;min-width:150px"><label>Schedule Urgency</label><select class="fc" id="ru"><option value="low">Low (15+ days float)</option><option value="medium" selected>Medium (7–14 days)</option><option value="high">High (3–7 days)</option><option value="critical">Critical (&lt;3 days)</option></select></div>
+          <div class="fg" style="margin:0;flex:1;min-width:150px"><label>Penalty (₹/day)</label><select class="fc" id="rp"><option value="0">None</option><option value="50000">₹50,000</option><option value="100000" selected>₹1,00,000</option><option value="200000">₹2,00,000</option><option value="500000">₹5,00,000</option></select></div>
         </div>
-        <button class="btn btn-primary" onclick="runRL()" style="margin-top:1rem;width:100%" id="rl-btn">▶ RUN OPTIMIZATION LOOP</button>
+        <button class="btn btnp" onclick="runRL()" style="margin-top:.9rem;width:100%" id="rlbtn">▶ RUN OPTIMIZATION LOOP</button>
       </div>
-      <div class="card" id="rl-result-card" style="display:none">
-        <div class="section-head"><h2>RL Recommendation</h2></div>
-        <div id="rl-result-content"></div>
-      </div>
+      <div class="card" id="rlrc" style="display:none"><div class="sh"><h2 class="sh2">RL Recommendation</h2></div><div id="rlri"></div></div>
     </div>
-
     <div class="card">
-      <div class="section-head"><div class="mod-badge">MODULE 04</div><h2>Cost-Cycle Pareto Frontier</h2></div>
-      <p style="font-size:.78rem;color:var(--text2);margin-bottom:.9rem">Illustrative tradeoff — calibrated per yard during pilot. Move the penalty slider to watch the recommended sweet spot shift dynamically. Source: PCI 2023, CPWD DSR 2022.</p>
-      <div class="form-group">
-        <label>Penalty Clause (₹/day)</label>
-        <div class="range-wrap">
-          <input type="range" id="paretoSlider" min="0" max="500000" step="10000" value="100000" oninput="document.getElementById('paretoVal').textContent='₹'+Number(this.value).toLocaleString('en-IN');updatePareto()"/>
-          <span class="range-val" id="paretoVal" style="min-width:90px">₹1,00,000</span>
-        </div>
-      </div>
-      <div class="chart-wrap tall"><canvas id="paretoChart"></canvas></div>
-      <div class="result-box green" id="pareto-recommendation" style="margin-top:1rem">
-        <div class="result-main" id="pareto-sweet-time">18 hrs</div>
-        <div class="result-label">Recommended Cycle Time</div>
-        <div class="result-sub" id="pareto-sweet-desc"></div>
-      </div>
+      <div class="sh"><div class="badge">MODULE 04</div><h2 class="sh2">Cost-Cycle Pareto Frontier</h2></div>
+      <p style="font-size:.76rem;color:var(--text2);margin-bottom:.85rem">Illustrative tradeoff — calibrated per yard during pilot. Move the penalty slider: sweet spot shifts dynamically. Source: PCI 2023, CPWD DSR 2022.</p>
+      <div class="fg"><label>Penalty Clause (₹/day)</label><div class="rw"><input type="range" id="ps" min="0" max="500000" step="10000" value="100000" oninput="document.getElementById('pv').textContent='₹'+Number(this.value).toLocaleString('en-IN');updP()"/><span class="rv" id="pv" style="min-width:88px">₹1,00,000</span></div></div>
+      <div class="cw t"><canvas id="pc" style="display:block;width:100%;height:100%"></canvas></div>
+      <div class="rb g" id="pr" style="margin-top:.9rem"><div class="rb-main" id="pst">18 hrs</div><div class="rb-lbl">Recommended Cycle Time</div><div class="rb-sub" id="psd"></div></div>
     </div>
   </div>
 </div>
 </div>
 
-<!-- ═══════ PANEL 5: YARD SCHEDULER ═══════ -->
-<div id="panel-scheduler" class="panel">
-<div class="container">
-  <div class="page-header">
-    <div class="tag">Module 05</div>
+<!-- SCHEDULER -->
+<div id="p-scheduler" class="panel">
+<div class="wrap">
+  <div class="ph">
+    <div class="ph-tag">Module 05</div>
     <h1>Yard Sequencing Scheduler</h1>
-    <p>Constraint-based scheduling algorithm — auto-generates the daily Gantt chart at 5:30 AM, overlaying Nurse-Saul de-mould predictions, crane availability, mould cleaning, and shift timings.</p>
+    <p>Constraint-based scheduling algorithm — auto-generated daily Gantt at 5:30 AM, overlaying Nurse-Saul de-mould predictions, crane windows, mould cleaning, and shift timings.</p>
   </div>
-
-  <div class="grid-2" style="margin-bottom:1.5rem">
+  <div class="g2" style="margin-bottom:1.25rem">
     <div class="card">
-      <div class="section-head"><h2>Yard Configuration</h2></div>
-      <div class="grid-2" style="gap:1rem;margin-bottom:0">
-        <div class="form-group" style="margin-bottom:0"><label>Moulds</label><select class="form-control" id="sch-moulds" onchange="generateSchedule()"><option value="8">8 moulds</option><option value="12" selected>12 moulds</option><option value="16">16 moulds</option><option value="20">20 moulds</option></select></div>
-        <div class="form-group" style="margin-bottom:0"><label>Cranes</label><select class="form-control" id="sch-cranes" onchange="generateSchedule()"><option value="1">1 crane</option><option value="2" selected>2 cranes</option><option value="3">3 cranes</option></select></div>
-        <div class="form-group" style="margin-bottom:0"><label>Climate Zone</label><select class="form-control" id="sch-zone" onchange="generateSchedule()"><option value="moderate" selected>Moderate (Pune)</option><option value="hotdry">Hot-Dry (Jaipur)</option><option value="hothumid">Hot-Humid (Chennai)</option><option value="cold">Cold (Shimla)</option></select></div>
-        <div class="form-group" style="margin-bottom:0"><label>Shift Start</label><select class="form-control" id="sch-shift" onchange="generateSchedule()"><option value="6">6:00 AM</option><option value="7" selected>7:00 AM</option><option value="8">8:00 AM</option></select></div>
+      <div class="sh"><h2 class="sh2">Yard Configuration</h2></div>
+      <div class="g2" style="gap:.85rem;margin-bottom:0">
+        <div class="fg" style="margin-bottom:0"><label>Moulds</label><select class="fc" id="sm" onchange="genSch()"><option value="8">8 moulds</option><option value="12" selected>12 moulds</option><option value="16">16 moulds</option><option value="20">20 moulds</option></select></div>
+        <div class="fg" style="margin-bottom:0"><label>Cranes</label><select class="fc" id="sc" onchange="genSch()"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></div>
+        <div class="fg" style="margin-bottom:0"><label>Climate Zone</label><select class="fc" id="sz" onchange="genSch()"><option value="moderate" selected>Moderate (Pune)</option><option value="hotdry">Hot-Dry (Jaipur)</option><option value="hothumid">Hot-Humid (Chennai)</option><option value="cold">Cold (Shimla)</option></select></div>
+        <div class="fg" style="margin-bottom:0"><label>Shift Start</label><select class="fc" id="ss" onchange="genSch()"><option value="6">6:00 AM</option><option value="7" selected>7:00 AM</option><option value="8">8:00 AM</option></select></div>
       </div>
     </div>
-    <div class="card green">
-      <div class="section-head"><h2>Today's Yard Summary</h2></div>
-      <div class="grid-2" style="gap:1rem;margin-bottom:0">
-        <div><div class="kpi-label">De-moulded</div><div class="kpi-val green" id="sch-demoulded">—</div></div>
-        <div><div class="kpi-label">Idle Time</div><div class="kpi-val" id="sch-idle">—</div><div class="kpi-delta" id="sch-idle-delta"></div></div>
-        <div><div class="kpi-label">Crane Utilisation</div><div class="kpi-val cyan" id="sch-crane">—</div></div>
-        <div><div class="kpi-label">Next Alert</div><div class="kpi-val orange" id="sch-next" style="font-size:1.3rem">—</div></div>
+    <div class="card g">
+      <div class="sh"><h2 class="sh2">Today's Summary</h2></div>
+      <div class="g2" style="gap:1rem;margin-bottom:0">
+        <div><div class="kl">De-moulded</div><div class="kv g" id="sdem">—</div></div>
+        <div><div class="kl">Idle Mould Time</div><div class="kv" id="sidl">—</div><div class="kd" id="sidld"></div></div>
+        <div><div class="kl">Crane Utilisation</div><div class="kv c" id="scr">—</div></div>
+        <div><div class="kl">Next Alert</div><div class="kv o" id="snxt" style="font-size:1.25rem">—</div></div>
       </div>
     </div>
   </div>
-
   <div class="card">
-    <div class="section-head">
-      <h2>Auto-Generated Yard Gantt — Today's Schedule</h2>
-      <span style="font-size:.75rem;color:var(--text2);margin-left:auto">Generated 5:30 AM · Updates every 30 min</span>
-    </div>
-    <div id="gantt-container"></div>
-    <div style="margin-top:1.1rem;display:flex;gap:1.5rem;flex-wrap:wrap;font-size:.73rem">
-      <span><span style="background:#002B5B;display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:middle"></span>Casting</span>
-      <span><span style="background:#005BAC;display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:middle"></span>Curing (Nurse-Saul)</span>
-      <span><span style="background:#059669;display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:middle"></span>De-moulding</span>
-      <span><span style="background:#FF6B00;display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:middle"></span>Mould Cleaning</span>
+    <div class="sh"><h2 class="sh2">Auto-Generated Yard Gantt — Today's Schedule</h2><span style="font-size:.72rem;color:var(--text2);margin-left:auto">Generated 5:30 AM</span></div>
+    <div id="gantt"></div>
+    <div style="margin-top:.9rem;display:flex;gap:1.25rem;flex-wrap:wrap;font-size:.7rem">
+      <span><span style="background:#002B5B;display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle"></span>Casting</span>
+      <span><span style="background:#005BAC;display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle"></span>Curing (Nurse-Saul)</span>
+      <span><span style="background:#059669;display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle"></span>De-moulding</span>
+      <span><span style="background:#FF6B00;display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle"></span>Cleaning</span>
     </div>
   </div>
 </div>
 </div>
 
-<!-- FOOTER -->
-<div id="footer">
-  <div>
-    <div class="ft-logo">PRECASTIQ</div>
-    <div class="ft-sub">Autonomous Cycle Intelligence Platform · Team Concrete Queens · IIT Guwahati</div>
-  </div>
-  <div class="ft-right">
-    L&T CreaTech 2026 · Civil Engineering Pre-Final Year<br/>
-    Live weather: Open-Meteo API (IMD + ECMWF) · Prototype v3.0
-  </div>
+<div id="ft">
+  <div><div class="fl">PRECASTIQ</div><div class="fs">Autonomous Cycle Intelligence · Team Concrete Queens · IIT Guwahati</div></div>
+  <div class="fr">L&T CreaTech 2026 · Civil Engineering Pre-Final Year<br/>Weather: Open-Meteo API (IMD + ECMWF) · v4.0</div>
 </div>
 
+<!-- CHART.JS: deferred so HTML renders first -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 <script>
-/* ════════════════════════════════════════════════════════════
-   ACCURATE DATASET — ALL VALUES SOURCED
-   Nurse-Saul: ACI 306R-16 / ASTM C1074-11 / Saul (1951)
-   Strength model: Carino & Lew (2001) NIST, Kim et al. (2014)
-   Climate normals: IMD 2022 | Costs: PCI 2023 / CPWD DSR 2022
-   Hardware: DS18B20 Datasheet Maxim | LoRa Alliance v1.0.4
-════════════════════════════════════════════════════════════ */
+/* ── Run after chart.js deferred script loads ── */
+window.addEventListener('DOMContentLoaded', function() {
+  /* Poll until Chart is available (deferred) */
+  var poll = setInterval(function() {
+    if (typeof Chart !== 'undefined') {
+      clearInterval(poll);
+      boot();
+    }
+  }, 30);
+});
 
-const DS = {
-  hours:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
-  moderate:[0,2.1,5.4,10.2,16.8,24.3,32.1,39.8,47.2,54.0,60.1,65.4,70.0,72.8,75.3,78.1,80.6,83.0,85.1,87.0,88.7,90.2,91.5,92.7,93.7,94.6,95.4,96.1,96.7,97.2,97.6],
-  hotDry:[0,3.2,8.1,15.4,24.0,33.2,42.5,51.0,58.8,65.4,71.2,76.2,80.5,84.1,87.1,89.5,91.5,93.2,94.6,95.7,96.6,97.3,97.9,98.4,98.8,99.1,99.3,99.5,99.6,99.7,99.8],
-  cold:[0,0.8,2.0,3.8,6.2,9.2,12.8,16.8,21.2,25.9,30.8,35.8,40.7,45.4,49.8,54.0,58.0,61.6,64.9,68.0,70.8,73.4,75.7,77.9,79.9,81.7,83.3,84.8,86.2,87.4,88.5],
-  fixed24:[0,1.8,4.6,8.8,14.5,21.0,27.8,34.6,41.2,47.4,53.1,58.2,62.8,66.9,70.5,73.7,76.5,79.0,81.2,83.2,85.0,86.6,88.0,89.3,90.5,91.5,92.4,93.2,93.9,94.5,95.1],
-
+/* ══ DATASET ══════════════════════════════════════════════ */
+var D = {
+  hrs:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+  mod:[0,2.1,5.4,10.2,16.8,24.3,32.1,39.8,47.2,54.0,60.1,65.4,70.0,72.8,75.3,78.1,80.6,83.0,85.1,87.0,88.7,90.2,91.5,92.7,93.7,94.6,95.4,96.1,96.7,97.2,97.6],
+  hot:[0,3.2,8.1,15.4,24.0,33.2,42.5,51.0,58.8,65.4,71.2,76.2,80.5,84.1,87.1,89.5,91.5,93.2,94.6,95.7,96.6,97.3,97.9,98.4,98.8,99.1,99.3,99.5,99.6,99.7,99.8],
+  cld:[0,0.8,2.0,3.8,6.2,9.2,12.8,16.8,21.2,25.9,30.8,35.8,40.7,45.4,49.8,54.0,58.0,61.6,64.9,68.0,70.8,73.4,75.7,77.9,79.9,81.7,83.3,84.8,86.2,87.4,88.5],
+  f24:[0,1.8,4.6,8.8,14.5,21.0,27.8,34.6,41.2,47.4,53.1,58.2,62.8,66.9,70.5,73.7,76.5,79.0,81.2,83.2,85.0,86.6,88.0,89.3,90.5,91.5,92.4,93.2,93.9,94.5,95.1],
   zones:{
-    moderate:{name:"MODERATE",states:"Pune · Bengaluru · Hyderabad",icon:"🌤",
-      tempRange:"18–32°C",tempAvg:25,rh:"45–65%",rhAvg:55,riskLevel:"Low",riskColor:"#059669",
-      industryHrs:22,precastiqHrs:14,reduction:36.4,
-      problem:"Near-ideal conditions mask optimization opportunity. Fixed 24-hr rule leaves 14–16% cycle reduction uncaptured. Highest ROI zone for PrecastIQ deployment.",
-      protocol:[["Curing Method","Wet burlap + periodic spray"],["W/C Ratio","0.38–0.44 (standard)"],["Cement","OPC 53 or PPC"],["De-mould Target","60–65% f'c — aggressive early"],["Admixture","None required"],["AI Trigger","Maturity alert at M = 580 °C·hrs"]],
-      imd:{temp:"26°C",rh:"55% RH",forecast:"Stable — 24–30°C next 3 days",status:"Active — wet curing standard"}},
-    hotdry:{name:"HOT-DRY",states:"Rajasthan · Gujarat · MP",icon:"☀️",
-      tempRange:"28–48°C",tempAvg:42,rh:"15–30%",rhAvg:22,riskLevel:"High",riskColor:"#DC2626",
-      industryHrs:26,precastiqHrs:17,reduction:34.6,
-      problem:"Plastic shrinkage cracking within 2–4 hrs when evaporation exceeds bleed water rate at >38°C. Flash set reduces workability window to under 45 minutes in peak summer.",
-      protocol:[["Curing Method","Evaporative fog curing — continuous"],["Casting Window","4:30–7:00 AM only (pre-sunrise)"],["Mix Water","Chilled to 10°C via ice plant"],["Admixture","Retarder + evaporation retardant"],["W/C Ratio","0.42–0.48 (workability buffer)"],["AI Trigger","Wind-break alert if wind >15 km/hr"]],
-      imd:{temp:"42°C",rh:"18% RH",forecast:"Peak heat — 44–46°C next 2 days",status:"CRITICAL — fog curing + pre-sunrise locked"}},
-    hothumid:{name:"HOT-HUMID",states:"Chennai · Mumbai · Kerala",icon:"🌊",
-      tempRange:"26–38°C",tempAvg:32,rh:"70–90%",rhAvg:80,riskLevel:"High",riskColor:"#DC2626",
-      industryHrs:25,precastiqHrs:16,reduction:36.0,
-      problem:"Chloride ions from marine air penetrate concrete and reach rebar, initiating corrosion. High RH inhibits surface evaporation needed for early strength layer formation.",
-      protocol:[["Cement","OPC 53 + 30% GGBS (marine resistance)"],["Curing Method","Sealed polythene + dehumidified enclosure"],["Internal RH","Target <60% inside curing enclosure"],["Admixture","Calcium nitrite corrosion inhibitor"],["W/C Ratio","0.35–0.40 (low permeability)"],["AI Trigger","Enclosure humidity alert >65% RH"]],
-      imd:{temp:"33°C",rh:"82% RH",forecast:"Humid — sea breeze, 78–85% RH sustained",status:"Active — sealed enclosure + GGBS confirmed"}},
-    composite:{name:"COMPOSITE",states:"Delhi-NCR · UP · Bihar",icon:"🌡",
-      tempRange:"4–45°C (seasonal)",tempAvg:25,rh:"30–80%",rhAvg:55,riskLevel:"Medium-High",riskColor:"#D97706",
-      industryHrs:24,precastiqHrs:15,reduction:37.5,
-      problem:"Same yard needs opposite protocols in May (45°C) and December (4°C). Manual seasonal switching is unreliable — a single rule applied year-round in practice.",
-      protocol:[["AI Logic","IMD-triggered automatic seasonal switch"],["Summer (>38°C)","Fog curing + retarder + pre-sunrise"],["Winter (<15°C)","Steam curing + accelerator + heated tent"],["Switch Trigger","7-day forecast avg crosses threshold"],["Cement","OPC 53 year-round (predictable kinetics)"],["AI Alert","Auto switch when avg <15°C or >38°C"]],
-      imd:{temp:"30°C",rh:"60% RH",forecast:"Summer protocol active — 34°C D+3",status:"Active — summer mode enabled"}},
-    cold:{name:"COLD",states:"HP · J&K · Uttarakhand",icon:"❄️",
-      tempRange:"−5 to 15°C",tempAvg:5,rh:"50–80%",rhAvg:65,riskLevel:"Critical",riskColor:"#DC2626",
-      industryHrs:30,precastiqHrs:20,reduction:33.3,
-      problem:"Below 5°C hydration virtually stops. Below 0°C free water freezes — 9% volume expansion permanently ruptures C-S-H gel. Industry default: abandon casting below 5°C.",
-      protocol:[["Curing Method","Low-pressure steam curing (40–60°C)"],["Admixture","Antifreeze — CaCl₂ at 1.5% by cement wt"],["Enclosure","Heated polythene tent — maintain >10°C"],["Cement","OPC 53 (higher C₃A, faster early heat)"],["Steam Trigger","Auto-activated at 2 AM if <8°C forecast"],["AI Alert","Freeze risk flag when forecast <2°C overnight"]],
-      imd:{temp:"4°C",rh:"71% RH",forecast:"Temp drop — 1°C forecast tonight",status:"⚠ CRITICAL — Steam curing auto-scheduled 2:00 AM"}},
-    nehumid:{name:"HIGH-HUMID NE",states:"Assam · Meghalaya · Tripura",icon:"🌧",
-      tempRange:"18–32°C",tempAvg:26,rh:"78–95%",rhAvg:86,riskLevel:"High",riskColor:"#DC2626",
-      industryHrs:24,precastiqHrs:16,reduction:33.3,
-      problem:"Rebar corrosion 2.3× higher than Pune at 85–95% RH — sustained moisture and tropical chlorides accelerate carbonation. (ICJ 2021)",
-      protocol:[["Strategy","Minimise total exposure time to humid air"],["Cement","OPC 53 + anti-corrosion admixture (MasterLife)"],["Cover","Minimum 50mm clear cover — all rebar"],["De-mould","Early at 65% f'c + protective coat immediately"],["Casting","Weather-window: low-RH morning forecast only"],["AI Trigger","Casting blocked when RH forecast >90% all day"]],
-      imd:{temp:"28°C",rh:"88% RH",forecast:"Monsoon — RH 85–92% next 4 days",status:"Active — weather-window mode. Next low-RH: Day 5 morning"}}
+    moderate:{n:"MODERATE",s:"Pune · Bengaluru · Hyderabad",tr:"18–32°C",rh:"45–65%",rl:"Low",rc:"#059669",ih:22,pq:14,rd:36.4,
+      prob:"Near-ideal conditions mask optimization. Fixed 24hr rule leaves 14–16% cycle reduction uncaptured — highest ROI zone for PrecastIQ.",
+      proto:[["Curing Method","Wet burlap + periodic spray"],["W/C Ratio","0.38–0.44 (standard)"],["Cement","OPC 53 or PPC"],["De-mould Target","60–65% f'c — aggressive early"],["Admixture","None required"],["AI Trigger","Maturity alert at M = 580 °C·hrs"]],
+      imd:{t:"26°C",r:"55% RH",f:"Stable — 24–30°C next 3 days",s:"Active — wet curing standard"}},
+    hotdry:{n:"HOT-DRY",s:"Rajasthan · Gujarat · MP",tr:"28–48°C",rh:"15–30%",rl:"High",rc:"#DC2626",ih:26,pq:17,rd:34.6,
+      prob:"Plastic shrinkage cracking within 2–4 hrs at >38°C. Flash set reduces workability to under 45 min in peak summer.",
+      proto:[["Curing Method","Evaporative fog — continuous"],["Casting Window","4:30–7:00 AM only (pre-sunrise)"],["Mix Water","Chilled to 10°C via ice plant"],["Admixture","Retarder + evaporation retardant"],["W/C Ratio","0.42–0.48 (workability buffer)"],["AI Trigger","Wind-break alert if wind >15 km/hr"]],
+      imd:{t:"42°C",r:"18% RH",f:"Peak heat — 44–46°C next 2 days",s:"CRITICAL — fog curing + pre-sunrise locked"}},
+    hothumid:{n:"HOT-HUMID",s:"Chennai · Mumbai · Kerala",tr:"26–38°C",rh:"70–90%",rl:"High",rc:"#DC2626",ih:25,pq:16,rd:36.0,
+      prob:"Chloride ions from marine air reach rebar causing corrosion. High RH inhibits surface evaporation needed for early strength.",
+      proto:[["Cement","OPC 53 + 30% GGBS (marine resistance)"],["Curing Method","Sealed polythene + dehumidified enclosure"],["Internal RH","Target <60% inside curing enclosure"],["Admixture","Calcium nitrite corrosion inhibitor"],["W/C Ratio","0.35–0.40 (low permeability)"],["AI Trigger","Enclosure humidity alert >65% RH"]],
+      imd:{t:"33°C",r:"82% RH",f:"Humid — sea breeze, 78–85% RH sustained",s:"Active — sealed enclosure + GGBS confirmed"}},
+    composite:{n:"COMPOSITE",s:"Delhi-NCR · UP · Bihar",tr:"4–45°C (seasonal)",rh:"30–80%",rl:"Medium-High",rc:"#D97706",ih:24,pq:15,rd:37.5,
+      prob:"Same yard needs opposite protocols in May (45°C) vs December (4°C). Manual switching is unreliable year-round.",
+      proto:[["AI Logic","IMD-triggered automatic seasonal switch"],["Summer (>38°C)","Fog curing + retarder + pre-sunrise"],["Winter (<15°C)","Steam curing + accelerator + heated tent"],["Switch Trigger","7-day forecast avg crosses threshold"],["Cement","OPC 53 year-round (predictable kinetics)"],["AI Alert","Auto switch when avg <15°C or >38°C"]],
+      imd:{t:"30°C",r:"60% RH",f:"Summer protocol active — 34°C D+3",s:"Active — summer mode enabled"}},
+    cold:{n:"COLD",s:"HP · J&K · Uttarakhand",tr:"−5 to 15°C",rh:"50–80%",rl:"Critical",rc:"#DC2626",ih:30,pq:20,rd:33.3,
+      prob:"Below 5°C hydration stops. Below 0°C ice formation (9% expansion) permanently ruptures C-S-H gel. Industry default: abandon casting.",
+      proto:[["Curing Method","Low-pressure steam (40–60°C)"],["Admixture","Antifreeze — CaCl₂ at 1.5% by cement wt"],["Enclosure","Heated polythene tent — maintain >10°C"],["Cement","OPC 53 (higher C₃A, faster early heat)"],["Steam Trigger","Auto-activated at 2 AM if <8°C forecast"],["AI Alert","Freeze risk flag when forecast <2°C overnight"]],
+      imd:{t:"4°C",r:"71% RH",f:"Temp drop — 1°C forecast tonight",s:"⚠ CRITICAL — Steam auto-scheduled 2:00 AM"}},
+    nehumid:{n:"HIGH-HUMID NE",s:"Assam · Meghalaya · Tripura",tr:"18–32°C",rh:"78–95%",rl:"High",rc:"#DC2626",ih:24,pq:16,rd:33.3,
+      prob:"Rebar corrosion 2.3× higher than Pune at 85–95% RH — sustained moisture and tropical chlorides. (ICJ 2021)",
+      proto:[["Strategy","Minimise total exposure to humid air"],["Cement","OPC 53 + anti-corrosion admixture"],["Cover","Minimum 50mm clear cover — all rebar"],["De-mould","Early 65% f'c + protective coat immediately"],["Casting","Weather-window: low-RH morning forecast only"],["AI Trigger","Casting blocked when RH forecast >90% all day"]],
+      imd:{t:"28°C",r:"88% RH",f:"Monsoon — RH 85–92% next 4 days",s:"Active — weather-window mode. Next low-RH: Day 5"}}
   },
-
   pareto:[
-    {id:"A",label:"High-Pressure Steam",    hrs:13,cost:308,when:"Penalty >₹1.5L/day"},
-    {id:"B",label:"Low-Pressure Steam+Acc", hrs:15,cost:275,when:"Penalty ₹1–1.5L/day"},
-    {id:"C",label:"Wet Curing+IMD Optim",   hrs:18,cost:248,when:"Default ₹75K–1L/day"},
-    {id:"D",label:"Standard Wet Curing",    hrs:21,cost:228,when:"Low penalty, 15+ days float"},
-    {id:"E",label:"Ambient (Status Quo)",   hrs:24,cost:210,when:"PrecastIQ baseline only"}
+    {id:"A",lbl:"High-Pressure Steam",    h:13,c:308,w:"Penalty >₹1.5L/day"},
+    {id:"B",lbl:"Low-Pressure Steam+Acc", h:15,c:275,w:"Penalty ₹1–1.5L/day"},
+    {id:"C",lbl:"Wet Curing+IMD Optim",   h:18,c:248,w:"Default ₹75K–1L/day"},
+    {id:"D",lbl:"Standard Wet Curing",    h:21,c:228,w:"Low penalty, 15+ days float"},
+    {id:"E",lbl:"Ambient (Status Quo)",   h:24,c:210,w:"PrecastIQ baseline only"}
   ],
-
-  sweetSpot:function(penalty){
-    if(penalty>=250000) return 0;
-    if(penalty>=150000) return 1;
-    if(penalty>=75000)  return 2;
-    if(penalty>=50000)  return 3;
-    return 4;
-  },
-
-  moduleStatus:[
-    {name:"Smart Maturity Engine", status:"ACTIVE",   cls:"live",  detail:"14 sensors live · Next alert: M-02 at 19:30"},
-    {name:"Climate Adapter",       status:"ACTIVE",   cls:"live",  detail:"IMD API synced · Moderate protocol active"},
-    {name:"RL Optimizer",          status:"ADVISORY", cls:"warn",  detail:"Phase 1 mode · Engineer approval required"},
-    {name:"Cost-Cycle Engine",     status:"ACTIVE",   cls:"live",  detail:"Sweet spot: Strategy C · ₹1L/day penalty"},
-    {name:"Yard Sequencer",        status:"ACTIVE",   cls:"live",  detail:"10 elements active · Crane util: 87%"}
+  sw:function(p){return p>=250000?0:p>=150000?1:p>=75000?2:p>=50000?3:4;},
+  mods:[
+    {n:"Smart Maturity Engine", s:"ACTIVE",   c:"lv", d:"14 sensors live · Next: M-02 at 19:30"},
+    {n:"Climate Adapter",       s:"ACTIVE",   c:"lv", d:"IMD synced · Moderate protocol active"},
+    {n:"RL Optimizer",          s:"ADVISORY", c:"wn", d:"Phase 1 · Engineer approval required"},
+    {n:"Cost-Cycle Engine",     s:"ACTIVE",   c:"lv", d:"Sweet spot: C · ₹1L/day penalty"},
+    {n:"Yard Sequencer",        s:"ACTIVE",   c:"lv", d:"10 elements · Crane util 87%"}
   ],
-
   alerts:[
-    {el:"M-02",type:"Wall Panel", time:"19:30",strength:"70.2% f'c",status:"Ready",    crane:"Crane 2 scheduled"},
-    {el:"M-04",type:"Deck Slab",  time:"21:00",strength:"70.5% f'c",status:"Ready",    crane:"Crane 2 scheduled"},
-    {el:"M-01",type:"I-Girder",   time:"21:00",strength:"70.1% f'c",status:"Ready",    crane:"Crane 1 scheduled"},
-    {el:"M-06",type:"Wall Panel", time:"22:30",strength:"70.3% f'c",status:"Scheduled",crane:"Crane 2 pre-booked"},
-    {el:"M-05",type:"I-Girder",   time:"00:00",strength:"70.0% f'c",status:"Tomorrow", crane:"Crane 1 next shift"}
+    {e:"M-02",t:"Wall Panel", tm:"19:30",sp:"70.2% f'c",st:"Ready",    cr:"Crane 2"},
+    {e:"M-04",t:"Deck Slab",  tm:"21:00",sp:"70.5% f'c",st:"Ready",    cr:"Crane 2"},
+    {e:"M-01",t:"I-Girder",   tm:"21:00",sp:"70.1% f'c",st:"Ready",    cr:"Crane 1"},
+    {e:"M-06",t:"Wall Panel", tm:"22:30",sp:"70.3% f'c",st:"Scheduled",cr:"Crane 2"}
   ]
 };
 
-/* ══ WEATHER API (Open-Meteo — IMD+ECMWF source) ══════════ */
-const ZONE_CITIES = {
-  moderate:{name:"Pune",     lat:18.5204,lon:73.8567,station:"IMD Pune #43063"},
-  hotdry:  {name:"Jaipur",   lat:26.9124,lon:75.7873,station:"IMD Jaipur #42367"},
-  hothumid:{name:"Chennai",  lat:13.0827,lon:80.2707,station:"IMD Chennai #43279"},
-  composite:{name:"Delhi",   lat:28.6139,lon:77.2090,station:"IMD Delhi #42182"},
-  cold:    {name:"Shimla",   lat:31.1048,lon:77.1734,station:"IMD Shimla #42254"},
-  nehumid: {name:"Guwahati", lat:26.1445,lon:91.7362,station:"IMD Guwahati #42410"}
+/* ══ OPEN-METEO WEATHER ═══════════════════════════════════ */
+var CITIES={
+  moderate:{name:"Pune",   lat:18.52,lon:73.86,stn:"IMD Pune #43063"},
+  hotdry:  {name:"Jaipur", lat:26.91,lon:75.79,stn:"IMD Jaipur #42367"},
+  hothumid:{name:"Chennai",lat:13.08,lon:80.27,stn:"IMD Chennai #43279"},
+  composite:{name:"Delhi", lat:28.61,lon:77.21,stn:"IMD Delhi #42182"},
+  cold:    {name:"Shimla", lat:31.10,lon:77.17,stn:"IMD Shimla #42254"},
+  nehumid: {name:"Guwahati",lat:26.14,lon:91.74,stn:"IMD Guwahati #42410"}
 };
-const wxCache = {};
+var WX={};
 
-async function fetchWeather(zoneKey) {
-  const city = ZONE_CITIES[zoneKey];
-  if (!city) return null;
-  const cached = wxCache[zoneKey];
-  if (cached && Date.now() - cached.ts < 900000) return cached.data;
-  const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + city.lat +
-    '&longitude=' + city.lon +
-    '&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,apparent_temperature' +
-    '&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,relative_humidity_2m_max' +
+function fetchWX(zk,cb){
+  if(WX[zk]&&Date.now()-WX[zk].ts<900000){cb(WX[zk].d);return;}
+  var c=CITIES[zk]; if(!c){cb(null);return;}
+  var u='https://api.open-meteo.com/v1/forecast?latitude='+c.lat+'&longitude='+c.lon+
+    '&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation'+
+    '&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,relative_humidity_2m_max'+
     '&timezone=Asia/Kolkata&forecast_days=3';
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const j = await res.json();
-    const data = {
-      city: city.name, station: city.station,
-      temp: j.current.temperature_2m,
-      rh:   j.current.relative_humidity_2m,
-      wind: j.current.wind_speed_10m,
-      rain: j.current.precipitation,
-      feels: j.current.apparent_temperature,
-      forecast: j.daily.time.map(function(d, i) {
-        return {
-          date: d,
-          max:  j.daily.temperature_2m_max[i],
-          min:  j.daily.temperature_2m_min[i],
-          rain: j.daily.precipitation_sum[i],
-          rh:   j.daily.relative_humidity_2m_max[i]
-        };
-      }),
-      fetchedAt: new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'}),
-      maturityRate: (j.current.temperature_2m + 10).toFixed(1),
-      adjustedDemould: Math.max(8, Math.min(28, (14 * 38 / (j.current.temperature_2m + 10)).toFixed(1))),
-      risks: []
+  fetch(u).then(function(r){return r.ok?r.json():Promise.reject(r.status);})
+  .then(function(j){
+    var d={
+      city:c.name,stn:c.stn,
+      temp:j.current.temperature_2m,
+      rh:j.current.relative_humidity_2m,
+      wind:j.current.wind_speed_10m,
+      rain:j.current.precipitation,
+      fc:j.daily.time.map(function(dt,i){return{max:j.daily.temperature_2m_max[i],min:j.daily.temperature_2m_min[i],rain:j.daily.precipitation_sum[i],rh:j.daily.relative_humidity_2m_max[i]};}),
+      at:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),
+      mr:((j.current.temperature_2m+10)).toFixed(1),
+      ad:Math.max(8,Math.min(28,(14*38/(j.current.temperature_2m+10)).toFixed(1))),
+      risks:[]
     };
-    if (data.temp > 38)  data.risks.push({lvl:'HIGH',    msg:'Plastic shrinkage risk — activate fog curing immediately'});
-    if (data.temp < 8)   data.risks.push({lvl:'CRITICAL', msg:'Freeze risk — steam curing mandatory, activate now'});
-    if (data.rh > 85)    data.risks.push({lvl:'HIGH',    msg:'High RH — sealed dehumidified enclosure required'});
-    if (data.wind > 20)  data.risks.push({lvl:'MEDIUM',  msg:'High wind — increase spray frequency for evaporation'});
-    if (data.rain > 0)   data.risks.push({lvl:'LOW',     msg:'Active precipitation — check mould drainage'});
-    if (data.risks.length === 0) data.risks.push({lvl:'OK', msg:'Conditions normal — standard protocol active'});
-    wxCache[zoneKey] = {data: data, ts: Date.now()};
-    return data;
-  } catch(e) {
-    console.warn('Weather API unavailable:', e.message);
-    return null;
-  }
+    if(d.temp>38)d.risks.push({l:'HIGH',m:'Plastic shrinkage risk — activate fog curing'});
+    if(d.temp<8) d.risks.push({l:'CRITICAL',m:'Freeze risk — steam curing mandatory'});
+    if(d.rh>85)  d.risks.push({l:'HIGH',m:'High RH — sealed dehumidified enclosure required'});
+    if(d.wind>20)d.risks.push({l:'MEDIUM',m:'High wind — increase spray frequency'});
+    if(d.rain>0) d.risks.push({l:'LOW',m:'Precipitation active — check mould drainage'});
+    if(!d.risks.length)d.risks.push({l:'OK',m:'Conditions normal — standard protocol active'});
+    WX[zk]={d:d,ts:Date.now()};
+    cb(d);
+  }).catch(function(){cb(null);});
 }
 
-function renderIMDPanel(weather, zoneKey) {
-  var feed = document.getElementById('imd-feed');
-  if (!feed) return;
-  if (!weather) {
-    var z = DS.zones[zoneKey];
-    feed.innerHTML = '<div style="font-size:.68rem;color:var(--text2);margin-bottom:.5rem;font-family:var(--font-m)">CACHED IMD NORMALS · API UNAVAILABLE</div>' +
-      [['🌡 Temperature', z.imd.temp], ['💧 Humidity', z.imd.rh], ['📅 Forecast', z.imd.forecast], ['⚡ Protocol', z.imd.status]].map(function(item) {
-        return '<div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--lgray);font-size:.8rem"><span style="color:var(--text2)">' + item[0] + '</span><span style="font-family:var(--font-m);color:var(--navy);font-size:.75rem">' + item[1] + '</span></div>';
+function showWX(d,zk){
+  var feed=document.getElementById('imd-feed'); if(!feed)return;
+  if(!d){
+    var z=D.zones[zk];
+    feed.innerHTML='<div style="font-size:.65rem;color:var(--text2);font-family:var(--fm);margin-bottom:.4rem">CACHED IMD NORMALS · API UNAVAILABLE</div>'+
+      [['🌡 Temp',z.imd.t],['💧 Humidity',z.imd.r],['📅 Forecast',z.imd.f],['⚡ Protocol',z.imd.s]].map(function(x){
+        return '<div style="display:flex;justify-content:space-between;padding:.38rem 0;border-bottom:1px solid var(--lgray);font-size:.78rem"><span style="color:var(--text2)">'+x[0]+'</span><span style="font-family:var(--fm);color:var(--navy);font-size:.73rem">'+x[1]+'</span></div>';
       }).join('');
     return;
   }
-  var rC = {CRITICAL:'#DC2626',HIGH:'#DC2626',MEDIUM:'#D97706',LOW:'#059669',OK:'#059669'};
-  var f = weather.forecast;
-  feed.innerHTML =
-    '<div style="display:flex;justify-content:space-between;margin-bottom:.6rem">' +
-      '<span style="font-size:.67rem;color:var(--text2);font-family:var(--font-m)">' + weather.station + '</span>' +
-      '<span style="font-size:.65rem;color:var(--text2)">Updated ' + weather.fetchedAt + '</span>' +
-    '</div>' +
-    '<div class="wx-grid">' +
-      [['🌡 Temp', weather.temp + '°C', '#002B5B'], ['💧 RH', weather.rh + '%', '#005BAC'],
-       ['💨 Wind', weather.wind + ' km/h', '#5A6872'], ['🌧 Rain', weather.rain + 'mm/hr', '#D97706']].map(function(item) {
-        return '<div class="wx-tile"><div class="wx-tile-label">' + item[0] + '</div><div class="wx-tile-val" style="color:' + item[2] + '">' + item[1] + '</div></div>';
-      }).join('') +
-    '</div>' +
-    '<div style="background:rgba(0,43,91,.05);border:1px solid rgba(0,43,91,.12);border-radius:8px;padding:.5rem .75rem;margin-bottom:.6rem;font-size:.78rem">' +
-      '<span style="color:var(--text2)">Live maturity rate: </span>' +
-      '<span style="font-family:var(--font-m);color:var(--navy);font-weight:700">' + weather.maturityRate + ' °C·hrs/hr</span>' +
-      '<span style="color:var(--text2)"> → est. de-mould: </span>' +
-      '<span style="font-family:var(--font-m);color:var(--green);font-weight:700">' + weather.adjustedDemould + ' hrs</span>' +
-    '</div>' +
-    '<div style="font-size:.67rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:.35rem;font-family:var(--font-h);font-weight:600">3-Day Forecast</div>' +
-    f.slice(0, 3).map(function(d, i) {
-      return '<div style="display:flex;justify-content:space-between;padding:.32rem 0;border-bottom:1px solid var(--lgray);font-size:.76rem">' +
-        '<span style="color:var(--text2)">' + (i===0?'Today':i===1?'Tomorrow':'Day 3') + '</span>' +
-        '<span style="font-weight:600">' + d.min + '–' + d.max + '°C</span>' +
-        '<span style="color:var(--royal)">' + d.rh + '% RH</span>' +
-        '<span style="color:' + (d.rain > 5 ? '#D97706' : 'var(--text2)') + '">' + d.rain + 'mm</span>' +
+  var RC={CRITICAL:'#DC2626',HIGH:'#DC2626',MEDIUM:'#D97706',LOW:'#059669',OK:'#059669'};
+  feed.innerHTML=
+    '<div style="display:flex;justify-content:space-between;margin-bottom:.5rem">'+
+      '<span style="font-size:.63rem;color:var(--text2);font-family:var(--fm)">'+d.stn+'</span>'+
+      '<span style="font-size:.62rem;color:var(--text2)">Updated '+d.at+'</span>'+
+    '</div>'+
+    '<div class="wxg">'+
+      [['🌡 Temp',d.temp+'°C','#002B5B'],['💧 RH',d.rh+'%','#005BAC'],['💨 Wind',d.wind+' km/h','#5A6872'],['🌧 Rain',d.rain+'mm/hr','#D97706']].map(function(x){
+        return '<div class="wxt"><div class="wxl">'+x[0]+'</div><div class="wxv" style="color:'+x[2]+'">'+x[1]+'</div></div>';
+      }).join('')+
+    '</div>'+
+    '<div style="background:rgba(0,43,91,.05);border:1px solid rgba(0,43,91,.1);border-radius:7px;padding:.45rem .7rem;margin-bottom:.55rem;font-size:.76rem">'+
+      '<span style="color:var(--text2)">Live maturity rate: </span>'+
+      '<span style="font-family:var(--fm);color:var(--navy);font-weight:700">'+d.mr+' °C·hrs/hr</span>'+
+      '<span style="color:var(--text2)"> → est. de-mould: </span>'+
+      '<span style="font-family:var(--fm);color:var(--green);font-weight:700">'+d.ad+' hrs</span>'+
+    '</div>'+
+    '<div style="font-size:.64rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:.32rem;font-weight:600">3-Day Forecast</div>'+
+    d.fc.slice(0,3).map(function(f,i){
+      return '<div style="display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid var(--lgray);font-size:.74rem">'+
+        '<span style="color:var(--text2)">'+(i===0?'Today':i===1?'Tomorrow':'Day 3')+'</span>'+
+        '<span style="font-weight:600">'+f.min+'–'+f.max+'°C</span>'+
+        '<span style="color:var(--royal)">'+f.rh+'% RH</span>'+
+        '<span style="color:'+(f.rain>5?'#D97706':'var(--text2)')+'">'+f.rain+'mm</span>'+
       '</div>';
-    }).join('') +
-    '<div style="margin-top:.55rem">' +
-      weather.risks.map(function(r) {
-        return '<div style="display:flex;gap:.45rem;padding:.28rem 0;font-size:.76rem;align-items:center">' +
-          '<span style="color:' + (rC[r.lvl]||'#64748B') + ';font-family:var(--font-m);font-size:.6rem;min-width:60px;font-weight:700">' + r.lvl + '</span>' +
-          '<span>' + r.msg + '</span>' +
-        '</div>';
-      }).join('') +
-    '</div>' +
-    '<div style="margin-top:.4rem;font-size:.62rem;color:var(--text2)">Source: Open-Meteo API · IMD + ECMWF data · open-meteo.com</div>';
+    }).join('')+
+    '<div style="margin-top:.5rem">'+d.risks.map(function(r){
+      return '<div style="display:flex;gap:.4rem;padding:.25rem 0;font-size:.74rem;align-items:center">'+
+        '<span style="color:'+(RC[r.l]||'#64748B')+';font-family:var(--fm);font-size:.58rem;min-width:58px;font-weight:700">'+r.l+'</span>'+
+        '<span>'+r.m+'</span></div>';
+    }).join('')+'</div>'+
+    '<div style="margin-top:.4rem;font-size:.6rem;color:var(--text2)">Open-Meteo API · IMD + ECMWF · open-meteo.com</div>';
 }
 
-/* ══ NAVIGATION ══════════════════════════════════════════ */
-function showPanel(name) {
-  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelectorAll('.nav-tab').forEach(function(t){ t.classList.remove('active'); });
-  document.getElementById('panel-' + name).classList.add('active');
-  var tabs = ['dashboard','maturity','climate','optimizer','scheduler'];
-  var idx = tabs.indexOf(name);
-  if (idx >= 0) document.querySelectorAll('.nav-tab')[idx].classList.add('active');
-  // close mobile menu
-  document.getElementById('navTabs').classList.remove('open');
-  if (name === 'climate') initClimateChart();
-  if (name === 'optimizer') initPareto();
-  if (name === 'scheduler') generateSchedule();
+/* ══ CHART DEFAULTS (crisp canvas) ═══════════════════════ */
+var CHART_DEFAULTS = {
+  responsive:true,
+  maintainAspectRatio:false,
+  devicePixelRatio: window.devicePixelRatio || 2,
+  animation:{duration:400}
+};
+var TT = {backgroundColor:'#002B5B',titleColor:'#fff',bodyColor:'rgba(255,255,255,.8)',borderColor:'rgba(0,194,255,.25)',borderWidth:1,padding:10,cornerRadius:8};
+
+/* ══ NAVIGATION ═══════════════════════════════════════════ */
+function go(name){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('p-'+name).classList.add('active');
+  var tabs=['dashboard','maturity','climate','optimizer','scheduler'];
+  var i=tabs.indexOf(name);
+  if(i>=0)document.querySelectorAll('.nav-tab')[i].classList.add('active');
+  document.getElementById('navTabs').classList.remove('op');
+  if(name==='climate')initCC();
+  if(name==='optimizer')initP();
+  if(name==='scheduler')genSch();
 }
 
-/* ══ ANIMATED COUNTERS ══════════════════════════════════ */
-function animateCount(el, target, suffix, duration) {
-  duration = duration || 1500;
-  var start = 0;
-  var step = target / 60;
-  var timer = setInterval(function() {
-    start += step;
-    if (start >= target) { start = target; clearInterval(timer); }
-    el.textContent = (Number.isInteger(target) ? Math.floor(start) : start.toFixed(1)) + suffix;
-  }, duration / 60);
+/* ══ ANIMATED COUNTERS ════════════════════════════════════ */
+function cnt(el,tgt,sfx,dur){
+  dur=dur||1200; var s=0,step=tgt/60;
+  var t=setInterval(function(){
+    s+=step; if(s>=tgt){s=tgt;clearInterval(t);}
+    el.textContent=(Number.isInteger(tgt)?Math.floor(s):s.toFixed(1))+sfx;
+  },dur/60);
 }
 
-/* ══ INIT ══════════════════════════════════════════════ */
-window.addEventListener('load', function() {
-  setTimeout(function() {
-    animateCount(document.getElementById('kpi1'), 14, '–16 hrs');
-    animateCount(document.getElementById('kpi2'), 86, '%');
-    animateCount(document.getElementById('kpi3'), 0.4, '%');
-    animateCount(document.getElementById('kpi4'), 25, '₹/m³');
-    document.getElementById('dash-cycle').textContent = '35%';
-    document.getElementById('dash-savings').textContent = '₹50Cr+';
-  }, 400);
-  initDashChart();
-  initModuleStatus();
-  initAlertQueue();
-  initImpactTable();
-  calcMaturity();
-  selectZone('moderate', document.querySelector('.zone-card'));
-  initPareto();
-  generateSchedule();
-});
+/* ══ BOOT ══════════════════════════════════════════════════ */
+function boot(){
+  // Dashboard KPIs
+  setTimeout(function(){
+    cnt(document.getElementById('k1'),14,'–16 hrs');
+    cnt(document.getElementById('k2'),86,'%');
+    cnt(document.getElementById('k3'),0.4,'%');
+    cnt(document.getElementById('k4'),25,'₹/m³');
+    document.getElementById('dc').textContent='35%';
+    document.getElementById('ds').textContent='₹50Cr+';
+  },200);
+  initDash();
+  initMods();
+  initAlerts();
+  initImpact();
+  calc();
+  selZ('moderate',document.querySelector('.zc'));
+  initP();
+  genSch();
+}
 
-/* ══ DASHBOARD CHART ════════════════════════════════════ */
-function initDashChart() {
-  var ctx = document.getElementById('dashStrengthChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: DS.hours,
-      datasets: [
-        {label:'Moderate (Pune)',  data:DS.moderate, borderColor:'#005BAC', backgroundColor:'rgba(0,91,172,.08)', borderWidth:2.5, tension:.4, pointRadius:0, fill:true},
-        {label:'Hot-Dry (Jaipur)', data:DS.hotDry,   borderColor:'#FF6B00', backgroundColor:'rgba(255,107,0,.06)', borderWidth:2.5, tension:.4, pointRadius:0},
-        {label:'Cold (Shimla)',    data:DS.cold,     borderColor:'#00C2FF', backgroundColor:'rgba(0,194,255,.06)', borderWidth:2.5, tension:.4, pointRadius:0},
-        {label:'Fixed 24hr Rule', data:DS.fixed24,  borderColor:'rgba(90,104,114,.4)', borderDash:[6,4], borderWidth:1.5, tension:.4, pointRadius:0},
-        {label:'70% threshold',   data:DS.hours.map(function(){return 70;}), borderColor:'rgba(217,119,6,.5)', borderDash:[4,4], borderWidth:1.5, pointRadius:0}
+/* ══ DASHBOARD CHART ═══════════════════════════════════════ */
+var dChart=null;
+function initDash(){
+  var canvas=document.getElementById('dsc');
+  var ctx=canvas.getContext('2d');
+  dChart=new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:D.hrs,
+      datasets:[
+        {label:'Moderate (Pune)',data:D.mod,borderColor:'#005BAC',backgroundColor:'rgba(0,91,172,.08)',borderWidth:2,tension:.4,pointRadius:0,fill:true},
+        {label:'Hot-Dry (Jaipur)',data:D.hot,borderColor:'#FF6B00',backgroundColor:'rgba(255,107,0,.06)',borderWidth:2,tension:.4,pointRadius:0},
+        {label:'Cold (Shimla)',data:D.cld,borderColor:'#00C2FF',backgroundColor:'rgba(0,194,255,.06)',borderWidth:2,tension:.4,pointRadius:0},
+        {label:'Fixed 24hr Rule',data:D.f24,borderColor:'rgba(90,104,114,.45)',borderDash:[6,4],borderWidth:1.5,tension:.4,pointRadius:0},
+        {label:'70% threshold',data:D.hrs.map(function(){return 70;}),borderColor:'rgba(217,119,6,.5)',borderDash:[4,4],borderWidth:1.5,pointRadius:0}
       ]
     },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        tooltip:{backgroundColor:'#002B5B',titleColor:'#fff',bodyColor:'rgba(255,255,255,.8)',borderColor:'rgba(0,194,255,.3)',borderWidth:1,
-          callbacks:{label:function(c){return ' ' + c.dataset.label + ': ' + c.parsed.y.toFixed(1) + "% f'c";}}}
-      },
+    options:Object.assign({},CHART_DEFAULTS,{
+      plugins:{legend:{display:false},tooltip:Object.assign({},TT,{callbacks:{label:function(c){return ' '+c.dataset.label+': '+c.parsed.y.toFixed(1)+"% f'c";}}})},
       scales:{
         x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#64748B',font:{size:10}},title:{display:true,text:'Hours after casting',color:'#64748B',font:{size:10}}},
         y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#64748B',font:{size:10},callback:function(v){return v+'%';}},min:0,max:100,title:{display:true,text:"Strength % of 28-day f'c",color:'#64748B',font:{size:10}}}
       }
-    }
+    })
   });
 }
 
-function initModuleStatus() {
-  var b = document.getElementById('module-status-body');
-  if (!b) return;
-  b.innerHTML = DS.moduleStatus.map(function(m) {
-    var statusClass = m.status === 'ADVISORY' ? 'tag-warn' : 'tag-good';
-    var dotClass = m.cls;
-    return '<tr><td style="font-weight:600;font-family:var(--font-h);font-size:.82rem">' + m.name + '</td>' +
-      '<td><span class="status-dot ' + dotClass + '"></span>' +
-      '<span class="' + statusClass + '">' + m.status + '</span></td>' +
-      '<td style="color:var(--text2);font-size:.76rem">' + m.detail + '</td></tr>';
+function initMods(){
+  var b=document.getElementById('ms-body'); if(!b)return;
+  b.innerHTML=D.mods.map(function(m){
+    var sc=m.s==='ADVISORY'?'wn2':'gd2';
+    return '<tr><td style="font-weight:600;font-size:.81rem">'+m.n+'</td>'+
+      '<td><span class="sd '+m.c+'"></span><span class="'+sc+'">'+m.s+'</span></td>'+
+      '<td style="color:var(--text2);font-size:.74rem">'+m.d+'</td></tr>';
   }).join('');
 }
 
-function initAlertQueue() {
-  var q = document.getElementById('alert-queue');
-  if (!q) return;
-  q.innerHTML = DS.alerts.slice(0, 3).map(function(a) {
-    var sc = a.status === 'Ready' ? '#059669' : '#D97706';
-    return '<div style="display:flex;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid var(--lgray)">' +
-      '<div><div style="font-size:.83rem;font-weight:600;color:var(--navy)">' + a.el + ' — ' + a.type + '</div>' +
-      '<div style="font-size:.72rem;color:var(--text2)">' + a.strength + ' · ' + a.crane + '</div></div>' +
-      '<div style="text-align:right"><div style="font-family:var(--font-m);color:' + sc + ';font-size:.88rem;font-weight:700">' + a.time + '</div>' +
-      '<div style="font-size:.7rem;color:var(--text2)">' + a.status + '</div></div></div>';
+function initAlerts(){
+  var q=document.getElementById('aq'); if(!q)return;
+  q.innerHTML=D.alerts.slice(0,3).map(function(a){
+    var sc=a.st==='Ready'?'#059669':'#D97706';
+    return '<div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--lgray)">'+
+      '<div><div style="font-size:.81rem;font-weight:600;color:var(--navy)">'+a.e+' — '+a.t+'</div>'+
+      '<div style="font-size:.7rem;color:var(--text2)">'+a.sp+' · '+a.cr+'</div></div>'+
+      '<div style="text-align:right"><div style="font-family:var(--fm);color:'+sc+';font-size:.85rem;font-weight:700">'+a.tm+'</div>'+
+      '<div style="font-size:.68rem;color:var(--text2)">'+a.st+'</div></div></div>';
   }).join('');
 }
 
-function initImpactTable() {
-  var b = document.getElementById('impact-table-body');
-  if (!b) return;
-  var rows = [
-    ['Avg Cycle Time', '22–24 hrs', '14–16 hrs', '35% faster', '+30% mould turns/yr', 'L&T + PCI 2023'],
-    ['Mould Utilisation', '55–65%', '85–90%', '+30% productivity', '₹15–20 Cr (50 yards)', 'PCI 2023'],
-    ['Strength Failures', '3–5%', '<0.5%', '90% reduction', '₹8–12 Cr (50 yards)', 'ACI 306 / ASTM C1074'],
-    ['Engineer Decision', '2–3 hrs/day', '15 min/day', '85% saved', '2,400 hrs/yard/yr', 'Field estimate'],
-    ['Cost per m³', 'Baseline', '−₹20–30', '15–20% savings', '₹22–30 Cr (50 yards)', 'PCI Cost Std 2023']
+function initImpact(){
+  var b=document.getElementById('it-body'); if(!b)return;
+  var rows=[
+    ['Avg Cycle Time','22–24 hrs','14–16 hrs','35% faster','+30% mould turns/yr','L&T + PCI 2023'],
+    ['Mould Utilisation','55–65%','85–90%','+30% productivity','₹15–20 Cr (50 yards)','PCI 2023'],
+    ['Strength Failures','3–5%','<0.5%','90% reduction','₹8–12 Cr (50 yards)','ACI 306 / ASTM C1074'],
+    ['Engineer Decision','2–3 hrs/day','15 min/day','85% saved','2,400 hrs/yard/yr','Field estimate'],
+    ['Cost per m³','Baseline','−₹20–30','15–20% savings','₹22–30 Cr (50 yards)','PCI Cost Std 2023']
   ];
-  b.innerHTML = rows.map(function(r) {
-    return '<tr><td style="font-weight:600;font-family:var(--font-h);font-size:.82rem">' + r[0] + '</td>' +
-      '<td style="color:var(--text2)">' + r[1] + '</td>' +
-      '<td style="font-weight:600">' + r[2] + '</td>' +
-      '<td class="good">' + r[3] + '</td>' +
-      '<td class="good">' + r[4] + '</td>' +
-      '<td style="color:var(--text2);font-size:.73rem">' + r[5] + '</td></tr>';
-  }).join('') +
-  '<tr class="total-row"><td style="font-weight:700">TOTAL ANNUAL SAVINGS</td><td></td><td></td><td></td>' +
-  '<td style="font-family:var(--font-m);font-weight:700;color:var(--navy)">₹43–57 Crore</td>' +
-  '<td style="color:var(--text2);font-size:.72rem">Conservative: ₹33.75 Cr</td></tr>';
+  b.innerHTML=rows.map(function(r){
+    return '<tr><td style="font-weight:600;font-size:.81rem">'+r[0]+'</td><td style="color:var(--text2)">'+r[1]+'</td><td style="font-weight:600">'+r[2]+'</td><td class="gd">'+r[3]+'</td><td class="gd">'+r[4]+'</td><td style="color:var(--text2);font-size:.71rem">'+r[5]+'</td></tr>';
+  }).join('')+
+  '<tr class="tr-tot"><td>TOTAL ANNUAL SAVINGS</td><td></td><td></td><td></td><td style="font-family:var(--fm);font-weight:700">₹43–57 Crore</td><td style="color:var(--text2);font-size:.7rem">Conservative: ₹33.75 Cr</td></tr>';
 }
 
-/* ══ MATURITY ENGINE ════════════════════════════════════ */
-var CEMENT_K = {
-  '53': {Su:100, M0:-50,  K:3200},
-  '43': {Su:100, M0:-80,  K:3800},
-  ppc:  {Su:100, M0:-120, K:4500},
-  ggbs: {Su:100, M0:-150, K:5200}
-};
-var ADMIX_F  = {none:1.0, acc:1.18, ret:0.85, hrwr:1.06};
-var CURING_B = {ambient:2, wet:4, fog:3, steam:18, highsteam:32};
-var mChart = null;
+/* ══ MATURITY ENGINE ═══════════════════════════════════════ */
+var CK={'53':{Su:100,M0:-50,K:3200},'43':{Su:100,M0:-80,K:3800},ppc:{Su:100,M0:-120,K:4500},ggbs:{Su:100,M0:-150,K:5200}};
+var AF={none:1.0,acc:1.18,ret:0.85,hrwr:1.06};
+var CB={ambient:2,wet:4,fog:3,steam:18,highsteam:32};
+var mChart2=null;
 
-function strengthFromM(M, grade) {
-  var ck = CEMENT_K[grade] || CEMENT_K['53'];
-  if (M <= ck.M0) return 0;
-  return Math.min(100, ck.Su * (M - ck.M0) / (ck.K + (M - ck.M0)));
-}
+function sfM(M,g){var ck=CK[g]||CK['53'];if(M<=ck.M0)return 0;return Math.min(100,ck.Su*(M-ck.M0)/(ck.K+(M-ck.M0)));}
 
-function calcMaturity() {
-  var grade   = document.getElementById('cementGrade').value;
-  var wc      = parseInt(document.getElementById('wcRatio').value) / 100;
-  var curing  = document.getElementById('curingMethod').value;
-  var ambient = parseInt(document.getElementById('ambTemp').value);
-  var target  = parseInt(document.getElementById('targetStrength').value);
-  var admix   = document.getElementById('admixture').value;
-
-  var ck        = CEMENT_K[grade] || CEMENT_K['53'];
-  var af        = ADMIX_F[admix]  || 1.0;
-  var cb        = CURING_B[curing] || 2;
-  var concTemp  = ambient + 5 + cb;
-  var matRate   = (concTemp - (-10)) * af;
-  var targetFrac = target / ck.Su;
-  var M_target  = (targetFrac * ck.K + ck.M0 * (targetFrac - 1)) / (1 - targetFrac);
-  var timeHrs   = Math.max(6, Math.min(30, M_target / matRate * (1 / (0.8 + wc * 0.5))));
-  var matVal    = Math.round(timeHrs * matRate);
-  var hrs       = Math.floor(timeHrs);
-  var mins      = Math.round((timeHrs - hrs) * 60);
-  var saved     = Math.max(0, 24 - timeHrs).toFixed(1);
-
-  document.getElementById('res-time').textContent = hrs + 'h ' + (mins < 10 ? '0' : '') + mins + 'm';
-  document.getElementById('res-maturity').textContent = matVal;
-  document.getElementById('res-saving').textContent = '+' + saved + 'h';
-
-  var rec = '';
-  if (timeHrs < 14)       rec = '⚡ Early de-mould confirmed. Verify with Schmidt hammer. High sensor confidence for OPC 53.';
-  else if (timeHrs < 18)  rec = '✅ Optimal window. Alert fires at ' + hrs + ':' + (mins<10?'0':'')+mins + ' hrs. Crane auto-scheduled. Pareto sweet spot maintained.';
-  else if (timeHrs < 22)  rec = '⚠ Consider low-pressure steam to cut cycle 3–4 hrs. ROI positive if mould value >₹8L.';
-  else                     rec = '🔴 High W/C or cold ambient slowing gain. Recommend accelerator + heated enclosure. See Climate Adapter.';
-  document.getElementById('res-recommendation').textContent = rec;
-  document.getElementById('maturity-result').style.display = 'block';
-
-  var hs = [];
-  for (var h = 0; h <= 30; h += 0.5) hs.push(h);
-  var pred = hs.map(function(h) {
-    var M = h * (concTemp - (-10)) * af;
-    return Math.min(100, strengthFromM(M, grade));
-  });
-  var fix = hs.map(function(h) {
-    var M = h * ((ambient + 7) - (-10));
-    return Math.min(100, strengthFromM(M, '53') * 0.88);
-  });
-
-  var ctx = document.getElementById('maturityChart').getContext('2d');
-  if (mChart) mChart.destroy();
-  mChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: hs,
-      datasets: [
-        {label:'PrecastIQ', data:pred, borderColor:'#005BAC', backgroundColor:'rgba(0,91,172,.1)', borderWidth:2.5, tension:.4, pointRadius:0, fill:true},
-        {label:'Fixed 24h', data:fix,  borderColor:'rgba(90,104,114,.4)', borderDash:[6,4], borderWidth:1.5, tension:.4, pointRadius:0},
-        {label:'Target',    data:hs.map(function(){return target;}), borderColor:'rgba(217,119,6,.6)', borderDash:[4,4], borderWidth:1.5, pointRadius:0}
-      ]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false}, tooltip:{backgroundColor:'#002B5B', titleColor:'#fff', bodyColor:'rgba(255,255,255,.8)'}},
+function calc(){
+  var g=document.getElementById('cg').value;
+  var wc=parseInt(document.getElementById('wc').value)/100;
+  var cm=document.getElementById('cm').value;
+  var at=parseInt(document.getElementById('at').value);
+  var ts=parseInt(document.getElementById('ts').value);
+  var ad=document.getElementById('ad').value;
+  var ck=CK[g]||CK['53'];
+  var af=AF[ad]||1.0;
+  var cb=CB[cm]||2;
+  var ct=at+5+cb;
+  var mr=(ct-(-10))*af;
+  var tf=ts/ck.Su;
+  var Mt=(tf*ck.K+ck.M0*(tf-1))/(1-tf);
+  var th=Math.max(6,Math.min(30,Mt/mr*(1/(0.8+wc*0.5))));
+  var mv=Math.round(th*mr);
+  var h=Math.floor(th),m=Math.round((th-h)*60);
+  var sv=Math.max(0,24-th).toFixed(1);
+  document.getElementById('rt').textContent=h+'h '+(m<10?'0':'')+m+'m';
+  document.getElementById('rm').textContent=mv;
+  document.getElementById('rs').textContent='+'+sv+'h';
+  var rec=th<14?'⚡ Early de-mould confirmed. Verify with Schmidt hammer.':
+          th<18?'✅ Optimal window. Alert at '+h+':'+(m<10?'0':'')+m+' hrs. Crane auto-scheduled.':
+          th<22?'⚠ Consider steam curing to cut cycle 3–4 hrs. ROI positive if mould >₹8L.':
+                '🔴 Slow gain. Recommend accelerator + heated enclosure. See Climate Adapter.';
+  document.getElementById('rr').textContent=rec;
+  document.getElementById('mr').style.display='block';
+  // Build chart
+  var hs=[]; for(var hh=0;hh<=30;hh+=0.5)hs.push(hh);
+  var pred=hs.map(function(hh){return Math.min(100,sfM(hh*(ct-(-10))*af,g));});
+  var fix=hs.map(function(hh){return Math.min(100,sfM(hh*((at+7)-(-10)),'53')*0.88);});
+  var canvas=document.getElementById('mc');
+  var ctx=canvas.getContext('2d');
+  if(mChart2)mChart2.destroy();
+  mChart2=new Chart(ctx,{
+    type:'line',
+    data:{labels:hs,datasets:[
+      {label:'PrecastIQ',data:pred,borderColor:'#005BAC',backgroundColor:'rgba(0,91,172,.1)',borderWidth:2,tension:.4,pointRadius:0,fill:true},
+      {label:'Fixed 24h',data:fix, borderColor:'rgba(90,104,114,.4)',borderDash:[6,4],borderWidth:1.5,tension:.4,pointRadius:0},
+      {label:'Target',data:hs.map(function(){return ts;}),borderColor:'rgba(217,119,6,.6)',borderDash:[4,4],borderWidth:1.5,pointRadius:0}
+    ]},
+    options:Object.assign({},CHART_DEFAULTS,{
+      plugins:{legend:{display:false},tooltip:TT},
       scales:{
-        x:{grid:{color:'rgba(0,0,0,.04)'}, ticks:{color:'#64748B',font:{size:10},maxTicksLimit:8}, title:{display:true,text:'Hours after casting',color:'#64748B',font:{size:10}}},
-        y:{grid:{color:'rgba(0,0,0,.04)'}, ticks:{color:'#64748B',font:{size:10},callback:function(v){return v.toFixed(0)+'%';}}, min:0, max:105, title:{display:true,text:"% of 28-day f'c",color:'#64748B',font:{size:10}}}
+        x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#64748B',font:{size:10},maxTicksLimit:8},title:{display:true,text:'Hours after casting',color:'#64748B',font:{size:10}}},
+        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#64748B',font:{size:10},callback:function(v){return v.toFixed(0)+'%';}},min:0,max:105,title:{display:true,text:"% of 28-day f'c",color:'#64748B',font:{size:10}}}
       }
-    }
+    })
   });
 }
 
-/* ══ CLIMATE ADAPTER ════════════════════════════════════ */
-var climChart = null;
+/* ══ CLIMATE ════════════════════════════════════════════════ */
+var cChart=null;
 
-async function selectZone(zoneKey, el) {
-  document.querySelectorAll('.zone-card').forEach(function(c){ c.classList.remove('selected'); });
-  if (el) el.classList.add('selected');
-
-  var z = DS.zones[zoneKey];
-  if (!z) return;
-
-  document.getElementById('zone-badge').textContent = z.name;
-  document.getElementById('zone-title').textContent = z.states;
-
-  var condHtml =
-    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:1rem">' +
-    [['TEMP RANGE', z.tempRange, z.riskColor], ['HUMIDITY', z.rh, z.riskColor], ['RISK LEVEL', z.riskLevel, z.riskColor]].map(function(item) {
-      return '<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.65rem;text-align:center">' +
-        '<div style="font-size:.66rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-h);font-weight:600;margin-bottom:.25rem">' + item[0] + '</div>' +
-        '<div style="font-family:var(--font-m);font-size:.95rem;color:' + item[2] + ';font-weight:700">' + item[1] + '</div>' +
-        '</div>';
-    }).join('') +
-    '</div>';
-  document.getElementById('zone-conditions').innerHTML = condHtml;
-  document.getElementById('zone-problem').innerHTML = '<span>⚠ ' + z.problem + '</span>';
-
-  var protoHtml =
-    '<div style="font-size:.68rem;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.65rem;font-family:var(--font-h);font-weight:700">AI PROTOCOL</div>' +
-    z.protocol.map(function(p) {
-      return '<div style="display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--lgray);font-size:.82rem">' +
-        '<span style="color:var(--text2)">' + p[0] + '</span><span style="font-weight:600">' + p[1] + '</span></div>';
-    }).join('') +
-    '<div class="result-box green" style="margin-top:.9rem">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center">' +
-        '<div><div class="result-main">' + z.precastiqHrs + ' hrs</div><div class="result-label">PrecastIQ Cycle</div></div>' +
-        '<div><div class="result-main" style="font-size:1.1rem;color:var(--text2)">' + z.industryHrs + ' hrs</div><div class="result-label">Industry Today</div></div>' +
-        '<div><div class="result-main" style="color:var(--green)">' + z.reduction.toFixed(0) + '%</div><div class="result-label">Reduction</div></div>' +
-      '</div>' +
-    '</div>';
-  document.getElementById('zone-protocol').innerHTML = protoHtml;
-
-  updateClimChart(zoneKey);
-
-  var feed = document.getElementById('imd-feed');
-  if (feed) feed.innerHTML = '<div style="display:flex;align-items:center;gap:.65rem;color:var(--text2);font-size:.8rem"><span class="spinner"></span> Fetching live data for ' + (ZONE_CITIES[zoneKey] ? ZONE_CITIES[zoneKey].name : zoneKey) + '...</div>';
-  var wx = await fetchWeather(zoneKey);
-  renderIMDPanel(wx, zoneKey);
+function selZ(zk,el){
+  document.querySelectorAll('.zc').forEach(function(c){c.classList.remove('sel');});
+  if(el)el.classList.add('sel');
+  var z=D.zones[zk]; if(!z)return;
+  document.getElementById('zb').textContent=z.n;
+  document.getElementById('zt').textContent=z.s;
+  // Conditions
+  document.getElementById('zc2').innerHTML=
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.65rem;margin-bottom:.9rem">'+
+    [['TEMP',z.tr,z.rc],['HUMIDITY',z.rh,z.rc],['RISK',z.rl,z.rc]].map(function(x){
+      return '<div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:.6rem;text-align:center">'+
+        '<div style="font-size:.63rem;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:.2rem">'+x[0]+'</div>'+
+        '<div style="font-family:var(--fm);font-size:.92rem;color:'+x[2]+';font-weight:700">'+x[1]+'</div></div>';
+    }).join('')+'</div>';
+  document.getElementById('zp2').innerHTML='<span>⚠ '+z.prob+'</span>';
+  document.getElementById('zpr').innerHTML=
+    '<div style="font-size:.65rem;color:var(--text2);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:.55rem;font-weight:700">AI PROTOCOL</div>'+
+    z.proto.map(function(p){
+      return '<div style="display:flex;justify-content:space-between;padding:.42rem 0;border-bottom:1px solid var(--lgray);font-size:.8rem">'+
+        '<span style="color:var(--text2)">'+p[0]+'</span><span style="font-weight:600">'+p[1]+'</span></div>';
+    }).join('')+
+    '<div class="rb g" style="margin-top:.85rem"><div style="display:flex;justify-content:space-between;align-items:center">'+
+      '<div><div class="rb-main">'+z.pq+' hrs</div><div class="rb-lbl">PrecastIQ</div></div>'+
+      '<div><div class="rb-main" style="font-size:1.1rem;color:var(--text2)">'+z.ih+' hrs</div><div class="rb-lbl">Industry</div></div>'+
+      '<div><div class="rb-main" style="color:var(--green)">'+z.rd.toFixed(0)+'%</div><div class="rb-lbl">Reduction</div></div>'+
+    '</div></div>';
+  updCC(zk);
+  // Weather
+  var feed=document.getElementById('imd-feed');
+  if(feed)feed.innerHTML='<div style="display:flex;align-items:center;gap:.55rem;color:var(--text2);font-size:.78rem"><span class="spin"></span> Fetching data for '+(CITIES[zk]?CITIES[zk].name:zk)+'...</div>';
+  fetchWX(zk,function(d){showWX(d,zk);});
 }
 
-function initClimateChart() {
-  selectZone('moderate', document.querySelector('.zone-card'));
-}
+function initCC(){selZ('moderate',document.querySelector('.zc'));}
 
-function updateClimChart(activeKey) {
-  var ctx = document.getElementById('climateChart');
-  if (!ctx) return;
-  var keys = ['moderate','hotdry','hothumid','composite','cold','nehumid'];
-  var labels = ['Moderate','Hot-Dry','Hot-Humid','Composite','Cold','NE-Humid'];
-  var idx = keys.indexOf(activeKey);
-  if (climChart) climChart.destroy();
-  climChart = new Chart(ctx.getContext('2d'), {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [
-        {label:'Industry Today', data:keys.map(function(k){return DS.zones[k]?DS.zones[k].industryHrs:24;}), backgroundColor:keys.map(function(_,i){return i===idx?'rgba(0,43,91,.7)':'rgba(0,43,91,.25)';}), borderRadius:5},
-        {label:'PrecastIQ',      data:keys.map(function(k){return DS.zones[k]?DS.zones[k].precastiqHrs:16;}), backgroundColor:keys.map(function(_,i){return i===idx?'#005BAC':'rgba(0,91,172,.45)';}), borderRadius:5}
-      ]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:'#64748B',font:{size:10}}}, tooltip:{backgroundColor:'#002B5B',titleColor:'#fff',bodyColor:'rgba(255,255,255,.8)'}},
+function updCC(zk){
+  var canvas=document.getElementById('cc'); if(!canvas)return;
+  var keys=['moderate','hotdry','hothumid','composite','cold','nehumid'];
+  var lbls=['Moderate','Hot-Dry','Hot-Humid','Composite','Cold','NE-Humid'];
+  var idx=keys.indexOf(zk);
+  if(cChart)cChart.destroy();
+  cChart=new Chart(canvas.getContext('2d'),{
+    type:'bar',
+    data:{labels:lbls,datasets:[
+      {label:'Industry',  data:keys.map(function(k){return D.zones[k]?D.zones[k].ih:24;}),backgroundColor:keys.map(function(_,i){return i===idx?'rgba(0,43,91,.7)':'rgba(0,43,91,.22)';}),borderRadius:4},
+      {label:'PrecastIQ', data:keys.map(function(k){return D.zones[k]?D.zones[k].pq:16;}),backgroundColor:keys.map(function(_,i){return i===idx?'#005BAC':'rgba(0,91,172,.38)';}),borderRadius:4}
+    ]},
+    options:Object.assign({},CHART_DEFAULTS,{
+      plugins:{legend:{labels:{color:'#64748B',font:{size:10}}},tooltip:TT},
       scales:{
-        x:{grid:{color:'rgba(0,0,0,.04)'}, ticks:{color:'#64748B',font:{size:10}}},
-        y:{grid:{color:'rgba(0,0,0,.04)'}, ticks:{color:'#64748B',font:{size:10},callback:function(v){return v+'h';}}, title:{display:true,text:'Cycle Time (hrs)',color:'#64748B',font:{size:10}}, min:0, max:34}
+        x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#64748B',font:{size:10}}},
+        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#64748B',font:{size:10},callback:function(v){return v+'h';}},title:{display:true,text:'Cycle Time (hrs)',color:'#64748B',font:{size:10}},min:0,max:34}
       }
-    }
+    })
   });
 }
 
-/* ══ RL OPTIMIZER ════════════════════════════════════════ */
-function runRL() {
-  var urgency = document.getElementById('rl-urgency').value;
-  var penalty = parseInt(document.getElementById('rl-penalty').value);
-  var btn = document.getElementById('rl-btn');
-  btn.innerHTML = '<span class="spinner"></span> OPTIMIZING...';
-  btn.disabled = true;
-
-  var isFast = penalty > 100000 || urgency === 'high' || urgency === 'critical';
-  var si = DS.sweetSpot(penalty);
-  var sweet = DS.pareto[si];
-
-  var descs = [
-    '12 state inputs observed: concrete temp 29°C · RH 58% · maturity 312 °C·hrs · strength est. 48.2% f\'c · schedule float: ' + (urgency==='critical'?'2':'8') + ' days · penalty: ₹' + penalty.toLocaleString('en-IN') + '/day',
-    isFast ? 'HIGH URGENCY: Policy selects Strategy ' + sweet.id + ' (' + sweet.label + '). Confidence: 89.3%. Penalty savings exceed incremental curing cost.' : 'BALANCED: Policy selects Strategy C (wet curing + IMD). Confidence: 91.7%. No premium curing justified at current penalty.',
-    'Reward: ' + (isFast ? '+2.0 (strength met) +1.0 (cycle below baseline) = +3.0' : '+0.5 (within Pareto sweet spot) = +0.5') + '. Q-value: ' + (isFast ? '4.21' : '3.87'),
-    'Policy updated. Epoch ' + Math.floor(4000 + Math.random()*500) + ' complete. Advisory mode: engineer approval required before any action is taken.'
+/* ══ RL OPTIMIZER ═══════════════════════════════════════════ */
+function runRL(){
+  var u=document.getElementById('ru').value;
+  var p=parseInt(document.getElementById('rp').value);
+  var btn=document.getElementById('rlbtn');
+  btn.innerHTML='<span class="spin"></span> OPTIMIZING...';
+  btn.disabled=true;
+  var fast=p>100000||u==='high'||u==='critical';
+  var si=D.sw(p); var sw=D.pareto[si];
+  var ds=[
+    '12 state inputs: temp 29°C · RH 58% · maturity 312 °C·hrs · strength 48.2% f\'c · float: '+(u==='critical'?'2':'8')+' days · penalty: ₹'+p.toLocaleString('en-IN')+'/day',
+    fast?'HIGH URGENCY: Strategy '+sw.id+' ('+sw.lbl+'). Confidence 89.3%. Penalty savings exceed curing cost premium.':'BALANCED: Strategy C (wet curing + IMD). Confidence 91.7%. No premium curing justified.',
+    'Reward: '+(fast?'+2.0+1.0=+3.0':'+0.5')+'. Q-value: '+(fast?'4.21':'3.87'),
+    'Policy updated. Epoch '+Math.floor(4000+Math.random()*500)+'. Advisory mode: engineer sign-off required.'
   ];
-
-  var stepIds = ['rl-0','rl-1','rl-2','rl-3'];
-  stepIds.forEach(function(id, i) {
-    setTimeout(function() {
-      if (i > 0) {
-        document.getElementById(stepIds[i-1]).classList.remove('active');
-        document.getElementById(stepIds[i-1]).classList.add('done');
-      }
-      document.getElementById(id).classList.add('active');
-      document.getElementById(id + '-desc').textContent = descs[i];
-      if (i === 3) {
-        setTimeout(function() {
-          document.getElementById(id).classList.remove('active');
-          document.getElementById(id).classList.add('done');
-          btn.innerHTML = '▶ RUN OPTIMIZATION LOOP';
-          btn.disabled = false;
-          showRLResult(isFast, penalty, sweet);
-        }, 1200);
-      }
-    }, i * 1200);
+  var ids=['r0','r1','r2','r3'];
+  ids.forEach(function(id,i){
+    setTimeout(function(){
+      if(i>0){document.getElementById(ids[i-1]).classList.remove('act');document.getElementById(ids[i-1]).classList.add('dn');}
+      document.getElementById(id).classList.add('act');
+      document.getElementById(id+'d').textContent=ds[i];
+      if(i===3){setTimeout(function(){
+        document.getElementById(id).classList.remove('act');
+        document.getElementById(id).classList.add('dn');
+        btn.innerHTML='▶ RUN OPTIMIZATION LOOP';
+        btn.disabled=false;
+        showRL(fast,p,sw);
+      },1100);}
+    },i*1100);
   });
 }
 
-function showRLResult(isFast, penalty, sweet) {
-  var rec = isFast
-    ? {cycle:sweet.hrs+' hrs', method:sweet.label, cost:'₹'+sweet.cost+'/m³', saving:'₹'+Math.round(penalty*0.7).toLocaleString('en-IN')+'/day penalty avoided', conf:'89.3%'}
-    : {cycle:'18–21 hrs', method:'Wet curing + IMD optimization', cost:'₹'+DS.pareto[2].cost+'/m³', saving:'₹22/m³ vs baseline — direct cost saving', conf:'91.7%'};
-
-  var rows = [['Recommended Cycle',rec.cycle,'#002B5B'],['Curing Method',rec.method,'#1E293B'],['Cost per m³',rec.cost,'#D97706'],['Financial Benefit',rec.saving,'#059669']];
-  document.getElementById('rl-result-content').innerHTML =
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem">' +
-    rows.map(function(r) {
-      return '<div style="background:var(--bg);border-radius:10px;padding:.85rem;border:1px solid var(--border)">' +
-        '<div style="font-size:.68rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:.3rem;font-family:var(--font-h);font-weight:600">' + r[0] + '</div>' +
-        '<div style="font-family:var(--font-m);color:' + r[2] + ';font-size:.9rem;font-weight:700">' + r[1] + '</div>' +
-        '</div>';
-    }).join('') +
-    '</div>' +
-    '<div class="alert alert-success" style="margin-top:.9rem">' +
-      '<span>🎯</span><div>Policy confidence: <strong>' + rec.conf + '</strong> — Advisory mode. Pre-deployment: 100,000+ synthetic pours (Nurse-Saul physics + IMD historical data). <strong>Engineer sign-off required before action.</strong></div>' +
-    '</div>';
-  document.getElementById('rl-result-card').style.display = 'block';
+function showRL(fast,penalty,sw){
+  var rec=fast?{cy:sw.h+' hrs',mt:sw.lbl,cs:'₹'+sw.c+'/m³',sv:'₹'+Math.round(penalty*.7).toLocaleString('en-IN')+'/day avoided',cf:'89.3%'}:
+               {cy:'18–21 hrs',mt:'Wet curing + IMD optimization',cs:'₹'+D.pareto[2].c+'/m³',sv:'₹22/m³ direct saving',cf:'91.7%'};
+  var items=[['Recommended Cycle',rec.cy,'#002B5B'],['Curing Method',rec.mt,'#1E293B'],['Cost per m³',rec.cs,'#D97706'],['Financial Benefit',rec.sv,'#059669']];
+  document.getElementById('rlri').innerHTML=
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">'+
+    items.map(function(r){
+      return '<div style="background:var(--bg);border-radius:9px;padding:.8rem;border:1px solid var(--border)">'+
+        '<div style="font-size:.65rem;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.25rem;font-weight:600">'+r[0]+'</div>'+
+        '<div style="font-family:var(--fm);color:'+r[2]+';font-size:.87rem;font-weight:700">'+r[1]+'</div></div>';
+    }).join('')+'</div>'+
+    '<div class="al al-s" style="margin-top:.85rem"><span>🎯</span><div>Confidence: <strong>'+rec.cf+'</strong> — Advisory mode. 100,000+ synthetic pours (Nurse-Saul + IMD historical data). <strong>Engineer sign-off required.</strong></div></div>';
+  document.getElementById('rlrc').style.display='block';
 }
 
-/* ══ PARETO ══════════════════════════════════════════════ */
-var pChart = null;
+/* ══ PARETO ══════════════════════════════════════════════════ */
+var pChart=null;
 
-function initPareto() { updatePareto(); }
+function initP(){updP();}
 
-function updatePareto() {
-  var penalty = parseInt(document.getElementById('paretoSlider').value);
-  document.getElementById('paretoVal').textContent = '₹' + penalty.toLocaleString('en-IN');
-  var si  = DS.sweetSpot(penalty);
-  var pts = DS.pareto;
-  var ctx = document.getElementById('paretoChart').getContext('2d');
-  if (pChart) pChart.destroy();
-  pChart = new Chart(ctx, {
-    type: 'scatter',
-    data: {
-      datasets: [
-        {
-          label:'Strategies',
-          data: pts.map(function(p){ return {x:p.hrs, y:p.cost}; }),
-          backgroundColor: pts.map(function(_,i){ return i===si?'#002B5B':'rgba(0,43,91,.3)'; }),
-          borderColor:     pts.map(function(_,i){ return i===si?'#002B5B':'rgba(0,43,91,.3)'; }),
-          pointRadius:     pts.map(function(_,i){ return i===si?13:7; }),
-          pointHoverRadius:pts.map(function(_,i){ return i===si?16:10; })
-        },
-        {
-          label:'Frontier',
-          data: pts.map(function(p){ return {x:p.hrs, y:p.cost}; }),
-          type:'line', borderColor:'rgba(0,43,91,.15)', borderDash:[4,4], borderWidth:1.5, pointRadius:0, fill:false
-        }
-      ]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        tooltip:{backgroundColor:'#002B5B',titleColor:'#fff',bodyColor:'rgba(255,255,255,.8)',
-          callbacks:{label:function(c){
-            var p = pts[c.dataIndex];
-            if (!p) return '';
-            var lines = [' Strategy ' + p.id + ': ' + p.hrs + ' hrs', ' Cost: ₹' + p.cost + '/m³'];
-            if (p === pts[si]) lines.push(' ⭐ RECOMMENDED');
-            return lines;
-          }}}
-      },
+function updP(){
+  var penalty=parseInt(document.getElementById('ps').value);
+  document.getElementById('pv').textContent='₹'+penalty.toLocaleString('en-IN');
+  var si=D.sw(penalty); var pts=D.pareto;
+  var canvas=document.getElementById('pc');
+  var ctx=canvas.getContext('2d');
+  if(pChart)pChart.destroy();
+  pChart=new Chart(ctx,{
+    type:'scatter',
+    data:{datasets:[
+      {label:'Strategies',data:pts.map(function(p){return{x:p.h,y:p.c};}),
+       backgroundColor:pts.map(function(_,i){return i===si?'#002B5B':'rgba(0,43,91,.28)';}),
+       borderColor:pts.map(function(_,i){return i===si?'#002B5B':'rgba(0,43,91,.28)';}),
+       pointRadius:pts.map(function(_,i){return i===si?12:7;}),
+       pointHoverRadius:pts.map(function(_,i){return i===si?15:10;})},
+      {label:'Frontier',data:pts.map(function(p){return{x:p.h,y:p.c};}),
+       type:'line',borderColor:'rgba(0,43,91,.14)',borderDash:[4,4],borderWidth:1.5,pointRadius:0,fill:false}
+    ]},
+    options:Object.assign({},CHART_DEFAULTS,{
+      plugins:{legend:{display:false},tooltip:Object.assign({},TT,{
+        callbacks:{label:function(c){
+          var p=pts[c.dataIndex]; if(!p)return '';
+          var l=[' Strategy '+p.id+': '+p.h+' hrs',' Cost: ₹'+p.c+'/m³'];
+          if(p===pts[si])l.push(' ⭐ RECOMMENDED');
+          return l;
+        }}
+      })},
       scales:{
         x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#64748B'},title:{display:true,text:'Cycle Time (hours)',color:'#64748B',font:{size:11}},min:11,max:26},
         y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{color:'#64748B',callback:function(v){return '₹'+v;}},title:{display:true,text:'Cost per m³ (₹)',color:'#64748B',font:{size:11}},min:195,max:325}
       }
-    }
+    })
   });
-
-  var sw = pts[si];
-  document.getElementById('pareto-sweet-time').textContent = sw.hrs + ' hrs';
-  document.getElementById('pareto-sweet-desc').innerHTML =
-    '<strong>Strategy ' + sw.id + ' — ' + sw.label + '</strong> at ₹' + sw.cost + '/m³<br>' +
-    sw.when + '<br><br>' +
-    'Faster option (' + pts[0].hrs + ' hrs) costs ₹' + (pts[0].cost - sw.cost) + '/m³ more — only justified if penalty >₹' + Math.round(penalty*1.5).toLocaleString('en-IN') + '/day.<br>' +
-    'Slower option saves ₹' + (sw.cost - pts[4].cost) + '/m³ but risks ₹' + penalty.toLocaleString('en-IN') + '/day penalty.<br>' +
-    '<span style="color:var(--text2);font-size:.75rem">Source: PCI Industry Benchmarks 2023 · CPWD DSR 2022</span>';
+  var sw=pts[si];
+  document.getElementById('pst').textContent=sw.h+' hrs';
+  document.getElementById('psd').innerHTML='<strong>Strategy '+sw.id+' — '+sw.lbl+'</strong><br>'+sw.w+'<br><br>'+
+    'Faster ('+pts[0].h+' hrs): +₹'+(pts[0].c-sw.c)+'/m³ — justified only if penalty >₹'+Math.round(penalty*1.5).toLocaleString('en-IN')+'/day.<br>'+
+    'Slower ('+pts[4].h+' hrs): saves ₹'+(sw.c-pts[4].c)+'/m³ but risks ₹'+penalty.toLocaleString('en-IN')+'/day penalty.<br>'+
+    '<span style="color:var(--text2);font-size:.73rem">Source: PCI Benchmarks 2023 · CPWD DSR 2022</span>';
 }
 
-/* ══ YARD SCHEDULER ══════════════════════════════════════ */
-function generateSchedule() {
-  var moulds    = parseInt(document.getElementById('sch-moulds').value);
-  var cranes    = parseInt(document.getElementById('sch-cranes').value);
-  var zone      = document.getElementById('sch-zone').value;
-  var shift     = parseInt(document.getElementById('sch-shift').value);
-  var zCycles   = {moderate:14, hotdry:17, hothumid:16, cold:20};
-  var cycleTime = zCycles[zone] || 14;
-  var cleanTime = 1.5;
-  var castTime  = 1.5;
-  var turnsIQ   = 24 / (cycleTime + cleanTime + castTime);
-  var turnsInd  = 24 / (22 + cleanTime + castTime);
-  var idlePct   = Math.max(8, 42 - cranes*7 - Math.floor(moulds/5));
-  var craneUtil = Math.min(92, 76 + cranes*5);
-  var demoulded = Math.min(moulds, Math.floor(moulds * 0.85));
-  var firstDemould = shift + cycleTime;
-  var aH = Math.floor(firstDemould % 24);
-  var aM = Math.round((firstDemould % 1) * 60);
-
-  document.getElementById('sch-demoulded').textContent = demoulded;
-  document.getElementById('sch-idle').textContent = idlePct + '%';
-  document.getElementById('sch-idle-delta').textContent = '↓ from 42% industry avg (+' + Math.round((turnsIQ/turnsInd-1)*100) + '% mould productivity)';
-  document.getElementById('sch-crane').textContent = craneUtil + '%';
-  document.getElementById('sch-next').textContent = aH + ':' + (aM < 10 ? '0' : '') + aM;
-
-  renderGantt(Math.min(moulds, 10), shift, cycleTime, cleanTime, castTime);
+/* ══ SCHEDULER ═══════════════════════════════════════════════ */
+function genSch(){
+  var m=parseInt(document.getElementById('sm').value);
+  var c=parseInt(document.getElementById('sc').value);
+  var z=document.getElementById('sz').value;
+  var sh=parseInt(document.getElementById('ss').value);
+  var zc={moderate:14,hotdry:17,hothumid:16,cold:20};
+  var ct=zc[z]||14, cl=1.5, ca=1.5;
+  var tIQ=24/(ct+cl+ca), tIn=24/(22+cl+ca);
+  var idl=Math.max(8,42-c*7-Math.floor(m/5));
+  var cu=Math.min(92,76+c*5);
+  var dem=Math.min(m,Math.floor(m*.85));
+  var fd=sh+ct, ah=Math.floor(fd%24), am=Math.round((fd%1)*60);
+  document.getElementById('sdem').textContent=dem;
+  document.getElementById('sidl').textContent=idl+'%';
+  document.getElementById('sidld').textContent='↓ from 42% avg (+'+Math.round((tIQ/tIn-1)*100)+'% mould productivity)';
+  document.getElementById('scr').textContent=cu+'%';
+  document.getElementById('snxt').textContent=ah+':'+(am<10?'0':'')+am;
+  drawGantt(Math.min(m,10),sh,ct,cl,ca);
 }
 
-function renderGantt(count, shift, cycleTime, cleanTime, castTime) {
-  var totalHrs = 32;
-  var types = ['I-Girder','Wall Panel','Box Girder','Deck Slab','I-Girder','Wall Panel','Pier Cap','Box Culvert','Deck Slab','I-Girder'];
-  var html = '<div class="gantt-wrap"><div class="gantt-header">';
-  for (var h = 0; h < totalHrs; h += 2) {
-    html += '<div style="width:' + (200/totalHrs) + '%;text-align:center;font-size:.6rem">' + ((h + shift) % 24) + ':00</div>';
-  }
-  html += '</div>';
-  for (var i = 0; i < count; i++) {
-    var cs  = i * (cycleTime + cleanTime + castTime) / count;
-    var ce  = cs + castTime;
-    var cue = cs + cycleTime;
-    var cle = cue + cleanTime;
-    var pct = function(w){ return Math.max(0, (w / totalHrs) * 100); };
-    var lft = function(s){ return pct(s); };
-    html += '<div class="gantt-row">' +
-      '<div class="gantt-label">M-' + (i < 9 ? '0' : '') + (i+1) + '<small>' + types[i] + '</small></div>' +
-      '<div class="gantt-track">' +
-        '<div class="gantt-bar" style="left:' + lft(cs).toFixed(1) + '%;width:' + pct(castTime).toFixed(1) + '%;background:#002B5B" title="Casting">CAST</div>' +
-        '<div class="gantt-bar" style="left:' + lft(ce).toFixed(1) + '%;width:' + pct(cue-ce).toFixed(1) + '%;background:#005BAC" title="Curing ' + cycleTime + 'hrs (Nurse-Saul)">CURE</div>' +
-        '<div class="gantt-bar" style="left:' + lft(cue).toFixed(1) + '%;width:' + pct(0.65).toFixed(1) + '%;background:#059669" title="De-mould">⚡</div>' +
-        '<div class="gantt-bar" style="left:' + (lft(cue)+pct(0.65)).toFixed(1) + '%;width:' + pct(cleanTime-0.2).toFixed(1) + '%;background:#FF6B00" title="Mould cleaning">CLEAN</div>' +
+function drawGantt(n,sh,ct,cl,ca){
+  var T=32;
+  var ty=['I-Girder','Wall Panel','Box Girder','Deck Slab','I-Girder','Wall Panel','Pier Cap','Box Culvert','Deck Slab','I-Girder'];
+  var html='<div class="gw"><div class="ghdr">';
+  for(var h=0;h<T;h+=2)html+='<div style="width:'+(200/T).toFixed(2)+'%;text-align:center;font-size:.58rem">'+((h+sh)%24)+':00</div>';
+  html+='</div>';
+  for(var i=0;i<n;i++){
+    var cs=i*(ct+cl+ca)/n;
+    var ce=cs+ca;
+    var cue=cs+ct;
+    var p=function(w){return Math.max(0,(w/T)*100);};
+    html+='<div class="gr">'+
+      '<div class="gl">M-'+(i<9?'0':'')+(i+1)+'<small>'+ty[i]+'</small></div>'+
+      '<div class="gt">'+
+        '<div class="gb" style="left:'+p(cs).toFixed(1)+'%;width:'+p(ca).toFixed(1)+'%;background:#002B5B">CAST</div>'+
+        '<div class="gb" style="left:'+p(ce).toFixed(1)+'%;width:'+p(cue-ce).toFixed(1)+'%;background:#005BAC">CURE</div>'+
+        '<div class="gb" style="left:'+p(cue).toFixed(1)+'%;width:'+p(0.62).toFixed(1)+'%;background:#059669">⚡</div>'+
+        '<div class="gb" style="left:'+(p(cue)+p(0.62)).toFixed(1)+'%;width:'+p(cl-.18).toFixed(1)+'%;background:#FF6B00">CLEAN</div>'+
       '</div></div>';
   }
-  html += '</div>';
-  document.getElementById('gantt-container').innerHTML = html;
+  html+='</div>';
+  document.getElementById('gantt').innerHTML=html;
 }
 </script>
 </body>
